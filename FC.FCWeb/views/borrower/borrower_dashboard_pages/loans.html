@@ -1,0 +1,584 @@
+﻿<div class="font-raleway-sans-serif" style="min-height: 456px">
+
+    <div ng-show="loans.length == 0">
+        <h3>My Facilities/Loans</h3>
+        <div class="accountController">
+            <div class="text-center">
+                <div class="refer-circle"> <i class="fa fa-rupee"></i> </div>
+            </div>
+            <div class="minheight500 paddingtop25 flex">
+                <h2 class="paddingtopnone">No Loans which are accepted by you</h2>
+                <button class="applyforNewLoan" ui-sref="borrower.application.business_details"><span> Apply for New Loan </span></button>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <div class="row" >
+        <!--<div class="col-xs-6">
+            <h4>My Facilities/Loans</h4>
+        </div>-->
+        <div class="header-search-form  col-sm-12 " ng-show="isSalesAgent">
+            <input id="search-text" type="text" ng-model="searchText" placeholder="Search" uib-typeahead="address for address in GetSearchResults($viewValue)"
+                   typeahead-template-url="customTemplate.html" class="form-control" typeahead-on-select="SelectedLoanChanged($item.LoanId); searchText = '';"
+                   typeahead-wait-ms="1000" />
+        </div>
+        <div class="col-xs-12" ng-hide="isSalesAgent">
+
+            <div id="drop_down_loans" class="dropdown pull-right" ng-hide="Loans==''">
+                <!--<button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Dropdown
+                    <span class="caret"></span>
+                </button>-->
+                <label class="cursor-pointer dropdown-toggle margin-top-10" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{SelectedLoan.DisplayName}}&nbsp;
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </label>
+                <ul class="dropdown-menu loan_scroll" aria-labelledby="dropdownMenu1">
+                    <li ng-repeat="Loan in Loans">
+                        <a class="cursor-pointer" ng-click="SelectedLoanChanged(Loan.LoanId)">{{Loan.DisplayName}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="loandetaildiv">
+        <div class="loantitle no-padding-bottom border-bottom" ng-show="SelectedLoan">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-sm-4"><strong>Loan ID: </strong>{{SelectedLoan.DisplayName}}</div>
+                    <div class="col-sm-4"><strong>Facility Start Date </strong>{{SelectedLoan.FacilityStartDate|date:'dd/MM/yyyy'}}</div>
+                    <div class="col-sm-4"><strong>Facility End Date </strong>{{SelectedLoan.FacilityEndDate|date:'dd/MM/yyyy'}}</div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4"><strong>Facility amount: </strong>&#8377;&nbsp;{{SelectedLoan.FacilitySanctionedAmount|INR}}</div>
+                    <div class="col-sm-4"><strong>Available Facility Amount: </strong>&#8377;&nbsp;{{SelectedLoan.FacilityAvailableAmount|INR}}</div>
+                </div>
+            </div>
+            <div class="row mar-top-32">
+                <ul class="tab tab-tabs no-border-bottom col-sm-6" role="tablist">
+                    <li permission="FE_MYLOAN_LOANDTL_TB" role="presentation" class="active"><a target="_self" href="#loanDetails" aria-controls="home" role="tab" data-toggle="tab">Loan Details</a></li>
+                    <li permission="FE_MYLOAN_DOC_TB" role="presentation"><a target="_self" href="#documents" ng-click="loanLoanDocDtl(SelectedLoan.LoanId)" aria-controls="documents" role="tab" data-toggle="tab">Documents</a></li>
+                    <li permission="FE_MYLOAN_STATMNT_TB" role="presentation"><a target="_self" href="#Statement" aria-controls="Statement" role="tab" data-toggle="tab">Statement</a></li>
+                    <!--<li role="presentation"><a target="_self" href="#statement" aria-controls="statement" role="tab" data-toggle="tab" ng-click="GetLoanStatement(SelectedLoan.LoanId)">Statement</a></li>-->
+                </ul>
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-default pull-right" ng-show="SelectedLoan.IsEligibleForDisbursementFE==true" ng-click="OtpRequestofDisburse()">Drawdown</button>
+                </div>
+            </div>
+        </div>
+        <div class="loantitle no-padding-bottom border-bottom" ng-hide="SelectedLoan">
+            <div class="row" align="center">
+                <strong>Nothing to Display</strong>
+            </div>
+        </div>
+        <!-- Content section -->
+        <!-- Nav tabs -->
+
+
+        <div class="nav-tab-content" ng-show="SelectedLoan">
+            <div role="tabpanel" class="nav-tab-pane active" id="loanDetails" style="margin-top: 2%;">
+
+
+                <!--Display If Loan Type='term loan'-->
+                <div class="row" ng-show="SelectedLoan.LoanTypeName=='Term Loan'">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Loan Amount</strong></div>
+                            <div class="col-lg-6"><i class="fa fa-inr" aria-hidden="true"></i> {{SelectedLoan.ApprovedLoanAmount|INR}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Processing Fee</strong></div>
+                            <div class="col-lg-6"><i class="fa fa-inr" aria-hidden="true"></i> {{SelectedLoan.ProcessingFee|INR}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Net Disbursal Amount</strong></div>
+                            <div class="col-lg-6"><i class="fa fa-inr" aria-hidden="true"></i> {{SelectedLoan.DisbursalAmount|INR}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Rate of Interest</strong></div>
+                            <div class="col-lg-6"> {{SelectedLoan.InterestRate}}% {{SelectedLoan.InterestRateDefFreqUnit2}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Total Interest Payable</strong></div>
+                            <div class="col-lg-6"><i class="fa fa-inr" aria-hidden="true"></i> {{SelectedLoan.TotalInterestPayable|INR}}</div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Tenor</strong></div>
+                            <div class="col-lg-6">{{SelectedLoan.SanctionedTenor}} {{SelectedLoan.LoanTenorDurationUnit}}</div>
+                        </div>
+                        <div class="col-lg-12" ng-show="SelectedLoan.LoanTypeName=='Term Loan'">
+                            <div class="col-lg-6 text-align-right"><strong>Installment Frequency</strong></div>
+                            <div class="col-lg-6">{{SelectedLoan.InstallmentFreqName}}</div>
+                        </div>
+
+                        <div class="col-lg-12" ng-show="SelectedLoan.LoanTypeName=='Term Loan'">
+                            <div class="col-lg-6 text-align-right"> <strong>Installment Amount</strong></div>
+                            <div class="col-lg-6"><i class="fa fa-inr" aria-hidden="true"></i>{{SelectedLoan.InstallmentAmount|INR}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <!--ng-show="SelectedLoan.ValueDate"-->
+                            <div class="col-lg-6 text-align-right"><strong>Disbursal Date</strong></div>
+                            <div class="col-lg-6" ng-show="SelectedLoan.MaturityDate">{{SelectedLoan.ValueDate|date:"dd/MM/yyyy"}}</div>
+                            <div class="col-lg-6" ng-show="!SelectedLoan.MaturityDate">NA</div>
+                        </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Next Payment Date</strong></div>
+                            <div class="col-lg-6" ng-show="SelectedLoan.HasNextDueDate"> {{SelectedLoan.NextInstallmentDueEndDate|date:"dd/MM/yyyy"}}</div>
+                            <div class="col-lg-6" ng-hide="SelectedLoan.HasNextDueDate">NA </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Display if loan type='ODLoans'-->
+                <div class="row" ng-hide="SelectedLoan.LoanTypeName=='Term Loan'">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>DrawPower Amount</strong></div>
+                            <div class="col-lg-6"><i class="fa fa-inr" aria-hidden="true"></i> {{SelectedLoan.ApprovedLoanAmount|INR}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Utilized Amount</strong></div>
+                            <div class="col-lg-6"><i class="fa fa-inr" aria-hidden="true"></i> {{SelectedLoan.UtilizedAmt|INR}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Available Amount</strong></div>
+                            <div class="col-lg-6"><i class="fa fa-inr" aria-hidden="true"></i> {{SelectedLoan.AvailableDPAmount|INR}}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Accrued Interest </strong></div>
+                            <div class="col-lg-6"> {{SelectedLoan.AccruedIntTillDate}}%</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-6 text-align-right"> <strong>Next Interest Pay Date</strong></div>
+                            <div class="col-lg-6"> {{SelectedLoan.NextDueDate |date:"dd/MM/yyyy"}}</div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4"><strong>Source Channel</strong></div>
+                            <div class="col-lg-8">{{SelectedLoan.LoanAccount.SourceSegment.Name}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4"> <strong>Branch</strong></div>
+                            <div class="col-lg-8"> {{SelectedLoan.LoanAccount.MainApplicant.Person.OfficeBranch.Name}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4"> <strong>Relationship Manager</strong></div>
+                            <div class="col-lg-8"> {{SelectedLoan.LoanAccount.SalesAgent.Name}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4"> <strong>Book Date</strong></div>
+                            <div class="col-lg-8"> {{SelectedLoan.BookDate|date:"dd/MM/yyyy"}}</div>
+                        </div>
+
+                        <div class="col-lg-12" ng-show="SelectedLoan.ValueDate">
+                            <div class="col-lg-4"><strong>Value Date</strong></div>
+                            <div class="col-lg-8">{{SelectedLoan.ValueDate|date:"dd/MM/yyyy"}}</div>
+                        </div>
+                        <div class="col-lg-12" ng-show="SelectedLoan.ValueDate">
+                            <div class="col-lg-4">                            <strong>Maturity Date</strong>                        </div>
+                            <div class="col-lg-8" ng-if="SelectedLoan.MaturityDate">{{SelectedLoan.MaturityDate|date:"dd/MM/yyyy"}}</div>
+                            <div class="col-lg-8" ng-if="!SelectedLoan.MaturityDate">NA</div>
+                        </div>
+                        <div class="col-lg-12" ng-show="SelectedLoan.LoanType.Name=='Term Loan'">
+                            <div class="col-lg-4"><strong>Installment Frequency</strong></div>
+                            <div class="col-lg-8">{{SelectedLoan.InstallmentFreq.Name}}</div>
+                        </div>
+                        <div class="col-lg-12" ng-show="SelectedLoan.LoanType.Name=='Term Loan'">
+                            <div class="col-lg-4"><strong>Interest Method</strong></div>
+                            <div class="col-lg-8">{{SelectedLoan.IntrestCalculationMethod.Name}}</div>
+                        </div>
+                        <div class="col-lg-12" ng-show="SelectedLoan.LoanType.Name=='Term Loan'">
+                            <div class="col-lg-4"><strong>Total Interest Payable</strong></div>
+                            <div class="col-lg-8">₹&nbsp;{{SelectedLoan.DueComponents.Interest|INR}}</div>
+                        </div>
+                        <div class="col-lg-12" ng-hide="SelectedLoan.LoanType.Name=='Term Loan'">
+                            <div class="col-lg-4"><strong>Accrued Interest TillDate</strong></div>
+                            <div class="col-lg-8">₹&nbsp;{{SelectedLoan.AccruedIntTillDate|INR}}</div>
+                        </div>
+                        <div class="col-lg-12" ng-hide="SelectedLoan.LoanType.Name=='Term Loan'">
+                            <div class="col-lg-4"><strong>Minimum RePay Percent</strong></div>
+                            <div class="col-lg-8">{{SelectedLoan.MinimumRePayPercent}}%</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+
+                        <div class="col-lg-12" ng-show="SelectedLoan.LoanType.Name=='Term Loan'">
+                            <div class="col-lg-4"> <strong>Installment Amount</strong></div>
+                            <div class="col-lg-8"> ₹&nbsp;{{SelectedLoan.InstallmentAmount|INR}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4"> <strong>Interest Rate</strong></div>
+                            <div class="col-lg-8">{{SelectedLoan.InterestRate}}%  {{SelectedLoan.InterestRateDefFreq.Unit2}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4"> <strong>Tenor</strong></div>
+                            <div class="col-lg-8"> {{SelectedLoan.SanctionedTenor}} {{SelectedLoan.LoanTenorDuration.Unit}}</div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4"> <strong>Next Payment Date</strong></div>
+                            <div class="col-lg-8" ng-show="SelectedLoan.HasNextDueDate"> {{SelectedLoan.NextInstallment.DueEndDate|date:"dd/MM/yyyy"}}</div>
+                            <div class="col-lg-8" ng-hide="SelectedLoan.HasNextDueDate">NA </div>
+                        </div>
+                        <div class="col-lg-12" ng-show="SelectedLoan.LoanType.Name=='Term Loan'">
+                            <div class="col-lg-4"> <strong>Amount Disbursed till Date</strong></div>
+                            <div class="col-lg-8" ng-if="SelectedLoan.DisbursedTillDate>0">₹&nbsp;{{SelectedLoan.DisbursedTillDate|INR}} </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4"> <strong>Current Balance</strong></div>
+                            <div class="col-lg-8" ng-show="SelectedLoan.LoanType.Name=='Term Loan'">₹&nbsp;{{SelectedLoan.PrincipleOutstandingAmount|INR}} </div>
+                            <div class="col-lg-8" ng-show="SelectedLoan.LoanType.Name!='Term Loan'">₹&nbsp;{{SelectedLoan.DPUtilizedAmount|INR}} </div>
+                        </div>
+                        <div class="col-lg-12" ng-show="SelectedLoan.LoanType.Name=='Term Loan'">
+                            <div class="col-lg-4"> <strong>Interest In Advance</strong></div>
+                            <div class="col-lg-8" ng-show="SelectedLoan.HasInterestPaidInAdv==true"> Yes</div>
+                            <div class="col-lg-8" ng-hide="SelectedLoan.HasInterestPaidInAdv==true"> No</div>
+                        </div>
+                    </div>
+
+                </div>-->
+            </div>
+            <div role="tabpanel" class="nav-tab-pane" id="documents">
+                <div class="tab-form-rw">
+                    <div class="col-lg-12">
+                        <table class="table table-refrence margin-top-40">
+                            <thead>
+                                <tr>
+                                    <th class="">Document Caregory</th>
+                                    <th class="">Document Name</th>
+                                    <th class="">Document</th>
+                                    <th class="">Uploaded On</th>
+                                </tr>
+                            </thead>
+
+                            <tr ng-repeat="LoanDocument in LoanDocuments | orderBy:'DocumentTypeName'" ng-if="LoanDocument.DocumentCategoryFKDocumentTypeId == 21 || LoanDocument.DocumentCategoryFKDocumentTypeId == 6
+                                    || LoanDocument.DocumentCategoryFKDocumentTypeId == 22 || LoanDocument.DocumentCategoryFKDocumentTypeId == 10
+                                    || LoanDocument.DocumentCategoryFKDocumentTypeId == 23|| LoanDocument.DocumentCategoryFKDocumentTypeId == 21">
+                                <td>{{LoanDocument.DocumentTypeName}}</td>
+                                <td>{{LoanDocument.DocumentCategoryName}}</td>
+                                <td><a href="" ng-click="showImage(LoanDocument.FKDocumentId,LoanDocument.DocumentName)">{{LoanDocument.DocumentName}}</a></td>
+                                <td>{{LoanDocument.DocumentCreatedDate | date:'dd/MM/yyyy'}}</td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="nav-tab-pane" id="Statement">
+                <div class="col-lg-2 pull-right top-43px">
+                    <button permission="FE_MYLOAN_DWNLDSTMENT_BTN" type="button" ng-click="GenerateLoanStatement(SelectedLoan.LoanId)" class="btn btn-default pull-right">Download Statement</button>
+                </div>
+                <div class="tab-form-rw">
+                    <div class="col-lg-12">
+                        <table class="table table-refrence" ng-show="SelectedLoan.LoanTypeName=='Term Loan'">
+                            <thead>
+                                <tr>
+                                    <th class="">Sr. No.{{SelectedLoan.LoanTypeName}}</th>
+                                    <th class="">Due Date</th>
+                                    <th class="">Installment Amount</th>
+                                    <th class="">Overdue Interest </th>
+                                    <th class="">Amount Received</th>
+                                    <th class="">Installment Due</th>
+                                    <th class="">Overdue Interest Due</th>
+                                    <th class="">Status</th>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="Installment in SelectedLoan.Installments">
+                                <td>{{$index+1}}</td>
+                                <td>{{Installment.DueEndDate|date: "dd/MM/yyyy"}}</td>
+                                <td><span>₹&nbsp;{{Installment.AmountDue|INR}}</span></td>
+                                <td><span> ₹&nbsp;{{Installment.OverDueInterest|INR}} </span></td>
+                                <td><span>₹&nbsp;{{Installment.AmountPaid|INR}}</span></td>
+                                <td><span>₹&nbsp;{{Installment.AmountToPay|INR}}</span></td>
+                                <td><span>₹&nbsp;{{Installment.OverDueInterestDue|INR}}</span></td>
+                                <td>{{Installment.InstallmentStatusName}}</td>
+                            </tr>
+                        </table>
+                        <table class="table table-refrence margintop15" ng-show="SelectedLoan.LoanTypeName=='OverDraft'">
+                            <thead>
+                                <tr>
+                                    <th class="">Sr. No.</th>
+                                    <th class="">Date</th>
+                                    <th class="">Draw Power</th>
+                                    <th class="">DrawDown</th>
+                                    <th class="">DrawDowns TillDate</th>
+                                    <th class="">Repayment</th>
+                                    <th class="">Repayments Till Date</th>
+                                    <th class="">Available DP Amount</th>
+                                    <th class="">Utilized Amt</th>
+                                    <th class="">Daily Interest</th>
+                                    <th class="">Interest Repaid</th>
+                                    <th class="">Accrued Interest Till Date</th>
+                                </tr>
+                            </thead>
+                            <tr ng-repeat="DLODTransaction in DLODTransactions">
+                                <td>{{$index+1}}</td>
+                                <td>{{DLODTransaction.Date|date: 'dd/MM/yyyy'}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.DrawPower}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.DrawDown}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.DrawDownTillDate}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.Repayment}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.RepaymentTillDate}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.AvailableDPAmount}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.UtilizedAmt}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.DailyInt}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true" ng-if="DLODTransaction.InterestRepayment"></i>{{DLODTransaction.InterestRepayment}}</td>
+                                <td><i class="fa fa-inr" aria-hidden="true"></i>{{DLODTransaction.AccruedIntTillDate}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div ng-show="facilities.length > 0">
+        <h3>My Facilities/Loans</h3>
+        <!--// list of all loans -->
+        <div class="loandetaildiv" ng-repeat="facility in facilities">
+            <div class="row no_margin">
+                <div class="loantitle">
+                    <div class="listcircle ng-binding">{{$index+1}}</div>
+                    <strong>Facility ID: </strong>{{facility.FacilityUniqueId}} <span class="ng-binding"></span>
+                </div>
+                <div class="col-lg-3 padding5">
+                    <p>Facility Amount</p>
+                    <i class="fa fa-rupee"></i> {{facility.SanctionedAmount | INR}}
+                </div>
+                <div class="col-lg-3 padding5">
+                    <p>Facility Start Date</p>
+                    {{facility.StartDate | date:"dd-MM-yy"}}
+                </div>
+                <div class="col-lg-3 padding5">
+
+                    <p>Facility End Date</p>
+                    {{facility.EndDate | date:"dd-MM-yy"}}
+                </div>
+                <div class="col-lg-3 padding5">
+
+                    <p>Available Facility Amount</p>
+                    {{facility.AvailableAmount | INR}}
+                </div>
+                <!--<div class="col-lg-3 padding5 txt-right">
+                    <p ng-if="facility.EligibleForNewLoan">Apply For New Loan</p>
+                    <button ng-if="facility.EligibleForNewLoan" class="continueButton"><span>Apply</span></button>
+                </div>-->
+            </div>
+            <div ng-repeat="loan in facility.Loans" class="row top-line no_margin">
+                <div class="col-lg-12">
+                    <div class="col-lg-3 padding5">
+                        <p>Loan Id</p>
+                        {{loan.LoanId}}
+                    </div>
+                    <div class="col-lg-3 padding5">
+                        <p>Principle Outstanding</p>
+                        <i class="fa fa-rupee"></i> {{loan.PrincipleOutstandingAmount | INR}}
+                    </div>
+                    <div class="col-lg-3 padding5">
+
+                        <p>Payment Status</p>
+                        {{loan.PaymentStatus }}
+                    </div>
+                    <div class="col-lg-3 padding5">
+                        <p>Interest Rate (%)</p>
+                        {{loan.InterestRate}} {{loan.InterestRateDefFreq.Unit2}}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-3 padding5">
+                        <p>Interest Method</p>
+                        {{loan.IntrestCalculationMethod.Name}}
+                    </div>
+                    <div class="col-lg-3 padding5">
+                        <p>Tenor</p>
+                        {{loan.SanctionedTenor}} {{loan.LoanTenorDuration.Unit}}
+                    </div>
+
+                    <div class="col-lg-3 padding5">
+                        <p>Number of Installments</p>
+                        <div ng-if="loan.NoOfInstallment>0">{{loan.NoOfInstallment}}</div>
+                        <div ng-hide="loan.NoOfInstallment>0">N.A</div>
+                    </div>
+
+                    <div class="col-lg-3 padding5">
+                        <p>Next Payment Date</p>
+                        <div ng-if="loan.NextPaymentDate!=null">{{loan.NextPaymentDate | date:"dd-MM-yy"}}</div>
+                        <div ng-if="loan.NextPaymentDate==null">N.A</div>
+
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-3 padding5">
+                        <p>Payment Status</p>
+                        {{loan.PaymentStatus}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <ul uib-pagination total-items="totalAcceptedApplications" ng-model="facilitiesCurrentPage" items-per-page="applicationPerPage" class="pagination-sm" ng-change="getFacilities(facilitiesCurrentPage)" boundary-links="true"></ul>
+        </div>
+    </div>
+
+
+    <!--Dcument View-->
+    <div id="document-popup" class="modal fade custom-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header LoginHeader">
+                    <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                    <h4 class="modal-title">{{docName}}</h4>
+                </div>
+                <div class="modal-body" id="loginfrom">
+                    <div id="ShowDocument">
+                        <object ng-attr-data="data:application/pdf;base64,{{imgData}}" type="application/pdf" style="width: 871px;height:500px;"></object>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Disbursement otp varification-->
+    <!--Model for OTP Verification-->
+    <div id="verifyOTP" class="modal fade custom-modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header LoginHeader" style="margin-bottom:0px;">
+                    <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                    <h4 class="modal-title">Verify OTP</h4>
+                </div>
+                <div class="modal-body" id="otpfrom">
+                    <p class="VerifyMobileOTP"> Enter OTP number</p>
+                    <form name="verification" nonvalidate>
+                        <div class="MobileOTP">
+                            <input type="number" name="otp" placeholder="Enter OTP" ng-model="otp" class="form-control" required>
+                            <span ng-show="verification.otp.$dirty && verification.otp.$invalid">
+                            </span>
+                        </div>
+                        <div class="resendOtp" ng-show="showOtpFailMessage">
+                            <span style="color:red;">Please enter correct OTP</span>
+                        </div>
+                        <div class="resendOtp">
+                            <a ng-hide="showOtpSuccesMessage" ng-click="sendOtp(otp)">Resend OTP</a>
+                            <span ng-show="showOtpSuccesMessage">OTP successfully Sent</span>
+                        </div>
+
+                        <button type="button" class="btn btn-default" ng-click="VerifyOTP(otp)" ng-disabled="verification.$invalid">Submit</button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--Global search area start-->
+<script type="text/ng-template" id="customTemplate.html">
+    <div class="search-items">
+        <div class="search-heading">
+            <strong>{{match.model.CompanyName}}</strong>
+        </div>
+        <div class="col-lg-6 search-item-info">
+            <div class="row">
+                <div class="col-lg-6">
+                    <span class="pull-right">Loan Id</span>
+                </div>
+                <div class="col-lg-6">
+                    <span>{{match.model.LoanId}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 search-item-info">
+            <div class="row">
+                <div class="col-lg-6">
+                    <span class="pull-right">
+                        Applicant
+                    </span>
+                </div>
+                <div class="col-lg-6">
+                    <span>{{match.model.FirstName}}&nbsp;{{match.model.LastName}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 search-item-info">
+            <div class="row">
+                <div class="col-lg-6">
+                    <span class="pull-right">Mob No.</span>
+                </div>
+                <div class="col-lg-6">
+                    <span>  {{match.model.Business_Contact_Mobile}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 search-item-info">
+            <div class="row">
+                <div class="col-lg-6">
+                    <span class="pull-right">City</span>
+                </div>
+                <div class="col-lg-6">
+                    <span>
+                        {{match.model.PrimaryCity}}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 search-item-info">
+            <div class="row">
+                <div class="col-lg-6">
+
+                    <span class="pull-right">Constitution</span>
+
+                </div>
+                <div class="col-lg-6">
+                    <span>
+                        {{match.model.BusinessConstitutionName}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 search-item-info">
+            <div class="row">
+                <div class="col-lg-6">
+                    <span class="pull-right">Email Id</span>
+                </div>
+                <div class="col-lg-6">
+                    <span>{{match.model.EmailId}}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</script>
+<!--Global search area end-->
+<script>
+    $('#customTemplate').modal('show');
+    //adding class on loan search drawdown
+
+   
+</script>
+
+
+<!--<input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="address for address in GetSearchResults($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control ng-valid ng-dirty ng-valid-parse ng-touched ng-not-empty" aria-autocomplete="list" aria-expanded="true" aria-owns="typeahead-81-3054" aria-activedescendant="typeahead-81-3054-option-1" style="">-->

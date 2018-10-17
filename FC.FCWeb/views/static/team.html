@@ -1,0 +1,122 @@
+<div id="team" class="mid-ui">
+    <div class="container">
+        <h3 class="contactUs">Team</h3>
+        <div class="Team-con-list">
+            <div class="Team-con-list-rw">
+                <div class="team-list-img">
+                    <img src="../images/team-img-1.jpg" alt="team-img-1">
+                    <div class="Team-con-list-txt">
+                        <div class="team-list-top-txt">
+                            <h3><a href="#">Vijay Ajmera</a></h3>
+                            <p>CEO & Co-Founder</p>
+                        </div>
+                        <div class="team-list-botm-txt">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="100%" height="180" align="center" valign="middle">
+                                        <div class="team-mail"><a href="mailto:vijay@fundscorner.com">vijay@fundscorner.com</a></div>
+                                        <div class="team-social-icon">
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td><a href="https://www.linkedin.com/in/vijayajmera" target="_blank" class="twitter-icon-team linked-in" title="Linked in profile"></a><a target="_blank" href="https://twitter.com/vijay_ajmera" class="twitter-icon-team" title="Twitter profile"></a><a target="_blank" href="mailto:vijay@fundscorner.com" class="twitter-icon-team email" title="Email address"></a></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-list-txt-rw">
+                    <p>A Chartered Accountant with 14+ years of experience in finance and senior leadership roles across IT, Media, E-commerce and Financial Services. </p>
+                </div>
+            </div>
+            <div class="Team-con-list-rw">
+                <div class="team-list-img">
+                    <img src="../images/team-img-2.jpg" alt="team-img-2">
+                    <div class="Team-con-list-txt">
+                        <div class="team-list-top-txt">
+                            <h3><a href="#">Srihari Adurty</a></h3>
+                            <p>CRO & Co-Founder</p>
+                        </div>
+                        <div class="team-list-botm-txt">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="100%" height="180" align="center" valign="middle">
+                                        <div class="team-mail"><a href="mailto:srihari@fundscorner.com">srihari@fundscorner.com</a></div>
+                                        <div class="team-social-icon">
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td><a href="https://www.linkedin.com/in/srihari-adurty-2a16279" target="_blank" class="twitter-icon-team linked-in" title="Linked in profile"></a><a target="_blank" href="https://twitter.com/SAdurty" class="twitter-icon-team" title="Twitter profile"></a><a target="_blank" href="mailto:srihari@fundscorner.com" class="twitter-icon-team email" title="Email address"></a></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-list-txt-rw">
+                    <p>
+                        An INSEAD Business School Alumni & a Senior Risk Management Executive with 14+ years of experience in leadership and managerial roles as Head of Operations in
+                        Banking, Microfinance, Credit Risk Management in India & Singapore.
+                    </p>
+                </div>
+            </div>
+            <div class="Team-con-list-rw">
+                <div class="team-list-img">
+                    <img src="../images/team-img-3.jpg" alt="team-img-3">
+                    <div class="Team-con-list-txt">
+                        <div class="team-list-top-txt">
+                            <h3><a href="#">Ganapathy Swaminathan</a></h3>
+                            <p>COO & Co-Founder</p>
+
+                        </div>
+                        <div class="team-list-botm-txt">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="100%" height="180" align="center" valign="middle">
+                                        <div class="team-mail"><a href="mailto:ganapathy@fundscorner.com">ganapathy@fundscorner.com</a></div>
+                                        <div class="team-social-icon">
+                                            <table align="center" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td><a href="https://www.linkedin.com/in/ganapathyswaminathan" target="_blank" class="twitter-icon-team linked-in" title="Linked in profile"></a><a target="_blank" href="https://twitter.com/sganatweets" class="twitter-icon-team" title="Twitter profile"></a><a target="_blank" href="mailto:ganapathy@fundscorner.com" class="twitter-icon-team email" title="Email address"></a></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-list-txt-rw">
+                    <p>An INSEAD Business School Alumnus & a Seasoned banking technology Executive with 15+ years of experience in Management & Consulting roles across Western Europe & South East Asia. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function resetFtr() {
+
+        var wHeight = $(window).height();
+        var hdrHeight = $('.header').height();
+        var midHeight = $('.mid-ui').outerHeight(true);
+        var ftrHeight = $('.footer').outerHeight(true);
+        var allHeight = hdrHeight + midHeight + ftrHeight;
+        if (allHeight < wHeight) {
+            var midH = (wHeight - (hdrHeight + ftrHeight));
+            $('.mid-ui').css('min-height', (midHeight + (wHeight - allHeight) - 120) + 'px');
+        }
+    }
+    $(document).ready(function () {
+        resetFtr();
+        $(window).resize(function () {
+            resetFtr();
+        });
+    });
+</script>

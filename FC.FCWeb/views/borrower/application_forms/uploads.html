@@ -1,0 +1,297 @@
+<!--  upload section -->
+<div class="tab-pane fade in" id="uploads">
+    <div class="col-lg-12 pageLoadOnMobile">
+        <form name="authorisationsDetails" novalidate>
+
+            <!--For Bank Statement-->
+            <div class="businessDetailsSection">
+                <div class="businessDetailsTitle">
+                    Business Documents
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-md-4 clearNone" style="margin-top: 1%;" ng-repeat="businessDocumentType in DocumentTypes" ng-if="businessDocumentType.ForBusiness==true"
+                         ng-class="businessDocumentType.DocumentTypeId == 30?(businessDetails.BusinessConstitutionName == 'Partnership'?'':'ng-hide'):''">
+                        <div style="text-align:center;">
+                            <label> {{businessDocumentType.Name}}</label>
+                            <!--<div class="bankStatementTitle ng-binding">HabileLabs</div>-->
+                        </div>
+                        <section class="container" style="margin:0; padding: 0;">
+                            <section class="droplet" ng-class="{ uploading: interface.isUploading() }">
+                                <droplet ng-model="interface">
+                                    <ul class="files">
+                                        <li ng-repeat="model in interface.getFiles(interface.FILE_TYPES.VALID)">
+                                            <div ng-init="AddLoanDocument(businessDocumentType,0,MainApplicant.FKBusinessId,MainApplicant.FKLoanAccountId,model.file)"></div>
+                                            <!--<i class="fa fa-upload" aria-hidden="true"></i>
+                                                <div class="delete" ng-click="model.deleteFile()">&times;</div>-->
+                                            <div class="size">{{model.file.size / 1024 / 1024 | number: 1}}MB</div>
+                                        </li>
+                                        <li data-toggle="tooltip" data-placement="bottom" title="{{businessLoanDocument.Document.Name}}" ng-repeat="businessLoanDocument in businessDocumentType.LoanDocuments" ng-show="businessLoanDocument.ForBusiness==true && businessLoanDocument.FKDocumentId>0">
+                                            <i ng-show="businessLoanDocument.Document.FileFormat == 'pdf' " class="fa fa fa-file-pdf-o red_file"></i>
+                                            <i ng-show="businessLoanDocument.Document.FileFormat != 'pdf' " class="fa fa-file-image-o blue_file"></i>
+                                            <span class="hidden-lg hidden-md hidden-sm hidden-xl aftr_dt"> {{businessLoanDocument.Document.Name | limitTo: 20}}..</span>
+                                            <!-- {{businessLoanDocument.Document.Name | limitTo: 3}}..  --><a class="delete cros" ng-click="DeleteLoanDocument(businessLoanDocument.LoanDocumentId)"><i class="fa fa-times"></i></a>
+
+                                        </li>
+                                    </ul>
+                                    <section class="toolbar">
+                                        <div class="add-files text-center">
+                                            <button class="button btn-xs add-files" type="button">Click Here To Add File <span class="hidden-xs">Or Drop File</span></button>
+                                            <!-- <input type="button" class="button add-files" value="Click Here To Add File Or Drop File" /> -->
+                                            <droplet-upload-multiple ng-model="interface"></droplet-upload-multiple>
+                                        </div>
+                                    </section>
+                                </droplet>
+                            </section>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <!--For Applicants-->
+            <div class="businessDetailsSection">
+                <div class="businessDetailsTitle">
+                    <div ng-show="businessDetails.FKBusinessConstitutionId==2">Proprietor Documents</div>
+                    <div ng-show="businessDetails.FKBusinessConstitutionId==3">Partner Documents</div>
+                    <div ng-show="businessDetails.FKBusinessConstitutionId==1">Director Documents</div>
+                    <div ng-hide="businessDetails.FKBusinessConstitutionId==2 || businessDetails.FKBusinessConstitutionId==3 || businessDetails.FKBusinessConstitutionId==1">Partner/Director Documents</div>
+                </div>
+                <div>
+                    <div ng-repeat="coApplicant in Applicants">
+                        <div class="bankStatement">
+                            <div class="bankStatementTitle" style="font-size:16px;"><strong>{{coApplicant.PersonName}}</strong></div>
+
+                            <div class="col-lg-12">
+                                <div class="col-md-4 clearNone" ng-repeat="ApplicantDocumentType in DocumentTypes" ng-if="ApplicantDocumentType.ForPerson==true"
+                                     ng-class="(ApplicantDocumentType.Name =='Residence Ownership Proof'? (coApplicant.PersonOwnerShipName =='Owned by Family' || coApplicant.PersonOwnerShipName =='Owned by self' || coApplicant.PersonOwnerShipName =='Owned & Mortgaged'  ? '' : 'ng-hide' ):'')">
+                                    <div class="bankStatement">
+                                        <div style="text-align:center;">
+                                            <label> {{ApplicantDocumentType.Name}}</label>
+                                        </div>
+                                        <section class="container" style="margin:0; padding: 0;">
+                                            <section class="droplet" style="max-width: 505px;" ng-class="{ uploading: interface.isUploading() }">
+
+                                                <droplet ng-model="interface">
+                                                    <ul class="files" style="padding-bottom: 25px; font-size:12px">
+                                                        <li ng-repeat="model in interface.getFiles(interface.FILE_TYPES.VALID)">
+                                                            <div ng-init="AddLoanDocument(ApplicantDocumentType,1,coApplicant.PersonId,MainApplicant.FKLoanAccountId,model.file)"></div>
+                                                            <!--<i class="fa fa-upload" aria-hidden="true"></i>
+                                                            <div class="delete" ng-click="model.deleteFile()">&times;</div>-->
+                                                            <div class="size">{{model.file.size / 1024 / 1024 | number: 1}}MB</div>
+                                                        </li>
+                                                        <li ng-repeat="businessLoanDocument in ApplicantDocumentType.LoanDocuments" ng-show="businessLoanDocument.ForPerson == true && businessLoanDocument.FKPersonId==coApplicant.PersonId && businessLoanDocument.FKDocumentId>0">
+                                                            <i ng-show="businessLoanDocument.Document.FileFormat == 'pdf' " class="fa fa fa-file-pdf-o red_file"></i>
+                                                            <i ng-show="businessLoanDocument.Document.FileFormat !='pdf' " class="fa fa-file-image-o blue_file"></i>
+                                                            <span class="hidden-lg hidden-md hidden-sm hidden-xl aftr_dt"> {{businessLoanDocument.Document.Name | limitTo: 20}}..</span>
+                                                            <!-- {{businessLoanDocument.Document.Name | limitTo: 3}}.. --> <a style="color:black" class="delete cros" ng-click="DeleteLoanDocument(businessLoanDocument.LoanDocumentId)"><i class="fa fa-times"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                    <section class="toolbar">
+                                                        <div class="add-files text-center">
+                                                            <button class="button add-files" type="button">Click Here To Add File <span class="hidden-xs">Or Drop File</span></button>
+                                                            <!-- <input type="button" class="button add-files" value="Click Here To Add File Or Drop File" /> -->
+                                                            <droplet-upload-multiple ng-model="interface"></droplet-upload-multiple>
+                                                        </div>
+                                                    </section>
+                                                </droplet>
+                                            </section>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 centerButtonContinue">
+                    <button type="submit" ng-click="finalSubmitApplication(loanDetail,authorisationsDetails.$valid )" class="btn btn-primary ContinueButton">
+                        Save
+                    </button>
+                    <button type="button" ng-click="cancel()"
+                            class="btn btn-primary cancel-button">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!--Model for Upload Documents  Verification-->
+    <div id="Uploaddocuments" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header partnerModal">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+                    <h4 class="modal-title">Upload Bank Statements</h4>
+                </div>
+                <div ngf-select="uploadFiles($files)" ngf-drop="uploadFiles($files)" class="modal-body"
+                     id="Uploaddocument" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true">
+                    <p class="chatIcons">
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                    </p>
+                    <div class="NameEntity bankStatement  leftbox">
+                        <div class="labelInput">
+                            <label>Identity Proof<span class="spanRequiredStar">*</span></label>
+                        </div>
+                        <div ng-repeat="partnerKycIdentityProofDoc in partnerDetails.partnerKycIdentityProofDocs">
+                            <div class="NameEntity bankStatement" ng-show="partnerKycIdentityProofDoc.showDropdown">
+                                <div ng-show="partnerKycIdentityProofDoc.id" class="check-circle">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                </div>
+                                <div class="labelInput">
+
+                                    <select ng-model="partnerKycIdentityProofDoc.proof_name"
+                                            name="partnerIdentityProof" class="form-control"
+                                            ng-options="data.value as data.key for data in uploadIdentityProofOptions"
+                                            ng-required="businessDetails.id">
+                                        <option value="" disabled>---Please Select---</option>
+                                    </select>
+
+                                    <div>
+                                        {{partnerKycIdentityProofDoc.filename}}
+                                    </div>
+                                    <button ng-click="uploadPartnerKycDocs(partnerKycIdentityProofDoc, partnerDetails.id, partnerKycIdentityProofDoc.id, 'Identity Proof');"
+                                            type="submit" ng-disabled="!partnerKycIdentityProofDoc.proof_name"
+                                            class="btn btn-default" data-toggle="modal" data-target="#Uploaddocuments">
+                                        <i class="fa fa-upload" aria-hidden="true"></i>
+                                    </button>
+                                    <button ng-show="!partnerKycIdentityProofDoc.id"
+                                            ng-disabled="partnerDetails.partnerKycIdentityProofDocs.length==1"
+                                            type="button" class="btn btn-default"
+                                            ng-click="cancelPartnerKycIdentityProofDoc($parent.$index, $index)">
+                                        Cancel
+                                    </button>
+                                    <button ng-show="partnerKycIdentityProofDoc.id"
+                                            type="button" class="btn btn-default"
+                                            ng-click="partnerKycIdentityProofDoc.showDropdown=false">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                            <div ng-hide="partnerKycIdentityProofDoc.showDropdown" class="fullSize">
+                                <div class="fullSizetitle">{{partnerKycIdentityProofDoc.filename | limitTo: 30}}</div>
+                                <!--<button type="button" class="btn btn-primary btn-sm"
+                                        ng-click="partnerKycIdentityProofDoc.showDropdown=true">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </button>-->
+                            </div>
+                        </div>
+                        <button ng-show="partnerDetails.partnerKycIdentityProofDocs[partnerDetails.partnerKycIdentityProofDocs.length-1].id"
+                                type="button" class="btn btn-success btn-sm"
+                                ng-click="uploadMorePartnerKycIdentityProofDoc($index)">
+                            Upload More
+                        </button>
+                    </div>
+
+
+                    <div class="NameEntity bankStatement righttbox">
+                        <div class="labelInput">
+                            <label>Address Proof<span class="spanRequiredStar">*</span></label>
+                        </div>
+                        <div ng-repeat="partnerKycAddressProofDoc in partnerDetails.partnerKycAddressProofDocs">
+                            <div class="NameEntity bankStatement" ng-show="partnerKycAddressProofDoc.showDropdown">
+                                <div ng-show="partnerKycAddressProofDoc.id" class="check-circle">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                </div>
+                                <div class="labelInput">
+
+                                    <select ng-model="partnerKycAddressProofDoc.proof_name" name="partnerAddressProof{{$index}}"
+                                            class="form-control" ng-required="businessDetails.id"
+                                            ng-options="data.value as data.key for data in uploadAddressProofOptions">
+                                        <option value="" disabled>---Please Select---</option>
+                                    </select>
+
+                                    <div>
+                                        {{partnerKycAddressProofDoc.filename}}
+                                    </div>
+                                    <button ng-click="uploadPartnerKycDocs(partnerKycAddressProofDoc, partnerDetails.id, partnerKycAddressProofDoc.id, 'Address Proof');"
+                                            type="submit" ng-disabled="!partnerKycAddressProofDoc.proof_name"
+                                            class="btn btn-default" data-toggle="modal" data-target="#Uploaddocuments">
+                                        <i class="fa fa-upload" aria-hidden="true"></i>
+                                    </button>
+                                    <button ng-show="!partnerKycAddressProofDoc.id"
+                                            ng-disabled=" partnerDetails.partnerKycAddressProofDocs.length= =1"
+                                            type="button" class="btn btn-default"
+                                            ng-click="cancelPartnerKycAddressProofDoc($parent.$index, $index)">
+                                        Cancel
+                                    </button>
+                                    <button ng-show="partnerKycAddressProofDoc.id"
+                                            type="button" class="btn btn-default"
+                                            ng-click="partnerKycAddressProofDoc.showDropdown=false">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                            <div ng-hide="partnerKycAddressProofDoc.showDropdown" class="fullSize">
+                                <div class="fullSizetitle">{{partnerKycAddressProofDoc.filename | limitTo: 30}}</div>
+                                <button type="button" class="btn btn-primary btn-sm"
+                                        ng-click="partnerKycAddressProofDoc.showDropdown=true">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button ng-show="partnerDetails.partnerKycAddressProofDocs[partnerDetails.partnerKycAddressProofDocs.length-1].id"
+                                type="button" class="btn btn-success btn-sm"
+                                ng-click="uploadMorePartnerKycAddressProofDoc($index)">
+                            Upload More
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------E N D--------K--Y--C-----U P L O A D S-------------------------------------------------------------->
+
+
+
+    <page-loader ng-show="isLoadingDocuments"></page-loader>
+</div>
+
+<!--Model for Upload Documents  Verification-->
+<div id="Uploaddocuments" class="modal fade custom-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header partnerModal">
+                <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+                <h4 class="modal-title">Upload Bank Statements</h4>
+            </div>
+            <div ngf-select="uploadFiles($files)" ngf-drop="uploadFiles($files)" class="modal-body"
+                 id="Uploaddocument" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true">
+                <p class="chatIcons">
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                </p>
+
+                <div class="loader" ng-show="isUploading"></div>
+                <p class="VerifyMobile" ng-show="showDragAndDrop">
+                    Drag & Drop
+                    <span>Or select files from your system</span>
+                </p>
+
+                <p class="VerifyMobile" ng-hide="showDragAndDrop">
+                    Tap here
+                </p>
+
+                <p class="VerifyMobileOTP">(individual file size limit 1MB)</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Model Content-->
+<div id="document-popup" class="modal fade custom-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header LoginHeader">
+                <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                <h4 class="modal-title">{{docName}}</h4>
+            </div>
+            <div class="modal-body" id="loginfrom">
+                <div id="ShowDocument">
+                    <object ng-attr-data="data:application/pdf;base64,{{imgData}}" type="application/pdf" style="width: 871px;height:500px;"></object>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

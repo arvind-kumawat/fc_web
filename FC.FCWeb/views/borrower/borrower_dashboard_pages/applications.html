@@ -1,0 +1,608 @@
+﻿
+<style>
+        .tooltips {
+            position: relative;
+            display: inline-block;
+        }
+
+            .tooltips .tooltiptext {
+                visibility: hidden;
+                background-color: rgba(0,0,0,0.85);
+                font-size: 10px;
+                color: #fff;
+                text-align: center;
+                border-radius: 2px;
+                padding: 5px;
+                position: absolute;
+                z-index: 20;
+                top: 120%;
+                left: 100%;
+                margin-left: -60px;
+            }
+
+            /*.tooltips .tooltiptext::after {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent black transparent;
+    } */
+
+            .tooltips:hover .tooltiptext {
+                visibility: visible;
+            }
+</style>
+<div ng-class="applications.length<=2?'height-456px':''">
+    <!--<h3>My Applications</h3>-->
+    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert-success'" close="hideNotification(notification.id, $index)" ng-if="$index == 0 && notification.status_name == 'loan approved'">{{notification.title}}</div>
+    <!--<div class="lightyellowbg">
+        <div class="lightyellowbgLeft">
+            <button class="md-raised md-primary" ui-sref="borrower.application.business_details({id:''})">
+                <span>Apply for New Loan</span>
+            </button>
+        </div>
+        <div class="text-center lightyellowbgOR"><span>OR</span></div>
+        <div class="lightyellowbgRight">
+            <h1>Continue/Update</h1>
+            <p> with incomplete/complete applications below</p>
+        </div>
+    </div>-->
+    <!--// list of all loans -->
+    <div class="col-lg-offset-5 col-lg-4" ng-show="applications.length == 0" style="font-size: 16px;">
+        <strong> Nothing to display </strong>
+    </div>
+    <div class="col-lg-4 search_dd" ng-show="applications.length > 0">
+        <form name="searchform" ng-submit="searchFromApplications(serchText,loanApplicationCurrentPage,applicationPerPage)">
+            <input type="text" ng-model="serchText" placeholder="Search Here" class="form-control search_ip" ng-minlength="3" />
+        </form>
+        <button ng-click="searchFromApplications(serchText,loanApplicationCurrentPage,applicationPerPage)" class="btn btn-default search_bt"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <span class="error-msg" ng-show="searchform.serchText.$invalid">Min. 3 characters</span>
+        <span class="error-msg" style="margin-top: 8px;margin-left: 11px;float: initial;" ng-show="numberOfApplications == 0 && serchText != ''">Not Found</span>
+    </div>
+    <div class="loandetaildiv" ng-repeat="application in applications">
+        <!--| limitTo : applicationPerPage : (loanApplicationCurrentPage - 1)*applicationPerPage-->
+        <!--| orderBy:'is_assigned_for_offer_acceptance'-->
+        <div class="loantitle">
+            <div class="row">
+                <div class="col-sm-3 ">Application ID:<strong>{{application.LoanAccountId}}</strong></div>
+                <div class="col-sm-3">Company name:<strong> {{application.CompanyName}}</strong></div>
+                <div class="col-sm-3">Last updated date :<strong> {{application.LastUpdateDate | date:"dd/MM/yy"}}</strong></div>
+
+                <div class="col-sm-3">
+                    <strong>Product: </strong>{{application.ProductName}} &nbsp;
+                    <a class="pull-right" ng-click="application.showForm = !application.showForm" style="color: black;padding-right: 5px;">
+                        <i ng-show="!application.showForm" class="fa fa-plus" aria-hidden="true"></i>
+                        <i ng-show="application.showForm" class="fa fa-minus" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div ng-init="applications[0].showForm=true" ng-show="application.showForm">
+            <div class="fontRenew" ng-show="isSalesAgent">
+                <a href="" ng-click="showRenewPopUp(application)">Renew</a>
+            </div>
+            <div class="stepwizard">
+                <div class="stepwizard-row ">
+                    <!--..1..-->
+                    <div class="stepwizard-step">
+                        <p class="step-content-top mlp-30" ng-show="!application.IsDraft">
+                            <button permission="FE_MYAPP_LNACT_BTN" class="btn btn-default btn-xs btn-sps custom-action-button" ng-click="editApplication(application.LoanAccountId, application.FKProductId)">
+                                <span>Continue</span>
+                            </button>
+                        </p>
+                        <button type="button" ng-class="application.IsDraft?'btn btn-success btn-circle':'btn btn-primary btn-circle'">1</button>
+                        <p class="step-label-bottom hidden-xs">Draft</p>
+                    </div>
+                    <!--..2..-->
+                    <div class="stepwizard-step">
+
+                        <p class="step-content-top mlp-30" ng-show="application.IsDraft && !application.HasApplied">
+                            <button permission="FE_MYAPP_LNACT_BTN" class="btn btn-default btn-sps btn-xs custom-action-button" ng-click="ManageLoanAction(application, LoanAction)" ng-show="$index==0" ng-repeat="LoanAction in application.LoanActions">
+                                <span>{{LoanAction.Name}}</span>
+                            </button>
+                        </p>
+                        <button type="button" ng-class="application.HasApplied ?'btn btn-success btn-circle':application.IsDraft? (application.LoanActions.length>0?'btn btn-danger btn-circle':'btn btn-primary btn-circle'):'btn btn-default btn-circle'">
+                            2
+                        </button>
+                        <p class="step-label-bottom hidden-xs">Applied</p>
+                    </div>
+                    <!--..3..-->
+                    <div class="stepwizard-step ">
+
+                        <p class="step-content-top mlp-30" ng-show="application.HasApplied && !application.HasApproved">
+                            <button class="btn btn-default btn-xs btn-sps custom-action-button" permission="FE_MYAPP_LNACT_BTN" ng-click="ManageLoanAction(application, LoanAction)" ng-show="$index==0" ng-repeat="LoanAction in application.LoanActions">
+
+                                <span>{{LoanAction.Name}}</span>
+                            </button>
+                        </p>
+                        <button type="button" ng-class="application.HasApproved ?'btn btn-success btn-circle':application.HasApplied?  ((application.LoanActions.length>0 || application.NotApproved )?'btn btn-danger btn-circle':'btn btn-primary btn-circle'):'btn btn-default btn-circle'">
+                            3
+                        </button>
+                        <p class="step-label-bottom hidden-xs">Approved</p>
+                    </div>
+                    <!--..4..-->
+                    <div class="stepwizard-step">
+                        <button type="button" ng-class="application.HasDocumentation ?'btn btn-success btn-circle':application.HasApproved? 'btn btn-primary btn-circle':'btn btn-default btn-circle'">
+                            4
+                        </button>
+                        <p class="step-label-bottom hidden-xs">Documentation</p>
+                    </div>
+                    <!--..5..-->
+                    <div class="stepwizard-step">
+
+
+                        <button type="button" ng-class="application.IsReadyToDisburse ?'btn btn-success btn-circle':application.HasDocumentation? 'btn btn-primary btn-circle':'btn btn-default btn-circle'">
+                            5
+                        </button>
+
+                        <p class="step-label-bottom hidden-xs">Disbursed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12" ng-show="totalNumberOfApplication >= 5 && numberOfApplications <=0">
+        <ul uib-pagination total-items="totalNumberOfApplication" ng-model="loanApplicationCurrentPage" items-per-page="applicationPerPage" class="pagination-sm" ng-change="getApplications(loanApplicationCurrentPage)" max-size="5" boundary-link-numberss="true" rotate="false"></ul>
+    </div>
+    <div class="col-lg-12" ng-show="numberOfApplications >= 5">
+        <ul uib-pagination total-items="numberOfApplications" ng-model="loanApplicationCurrentPage" items-per-page="applicationPerPage" class="pagination-sm" ng-change="searchFromApplications(serchText,loanApplicationCurrentPage,applicationPerPage)" max-size="5" boundary-link-numbers="true" rotate="false"></ul>
+    </div>
+    <!--<div class="col-lg-12" ng-show="application.IsDraft">
+            <div class="col-lg-9">
+                <div class="col-lg-4 padding5">
+                    <p>Loan Amount</p>
+                    <i class="fa fa-rupee"></i> {{application.Amount | INR}}
+                </div>
+                <div class="col-lg-4 padding5" ng-if="!application.is_assigned_for_offer_acceptance">
+                    <p>Last Updated Date</p>
+                    {{application.CreatedDate | date:"dd-MM-yy"}}
+                </div>
+                <div class="col-lg-4 padding5">
+                    <p>Status</p>
+                    {{application.LoanApplicationStatu.Name}}
+                </div>
+
+                <div class="col-lg-4 padding5" ng-show="application.IsApproved">
+                    <p>Approved Amount</p>
+                    <i class="fa fa-rupee"></i> {{application.SanctionedAmount  | INR}}
+                </div>
+                <div class="col-lg-4 padding5" ng-show="application.IsApproved">
+                    <p>Tenor</p>
+                    {{application.Tenor}} {{application.LoanDurationType.Unit}}
+                </div>
+                <div class="col-lg-4 padding5" ng-show="application.IsApproved">
+                    <p>Interest Rate (%)</p>
+                    {{application.InterestRate}} {{application.InterestRateDefFreq.Unit2}}
+                </div>
+            </div>
+            <div class="col-lg-3 padding5 txt-right">
+                <div ng-if="application.IsDraft">
+                    <p>Continue/ Delete</p>
+                    <button class="continueButton" ng-click="editApplication(application.LoanAccountId, application.FKProductId)"><span>Continue</span></button>
+                    <button class="continueButton" ng-click="CloseApplication(application.LoanAccountId)"><span>Close</span></button>
+
+                </div>
+                <div ng-if="!application.IsDraft">
+                    <p>Pending Actions</p>
+                    <div class="row">
+                        <div ng-show="application.LoanActions.length>0">
+                            <button ng-repeat="loanAction in application.LoanActions" class="continueButton-action-btn" ng-click="ManageLoanAction(application,loanAction.LoanActionId,loanAction.LoanActionType.templateUrl)"><span>{{loanAction.Name}}</span></button>
+                        </div>
+                        <div ng-hide="application.LoanActions.length>0">NA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!--<div class="loandetaildiv" ng-repeat="application in applications | orderBy:'is_assigned_for_offer_acceptance'" ng-class="application.is_assigned_for_offer_acceptance ? 'lenderAccepted' : ''">
+        <div class="loantitle">
+            <div class="listcircle ng-binding">{{$index+1}}</div>
+            <strong>Application ID: </strong>{{application.LoanAccountId}}  <span class="ng-binding">
+                <a ng-click="ManageLoanAction(application,0,'#upldDoc')">
+                    <img src="~/images/Upload-icons.png" style="width: 20px;" />
+                </a>
+            </span>
+        </div>
+
+        <div class="col-lg-3 padding5">
+          <p>Need Loan For</p>
+          {{application.typeOfLoan}} Use
+        </div>
+
+        <!--<div class="col-lg-3 padding5 txt-right" ng-if="application.is_assigned_for_offer_acceptance && application.status !='borrower-accepted' && application.status !='borrower-rejected'">
+          <p>Offer by Kreditcart</p>
+          <button class="continueButton" ng-click="openRejectOfferModal(application.id, $index)"><span>Reject</span></button>
+          <button class="continueButton" ng-click="openAcceptOfferModal(application.id, $index)"><span>Accept</span></button>
+        </div>
+
+        <div class="col-lg-3 padding5 txt-right" ng-if="application.status =='borrower-accepted'">
+          <p>Offer by Kreditcart</p>
+          Offer Accepted by you
+        </div>
+
+        <div class="col-lg-3 padding5 txt-right" ng-if="application.status =='borrower-rejected'">
+          <p>Offer by Kreditcart</p>
+          Offer Rejected by you
+          <button class="continueButton" ng-click="openAcceptOfferModal(application.id, $index)"><span>Accept</span></button>
+        </div>
+
+    </div>-->
+    <!--For Upload Document-->
+    <div id="upldDoc" class="modal fade custom-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header LoginHeader" style="margin-bottom:0;">
+                    <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                    <h4 class="modal-title">Documents</h4>
+                </div>
+                <div class="modal-body" id="uploadfrom">
+                    <div class="col-lg-12 pageLoadOnMobile">
+                        <form name="authorisationsDetails" novalidate>
+
+                            <!--For Bank Statement-->
+                            <div class="businessDetailsSection">
+                                <div class="businessDetailsTitle">
+                                    Business Documents
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="col-md-4 clearNone" style="margin-top: 1%;" ng-repeat="businessDocumentType in DocumentTypes"
+                                         ng-if="businessDocumentType.ForBusiness==true"
+                                         ng-class="businessDocumentType.DocumentTypeId == 30?(MainApplicant.Business.BusinessConstitution.BusinessConstitutionName == 'Partnership'?'':'ng-hide'):''">
+                                        <!--&& (businessDocumentType.Name == 'Proof Partnership Deed'?(MainApplicant.Business.BusinessConstitution.BusinessConstitutionName == 'Partnership'?True:False):true)-->
+                                        <!--&& -->
+                                        <div style="text-align:center;">
+                                            <label> {{businessDocumentType.Name}}</label>
+                                            <!--<div class="bankStatementTitle ng-binding">HabileLabs</div>-->
+                                        </div>
+                                        <section class="container" style="margin:0; padding: 0;">
+                                            <section class="droplet" ng-class="{ uploading: interface.isUploading() }">
+                                                <droplet ng-model="interface">
+                                                    <ul class="files">
+                                                        <li ng-repeat="model in interface.getFiles(interface.FILE_TYPES.VALID)">
+                                                            <div ng-model="model" ng-init="AddLoanDocument(businessDocumentType,0,MainApplicant.FKBusinessId,MainApplicant.FKLoanAccountId,model.file)"></div>
+                                                            <!--<i class="fa fa-upload" aria-hidden="true"></i>-->
+                                                            <!--<div class="delete" ng-click="model.deleteFile()">&times;</div>-->
+                                                            <div class="size">{{model.file.size / 1024 / 1024 | number: 1}}MB</div>
+                                                        </li>
+                                                        <li data-toggle="tooltip" data-placement="bottom" title="{{businessLoanDocument.Document.Name}}" ng-repeat="businessLoanDocument in businessDocumentType.LoanDocuments" ng-show="businessLoanDocument.ForBusiness==true && businessLoanDocument.FKDocumentId>0">
+                                                            <i ng-show="businessLoanDocument.Document.FileFormat == 'pdf' " class="fa fa fa-file-pdf-o red_file"></i>
+                                                            <i ng-show="businessLoanDocument.Document.FileFormat != 'pdf' " class="fa fa-file-image-o blue_file"></i>
+                                                            <!--<span class="tooltiptext">{{businessLoanDocument.Document.Name}}</span>-->
+                                                            <span class="hidden-lg hidden-md hidden-sm hidden-xl aftr_dt"> {{businessLoanDocument.Document.Name | limitTo: 20}}..</span>   <a class="delete cros"  ng-click="DeleteLoanDocument(businessLoanDocument.LoanDocumentId)"><i class="fa fa-times pull-right"></i></a>
+
+                                                        </li>
+                                                    </ul>
+                                                    <section class="toolbar">
+                                                        <div class="add-files text-center">
+                                                            <button class="button btn-xs add-files" type="button">Click Here To Add File <span class="hidden-xs">Or Drop File</span></button>
+                                                            <!--  <input type="button" class="button add-files" value="Click Here To Add File Or Drop File" /> -->
+                                                            <droplet-upload-multiple ng-model="interface"></droplet-upload-multiple>
+                                                        </div>
+                                                    </section>
+                                                </droplet>
+                                            </section>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--For Applicants-->
+                            <div class="businessDetailsSection">
+                                <div class="businessDetailsTitle">
+                                    <div ng-show="MainApplicant.Business.BusinessConstitution.FKBusinessConstitutionId==2">Proprietor Documents</div>
+                                    <div ng-show="MainApplicant.Business.BusinessConstitution.FKBusinessConstitutionId==3">Partner Documents</div>
+                                    <div ng-show="MainApplicant.Business.BusinessConstitution.FKBusinessConstitutionId==1">Director Documents</div>
+                                    <div ng-hide="MainApplicant.Business.BusinessConstitution.FKBusinessConstitutionId==2 || MainApplicant.Business.BusinessConstitution.FKBusinessConstitutionId==3 || MainApplicant.Business.BusinessConstitution.FKBusinessConstitutionId==1">Partner/Director Documents</div>
+                                </div>
+                                <div>
+                                    <div ng-repeat="coApplicant in Applicants">
+                                        <div class="bankStatement">
+                                            <div class="bankStatementTitle" style="font-size:16px;"><strong>{{coApplicant.Person.Name}}</strong></div>
+
+                                            <div class="col-lg-12">
+                                                <div class="col-md-4 clearNone" style="margin-top: 1%;" ng-repeat="ApplicantDocumentType in DocumentTypes"
+                                                     ng-if="ApplicantDocumentType.ForPerson==true"
+                                                     ng-class="(ApplicantDocumentType.Name =='Residence Ownership Proof'? (coApplicant.Person.ownerShip.Name =='Owned by Family' || coApplicant.Person.ownerShip.Name =='Owned by self' || coApplicant.Person.ownerShip.Name =='Owned & Mortgaged'  ? '' : 'ng-hide' ):'')">
+                                                    <div class="bankStatement">
+                                                        <div style="text-align:center;">
+                                                            <label> {{ApplicantDocumentType.Name}}</label>
+                                                        </div>
+                                                        <section class="container" style="margin:0; padding: 0;">
+                                                            <section class="droplet" ng-class="{ uploading: interface.isUploading() }">
+                                                                <droplet ng-model="interface">
+                                                                    <ul class="files">
+                                                                        <li ng-repeat="model in interface.getFiles(interface.FILE_TYPES.VALID)">
+                                                                            <div ng-model="model" ng-init="AddLoanDocument(ApplicantDocumentType,1,coApplicant.FKPersonId,MainApplicant.FKLoanAccountId,model.file)"></div>
+                                                                            <!--<i class="fa fa-upload" aria-hidden="true"></i>
+                                                                            <div class="delete" ng-click="model.deleteFile()">&times;</div>-->
+                                                                            <div class="size">{{model.file.size / 1024 / 1024 | number: 1}}MB</div>
+                                                                        </li>
+                                                                        <li data-toggle="tooltip" data-placement="bottom" title="{{businessLoanDocument.Document.Name}}" ng-repeat="businessLoanDocument in ApplicantDocumentType.LoanDocuments" ng-show="businessLoanDocument.ForPerson == true && businessLoanDocument.FKPersonId==coApplicant.FKPersonId && businessLoanDocument.FKDocumentId>0">
+                                                                            <i ng-show="businessLoanDocument.Document.FileFormat == 'pdf' " class="fa fa fa-file-pdf-o red_file"></i>
+                                                                            <i ng-show="businessLoanDocument.Document.FileFormat !='pdf' " class="fa fa-file-image-o blue_file"></i>
+                                                                            <span class="hidden-lg hidden-md hidden-sm hidden-xl aftr_dt"> {{businessLoanDocument.Document.Name | limitTo: 20}}..</span>
+                                                                            <!--{{businessLoanDocument.Document.Name | limitTo: 3}}.. --><a style="color:black" class="delete cros" ng-click="DeleteLoanDocument(businessLoanDocument.LoanDocumentId)"><i class="fa fa-times pull-right"></i></a>
+
+                                                                            me
+
+                                                                        </li>
+                                                                    </ul>
+                                                                    <section class="toolbar">
+                                                                        <div class="add-files text-center">
+                                                                            <button class="button btn-xs add-files" type="button">Click Here To Add File <span class="hidden-xs">Or Drop File</span></button>
+                                                                            <!-- <input type="button" class="button add-files" value="Click Here To Add File Or Drop File" /> -->
+                                                                            <droplet-upload-multiple ng-model="interface"></droplet-upload-multiple>
+                                                                        </div>
+                                                                    </section>
+                                                                </droplet>
+                                                            </section>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="col-lg-12 centerButtonContinue">
+                    <button type="button" ng-click="SaveDocument()" class="btn btn-primary ContinueButton">Save</button>
+                    <button type="button" ng-click="CloseDocPopup()" class="btn btn-primary ContinueButton">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <!--To Upload offer letter-->
+    <div id="uploadOfferLetter" class="modal fade custom-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header LoginHeader">
+                    <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                    <h4 class="modal-title">Upload Documents</h4>
+                </div>
+                <div class="col-lg-12 pageLoadOnMobile">
+                    <form name="authorisationsDetails" novalidate>
+                        <!--End Banking docs uploads-->
+                        <div class="businessDetailsSection">
+                            <div class="businessDetailsTitle">Upload Document</div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="NameEntity bankStatement">
+                                        <div class="labelInput">
+                                            <label>Upload Sanction Letter</label>
+                                        </div>
+                                        <div>
+                                            <div class="NameEntity bankStatement">
+                                                <div class="labelInput">
+                                                    <div class="labelInput">
+                                                        <div class="col-lg-12">
+                                                            <input type="file" class="form-control" file-model="SanctionDocument.Document" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="bankDocNameFile" ng-show="ShowUpldDoumentMsg">
+                                                        <p style="color:red;">*Pls upload signed Document</p>
+                                                    </div>
+                                                    <!--<div class="butBank">
+                                                        <button type="button" class="btn btn-default"
+                                                                ng-click="uploadDocument(SanctionDocument);" ng-disabled="SanctionDocument.Document == null">
+                                                            <i class="fa fa-upload" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!------------------------------E N D--------K--Y--C-----U P L O A D S-------------------------------------------------------------->
+                        <div class="col-lg-12 centerButtonContinue">
+                            <button type="button" ng-click="SaveOfferLetter()" class="btn btn-primary ContinueButton">Save</button>
+                            <button type="button" ng-click="CloseDocPopup()" class="btn btn-primary ContinueButton">Cancel</button>
+                        </div>
+                    </form>
+                    <page-loader ng-show="isLoadingDocuments"></page-loader>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!--Dcument View-->
+    <div id="document-popup" class="modal fade custom-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header LoginHeader">
+                    <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                    <h4 class="modal-title">{{docName}}</h4>
+                </div>
+                <div class="modal-body" id="loginfrom">
+                    <div id="ShowDocument">
+                        <object ng-attr-data="data:application/pdf;base64,{{imgData}}" type="application/pdf" style="width: 871px;height:500px;"></object>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    function mYfunction() {
+        document.getElementById("theFileInput").click();
+    };
+    $(function () {
+        // Multiple images preview in browser
+        var imagesPreview = function (input, dvPreview) {
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (i = 0; i < filesAmount; i++) {
+                    var tpe = input.files[i].type;
+                    console.log(input.files[i].type);
+                    var reader = new FileReader();
+                    if (tpe == "application/pdf") {
+                        reader.onload = function (event) {
+                            var dvPreview = $("#dvPreview");
+                            var p = '<div class="file_box"><span class="crosses"><label class="label label-default"><i class="fa fa-times"></i></label></span><span class="files"><img src="img/pdf_icon.png"></span></div>';
+                            dvPreview.append(p);
+                            $("#dvPreview").on('click', '.crosses', function (e) { //Once remove button is clicked
+                                e.preventDefault();
+                                $(this).parent('div').remove(); //Remove field html
+                                i--;
+                            });
+
+                        }
+                    }
+                    else {
+                        reader.onload = function (event) {
+                            var dvPreview = $("#dvPreview");
+                            var p = '<div class="file_box"><span class="crosses"><label class="label label-default"><i class="fa fa-times"></i></label></span><span class="files"><img src="' + event.target.result + '"></span></div>';
+                            dvPreview.append(p);
+                            $("#dvPreview").on('click', '.crosses', function (e) { //Once remove button is clicked
+                                e.preventDefault();
+                                $(this).parent('div').remove(); //Remove field html
+                                i--;
+                            });
+
+                        }
+                    }
+
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        };
+
+        $('#theFileInput').on('change', function () {
+            imagesPreview(this, 'div#dvPreview');
+        });
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+<!-- Modal -->
+<!-- renew application section start-->
+<div id="renewLoan" class="modal fade custom-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header LoginHeader" style="margin:0px;">
+                <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                <h4 class="modal-title">Renew Loan Application</h4>
+            </div>
+            <div class="col-lg-12 pageLoadOnMobile">
+                <form name="authorisationsDetails" ng-submit="RenewLoanApplication()" novalidate>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <!--"-->
+                                <label>I am a<span class="spanRequiredStar">*</span></label>
+                                <select style="font-size: 14px;" name="product" ng-model="choosedRenewAccount.FKProductId" ng-change="productChanged(choosedRenewAccount.FKProductId)" class="form-control">
+                                    <option value="" disabled>---Please Select---</option>
+                                    <option ng-repeat="productname in ProductGroups" ng-if="productname.Products.length == 1" value="{{productname.Products[0].ProductId}}"> {{productname.Name}} </option>
+                                    <optgroup ng-repeat="productname in ProductGroups" label="{{productname.Name}}" ng-if="productname.Products.length > 1">
+                                        <option ng-repeat="products in productname.Products" value="{{products.ProductId}}">{{products.Product_Desc}}</option>
+                                    </optgroup>
+                                </select>
+                                <span class="error-msg" ng-show="(details.product.$dirty && details.product.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.product.$error.required">Please select Type of business</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Loan Amount Required<span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                <div class="BusinessLandline symbol">
+                                    <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                    <!--<input type="text" format ng-change="valueSelect(loanDetail.amountSlide)" name="Amount" ng-model="loanAccount.Amount" format="currency" />-->
+                                    <input style="padding-left: 20px !important;" type="text" ng-required="isBorrower" name="loanamount" ng-model="choosedRenewAccount.Amount" class="form-control" format="currency">
+
+                                </div>
+                                <span class="error-msg" ng-show="choosedRenewAccount.Amount > renewLoanAccountProduct.MaxAmount || choosedRenewAccount.Amount < renewLoanAccountProduct.MinAmount"> Amount should in range i.e. {{renewLoanAccountProduct.MinAmount  | amount}}-{{renewLoanAccountProduct.MaxAmount  | amount}} </span>
+                                <span class="color-red" ng-show="(details.loanamount.$dirty && details.loanamount.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.industry.$error.required">Loan Amount is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12 centerButtonContinue">
+                        <button type="submit" class="btn btn-primary ContinueButton">Renew</button>
+                        <button type="button" ng-click="CloseDocPopup()" class="btn btn-primary ContinueButton">Cancel</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--For View Sanction Letter Document-->
+<div id="viewSanctionLetter" class="modal fade custom-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header LoginHeader">
+                <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                <h4 class="modal-title">Accept Sanction letter</h4>
+            </div>
+            <div class="col-lg-12 pageLoadOnMobile">
+                <form name="authorisationsDetails" novalidate>
+
+                    <!--Start banking docs upload-->
+                    <div class="businessDetailsSection">
+                        <div class="businessDetailsTitle">Offer Letter</div>
+                        <div class="col-lg-12">
+                            <div id="ViewSactionLetter">
+                                <object ng-attr-data="data:application/pdf;base64,{{imgData}}" type="application/pdf" style="width:1105px;height:500px;"></object>
+                            </div>
+                        </div>
+                    </div>
+                    <!------------------------------E N D--------K--Y--C-----U P L O A D S-------------------------------------------------------------->
+                    <div class="col-lg-12 centerButtonContinue">
+                        <button type="button" ng-click="OfferAcceptedByBorrower()" class="btn btn-primary ContinueButton">Accept Offer</button>
+                        <!--<button type="button" ng-click="RequestCallBack()" class="btn btn-primary ContinueButton">Request CallBack</button>-->
+                    </div>
+                </form>
+                <page-loader ng-show="isLoadingDocuments"></page-loader>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--Renew application section end-->
+<style>
+    .fontRenew {
+        float: right;
+        margin: 5px 10px 0 0;
+    }
+</style>

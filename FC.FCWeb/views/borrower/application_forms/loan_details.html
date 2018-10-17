@@ -1,0 +1,93 @@
+<!--------------------loan details section------------------->
+<div class="tab-pane fade in" id="loan-details">
+    <div>
+        <div class="businessCompanyDetails"> Loan Details</div>
+        <div class="col-lg-12">
+            <div class="businessDetailsSection">
+                <form name="loan" novalidate>
+                    <div class="businessDetailsTitle"> Loan Details</div>
+                    <div class="row-loandetail">
+                        <div class="col-lg-6">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Type of Business<span class="spanRequiredStar">*</span></label>
+                                    <select name="product" ng-model="loanAccount.FKProductId" ng-options="ProductBusinessNature.FKProductId as ProductBusinessNature.Name for ProductBusinessNature in ProductBusinessNatures" ng-change="productChanged(loanAccount.FKProductId)" class="form-control" required>
+                                        <option value="" disabled>---Please Select---</option>
+                                    </select>
+                                    <span style="color:red" ng-show="(loan.product.$dirty && loan.product.$invalid)||ShowLoanDtlError">
+                                        <span ng-show="loan.product.$error.required">Please select Type of business</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Loan Duration (Months)<span class="spanRequiredStar">*</span></label>
+                                    <select name="month" ng-model="loanAccount.Tenor" ng-options="term as term for term in LoanTerms" class="form-control" required>
+                                        <option value="" disabled>---Please Select---</option>
+                                    </select>
+                                    <span style="color:red" ng-show="(loan.month.$dirty && loan.month.$invalid)||ShowLoanDtlError">
+                                        <span ng-show="loan.month.$error.required">Loan Duration is required.</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 Typeofloan">
+                        <label>Loan Amount<span class="spanRequiredStar">*</span></label>
+                        <div class="proceed">
+                            <div class="proceedRs">
+                                <span class="proceedRsLeft">
+                                    <i class="fa fa-inr" aria-hidden="true"></i>
+                                    <span class="sliderProducts"><input type="text" format ng-change="valueSelect(loanDetail.amountSlide)" name="Amount" ng-model="loanAccount.Amount" format="currency" />  </span>
+                                </span>
+                                <span class="proceedRsRight">
+                                    <i class="fa fa-inr" aria-hidden="true"></i>
+                                    <span>  {{loanAccount.Amount | amount}}</span>
+                                </span>
+                              
+                            </div>
+                            <span style="color:red" ng-show="ShowLoanDtlError && !(loanAccount.Amount>0)">
+                                <span>Loan Amount is required.</span>
+                            </span>
+                            <span style="color:red" ng-show="loanDetail.amount != '' && sliderError!=''">{{sliderError}}</span>
+
+                            <div class="silder">
+                                <slider id="amountSlider" ng-change="slide(loanAccount.Amount)" ng-model="loanAccount.Amount" min="product.MinAmount" max="product.MaxAmount" step="10000"></slider>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-4" ng-show="loanDetail.typeOfLoan == 'Personal'">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>I am a <span class="spanRequiredStar">*</span></label>
+                                    <select name="entityType" ng-model="loanDetail.entityType" class="form-control" id="proffession"
+                                            ng-change="manageNavigation()"
+                                            ng-options="data.key as data.value for data in entityTypeOptions">
+                                        <option value="" disabled>---Please Select---</option>
+                                    </select>
+                                    <span style="color:red" ng-show="loan.entityType.$dirty && loan.entityType.$invalid">
+                                        <span ng-show="loan.entityType.$error.required">Profession required.</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 centerButtonContinue">
+                        <button type="submit" ng-click="submitLoanDetails(loanAccount,loan.$invalid)"
+                                class="btn btn-primary ContinueButton">
+                            Continue
+                        </button>
+                        <button type="button" ng-click="cancel()"
+                                class="btn btn-primary cancel-button">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

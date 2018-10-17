@@ -1,0 +1,4 @@
+﻿An item with the same key has already been added.
+Could not find file 'D:\Projects\Funds Corner\fc\FC.Integrations\Web.config'.
+Name cannot begin with the '"' character, hexadecimal value 0x22. Line 127, position 357.
+'connectionString' is an unexpected token. The expected token is '"' or '''. Line 126, position 46.

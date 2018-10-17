@@ -1,0 +1,47 @@
+<!--// list of all Lenders -->
+<div class="container lender_list_div">
+<div class="loandetaildiv" ng-repeat="lender in lenders">
+  <div class="loantitle">
+    <div class="listcircle ng-binding">{{$index+1}}</div>
+    <strong>Name: </strong>{{lender.fullname}}
+  </div>
+  <div class="col-lg-3 padding5">
+    <p>Email</p>
+    <span class="emailLenderList">{{lender.email}}</span>
+  </div>
+  <div class="col-lg-3 padding5">
+    <p>Phone</p>
+    {{lender.phone}}
+  </div>
+  <div class="col-lg-3 padding5">
+    <p>Registration Date</p>
+    {{lender.createdAt | date:"dd-MM-yy"}}
+  </div>
+  <div class="col-lg-3 padding5 txt-right">
+    <p>Show Products / Delete</p>
+    <button class="continueButton" ui-sref="superAdmin.lender_products({lenderId:lender.id})"><span>Show Products</span></button>
+    <i class="fa fa-trash" ng-click="openLenderDeleteModal(lender.id,$index)"></i>
+  </div>
+</div>
+  <div class="silder" ng-show="lenders.length == 0">Nothing to display</div>
+  <ul uib-pagination total-items="totalLenders" ng-model="CurrentPage" items-per-page="lenderPerPage" class="pagination-sm" ng-change="getLenders(CurrentPage)" boundary-links="true"></ul>
+</div>
+<!--Model for delete application-->
+<div id="deleteLender" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header partnerModal colorChng">
+        <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+        <h4 class="modal-title">Are You Sure?</h4>
+
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="deleteLender(lenderId,lenderIndex)">Yes</button>
+        <button type="button" class="btn btn-default"data-dismiss="modal">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--modal end-->

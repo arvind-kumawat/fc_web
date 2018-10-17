@@ -1,0 +1,18 @@
+<div role="tabpanel" class="tab-pane active" id="loanDetail" ng-show="loanDetails">
+  <div class="loantitlereview">
+    <ul>
+      <li><strong>User name : </strong> {{loanDetails.userName}}</li>
+      <li><strong>User email : </strong> {{loanDetails.userEmail}}</li>
+      <li ng-if="loanDetails.userPhone"><strong>Phone :  </strong>{{loanDetails.userPhone}}</li>
+    </ul>
+    <ul>
+      <li><strong>Application Id : </strong> {{loanDetails.display_id}}</li>
+      <li><strong>Amount :  </strong>{{loanDetails.amount}}</li>
+      <li><strong>Purpose : </strong> {{loanDetails.purpose}}</li>
+    </ul>
+    <ul>
+      <li><strong>Loan Type :  </strong>{{loanDetails.typeOfLoan}} </li>
+      <li><strong>Months :  </strong>{{loanDetails.months}}</li>
+    </ul>
+  </div>
+</div>

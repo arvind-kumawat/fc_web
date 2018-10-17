@@ -1,0 +1,1018 @@
+<!-- personal details section -->
+<div class="tab-pane fade in" id="personal-details">
+    <div>
+        <!--<div class="businessCompanyDetails">Personal Details</div>-->
+        <!-- Personal Details -->
+        <div class="col-lg-12 " ng-repeat="personalDetails in applicantsArray" style="margin-bottom:0%;">
+            <div class="panel-group CollapsibleApplications">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background: #c7c7c7;">
+                        <h3 class="panel-title personal-details-title">
+                            <span class="partnerNameInapnel" ng-show="businessDetails.FKBusinessConstitutionId==2">Proprietor &nbsp; {{$index+1}}</span>
+                            <span class="partnerNameInapnel" ng-show="businessDetails.FKBusinessConstitutionId==3">Partner &nbsp;{{$index+1}}</span>
+                            <span class="partnerNameInapnel" ng-show="businessDetails.FKBusinessConstitutionId==1">Director&nbsp;{{$index+1}}</span>
+                            <span class="partnerNameInapnel" ng-hide="businessDetails.FKBusinessConstitutionId==2 || businessDetails.FKBusinessConstitutionId==3 || businessDetails.FKBusinessConstitutionId==1">Partner/Director&nbsp;{{$index+1}}</span>
+                            <!--<a>
+                                <i ng-show="$index > 0" class="fa fa-trash-o" aria-hidden="trufe" ng-click="openDeleteCoApplicantModal(personalDetails.ApplicantId, $index)"></i>
+                            </a>-->
+                           <a ng-click="personalDetails.showForm = !personalDetails.showForm;">
+                                <i ng-show="personalDetails.id!='' && !personalDetails.showForm" class="fa fa-plus" aria-hidden="true"></i>
+                                <i ng-show="personalDetails.id!='' && personalDetails.showForm" class="fa fa-minus" aria-hidden="true"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div ng-show="personalDetails.showForm || personalDetails.ShowValidationError">
+                        <form name="personalDetails.form" novalidate autocomplete="off">
+                            <div class="businessDetailsSection">
+                                <!--<div class="businessDetailsTitle">Personal Details</div>-->
+                                <div class="col-lg-12">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput capitalize">
+                                                    <label>First Name<span class="spanRequiredStar">*</span></label>
+                                                    <input type="text" ng-pattern="/[A-Za-z]{3,}/" name="ownerName1" ng-model="personalDetails.Person.FirstName" class="form-control" ng-disabled="personalDetails.MakeFieldsDisable" required>
+                                                    <span class="color-red" ng-show="(personalDetails.form.ownerName1.$dirty && personalDetails.form.ownerName1.$invalid) || personalDetails.ShowValidationError">
+                                                        <!--<span ng-show="!personalDetails.form.ownerName1.$error.required && personalDetails.IsPanVerified == true && !personalDetails.ValidFirstName && personalDetails.PanStatus != PANSTATUS.INITIAL">Company name is not matching with details got from PAN number</span>-->
+                                                        <span ng-show=" personalDetails.form.ownerName1.$error.required">First Name is required.</span>
+                                                        <span ng-show=" personalDetails.form.ownerName1.$error.pattern">Min 3 letter only is required.</span>
+                                                    </span>
+                                                    <span style="color:red">
+                                                        <!--<span ng-show="personalDetails.Person.PanNumber.length>0 && !personalDetails.form.ownerName1.$error.required && !personalDetails.ValidFirstName && personalDetails.PanStatus != PANSTATUS.INITIAL">First name is not matching with details got from PAN number</span>-->
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput capitalize">
+                                                    <label>Last Name (SurName)<span class="spanRequiredStar">*</span></label>
+                                                    <input type="text" name="lastName1" ng-model="personalDetails.Person.LastName" class="form-control" required ng-disabled="personalDetails.MakeFieldsDisable">
+                                                    <!--<span ng-show="!personalDetails.form.lastName1.$error.required && personalDetails.IsPanVerified == true && !personalDetails.ValidLastName && personalDetails.PanStatus != PANSTATUS.INITIAL">Company name is not matching with details got from PAN number</span>-->
+                                                    <span class="color-red" ng-show="(personalDetails.form.lastName1.$dirty && personalDetails.form.lastName1.$invalid) || personalDetails.ShowValidationError">
+                                                        <span ng-show=" personalDetails.form.lastName1.$error.required">Last Name is required.</span>
+                                                    </span>
+                                                    <span style="color:red">
+                                                        <!--<span ng-show="personalDetails.Person.PanNumber.length>0 && !personalDetails.form.lastName1.$error.required && personalDetails.form.lastName1.$touched && !personalDetails.ValidLastName && personalDetails.PanStatus != PANSTATUS.INITIAL">Last name is not matching with details got from PAN number</span>-->
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <label class="pan-label">PAN No.<span class="spanRequiredStar" ng-show="personalDetails.OwnershipPer > 10 || businessDetails.FKBusinessConstitutionId==2">*</span></label>
+                                                <div class="BusinessLandline symbol">
+                                                    <input type="text" name="pan1" ng-model="personalDetails.Person.PanNumber" ng-required="personalDetails.OwnershipPer > 10 || businessDetails.FKBusinessConstitutionId==2" ng-disabled="personalDetails.MakeFieldsDisable"
+                                                           ng-pattern="/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/" ng-change="ApplicantPanNumberChanged(personalDetails)" class="form-control business-pan-input" ng-blur="ChangeCaseForPersonPAN(personalDetails.Person);validateApplicantPan(personalDetails);isPanNumberExist(personalDetails.Person.PersonId,personalDetails.Person.PanNumber,$index)">
+                                                    <i class="fa fa-check-circle fa-color-success pan-varification-caret" ng-if="personalDetails.PanStatus == PANSTATUS.VERIFIED"></i>
+                                                </div>
+                                                <div class="labelInput">
+                                                    <span class="color-red"
+                                                          ng-show="(personalDetails.form.pan1.$dirty && personalDetails.form.pan1.$invalid)|| personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.pan1.$error.pattern">Enter a Valid PAN(AAAAA0000A)</span>
+                                                        <span ng-show="personalDetails.form.pan1.$error.required">PAN No. is Required</span>
+                                                        <!--<span ng-show="personalDetails.PanStatus == PANSTATUS.INVALID">Entered PAN number is not valid</span>-->
+                                                    </span>
+                                                    <span class="error-msg" ng-show="personalDetails.panAlreadyExist">Entered PAN number already Exist</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Aadhar No</label>
+                                                    <input type="text" numbers-only minlength="12" maxlength="12" name="adhar1" ng-disabled="personalDetails.MakeFieldsDisable"
+                                                           ng-model="personalDetails.Person.adhaarCardNumber" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Father's Name</label>
+                                                    <input type="text" name="father1" ng-model="personalDetails.Person.FatherName" ng-disabled="personalDetails.MakeFieldsDisable"
+                                                           class="form-control">
+                                                    <!--<span style="color:red"
+                                                          ng-show="(personalDetails.form.father1.$dirty && personalDetails.form.father1.$invalid)|| personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.father1.$error.required">Father's Name is required.</span>
+                                                    </span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Gender<span class="spanRequiredStar">*</span></label>
+                                                    <select ng-model="personalDetails.Person.Gender" name="gender1" class="form-control" required ng-disabled="personalDetails.MakeFieldsDisable">
+                                                        <option value="" disabled>---Please Select---</option>
+                                                        <option value="M">Male</option>
+                                                        <option value="F">Female</option>
+                                                        <option value="O">Others</option>
+                                                    </select>
+                                                    <span style="color:red"
+                                                          ng-show="(personalDetails.form.gender1.$dirty && personalDetails.form.gender1.$invalid)|| personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.gender1.$error.required">Gender is required.</span>
+                                                        <span ng-show=" personalDetails.form.ownerName1.$error.pattern">Min 3 letter only is required.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput" id="datepickerInput">
+                                                    <label>Date Of Birth <sub>(dd/mm/yyyy)</sub><span class="spanRequiredStar">*</span></label>
+                                                    <p class="input-group">
+
+                                                        <input ng-disabled="personalDetails.MakeFieldsDisable" name=" dob1" class="form-control" type="text" ng-model="personalDetails.Person.DOB" ng-required="true" jquerydatepicker maxdateset='-18yr' dateformatset="dd/mm/yy" />
+
+                                                    </p>
+                                                    <span style="color:red" ng-show="(personalDetails.form.dob1.$dirty && personalDetails.form.dob1.$invalid)|| personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.dob1.$error.required">Date Of Birth is required.</span>
+                                                        <span ng-show="IsInvalidDate && IsAgeValidated">Invalid Date</span>
+                                                        <span style="color:red" ng-show="IsAgeValidated==false && !personalDetails.form.dob1.$error.required">Age should be greater than 18 yrs.</span>
+
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Mobile<span class="spanRequiredStar" ng-show="personalDetails.IsMainApplicant">*</span></label>                                            
+                                                    <input ng-disabled="personalDetails.MakeFieldsDisable || personalDetails.MakeMobileNumberFieldDisable" type="text" maxlength="10" ng-blur="checkMobileExist(personalDetails.Person.PersonId,personalDetails.Person.MobilePhone,$index)"
+                                                           name="perMobile1" ng-model="personalDetails.Person.MobilePhone" ng-pattern="/[7-9]{1}\d{9}/" class="form-control"
+                                                           ng-required="personalDetails.IsMainApplicant">
+                           
+                                                    <span class="error-msg" ng-show="personalDetails.MobilealreadyExist">Mobile is already Exist</span>
+                                                    <span style="color:red"
+                                                          ng-show="(personalDetails.form.perMobile1.$dirty && personalDetails.form.perMobile1.$invalid)||personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.perMobile1.$error.required">Mobile is required.</span>
+                                                        <span ng-show="personalDetails.form.perMobile1.$error.pattern">Invalid Mobile No.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin-bottom: 0px;">
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Email ID<span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                                    <input ng-disabled="personalDetails.MakeFieldsDisable || personalDetails.MakePanNumberFieldDisable" type="email" class="form-control" name="email1" ng-blur="checkEmailExist(personalDetails.Person.PersonId,personalDetails.Person.EmailId,$index)"
+                                                           ng-model="personalDetails.Person.EmailId"
+                                                           ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
+                                                           ng-required="isBorrower">
+                                                    <span style="color:red" ng-show="(personalDetails.form.email1.$dirty && personalDetails.form.email1.$invalid)||personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.email1.$error.required">Email is required.</span>
+                                                        <span ng-show="personalDetails.form.email1.$error.pattern">Invalid Email</span>
+                                                    </span>
+                                                    <span class="error-msg" ng-show="personalDetails.EmailAlreadyExist">Email already Exist</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Qualification<span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                                    <select ng-disabled="personalDetails.MakeFieldsDisable" name="qualification1" ng-model="personalDetails.Person.FKOwnerQualificationId" class="form-control"
+                                                            ng-required="isBorrower" ng-options="data.QualificationId as data.QualificationName for data in qualifications">
+                                                        <option value="" disabled>---Please Select---</option>
+                                                    </select>
+                                                    <span class="color-red"
+                                                          ng-show="(personalDetails.form.qualification1.$dirty && personalDetails.form.qualification1.$invalid)|| personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.qualification1.$error.required">Qualification is required.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Marital Status<span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                                    <select ng-disabled="personalDetails.MakeFieldsDisable" ng-model="personalDetails.Person.FKMaritalStatusId" class="form-control" name="marital1" ng-required="isBorrower"
+                                                            ng-options="data.MaritalStatusId as data.Name for data in maritalstatus">
+                                                        <option value="" disabled>---Please Select---</option>
+                                                    </select>
+                                                    <span class="color-red" ng-show="(personalDetails.form.marital1.$dirty && personalDetails.form.marital1.$invalid)|| personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.marital1.$error.required">Marital Status is required.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3" ng-if="businessDetails.FKBusinessConstitutionId != 2">
+                                            <div class="NameEntity">
+                                                <div class="labelInput" ng-if="applicantsArray.length != 1">
+                                                    <label>Ownership %<span class="spanRequiredStar">*</span></label>
+                                                    <input ng-disabled="personalDetails.MakeFieldsDisable" type="text" ng-pattern="/^[1-9]{1}([0-9]{1})?(\.[0-9]*)?$/" name="ownership99" ng-model="personalDetails.OwnershipPer"
+                                                           class="form-control" ng-required="businessDetails.FKBusinessConstitutionId != 2">
+                                                    <sub>e.g. Enter 40 for 40%</sub>
+
+                                                   
+                                                    <span style="color:red"
+                                                          ng-show="(personalDetails.form.ownership99.$dirty && personalDetails.form.ownership99.$invalid)||personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.ownership99.$error.required">Ownsership is required</span>
+                                                        <span ng-show="personalDetails.form.ownership99.$error.pattern">Between 1 to 99 required</span>
+                                                        <span ng-show="totalOwnership > 100">Total Ownership cannot be greater then 100</span>
+                                                    </span>
+
+                                                </div>
+                                                <div class="labelInput" ng-if="applicantsArray.length == 1">
+                                                    <label>Ownership %<span class="spanRequiredStar">*</span></label>
+                                                    <input ng-disabled="personalDetails.MakeFieldsDisable" type="text" ng-pattern="/^100(\.0{1,2})?$|(^([1-9]([0-9])?|0)(\.[0-9]{1,2})?$)/" name="ownership" ng-model="personalDetails.OwnershipPer"
+                                                           class="form-control" ng-required="businessDetails.FKBusinessConstitutionId != 2">
+                                                    <sub>e.g. Enter 40 for 40%</sub>
+                                                    <span style="color:red"
+                                                          ng-show="(personalDetails.form.ownership.$dirty && personalDetails.form.ownership.$invalid)||personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.ownership.$error.required">Ownsership is required</span>
+                                                        <span ng-show="personalDetails.form.ownership.$error.pattern">Between 1 to 100 required</span>
+                                                        <span ng-show="totalOwnership > 100">Total Ownership cannot be greater then 100</span>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="col-lg-12 no-margin">
+                                        <div class="col-lg-12">
+                                            <div class="NameEntity Permanentboxs">
+                                                <div class="labelInput">
+                                                    <input ng-disabled="personalDetails.MakeFieldsDisable" class="Permanentbox no-margin" type="checkbox" ng-model="personalDetails.Person.SameAsBusinessAddress" ng-change="populateBusinessAddressIntoResidence(personalDetails.Person)">
+                                                    <label class="margin-top-8">My residence address is same as business address</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <!--Start residence address-->
+                                    <div class="col-lg-12">
+
+                                        <div class="col-lg-6">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Address<span class="spanRequiredStar">*</span></label>
+                                                    <input type="text" ng-disabled="personalDetails.MakeFieldsDisable" pattern=".{7,}" name="resLine1" ng-model="personalDetails.Person.AddressLine1"
+                                                           class="form-control" required>
+                                                    <span style="color:red"
+                                                          ng-show="(personalDetails.form.resLine1.$dirty && personalDetails.form.resLine1.$invalid) || personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.resLine1.$error.required">Address is required.</span>
+                                                        <span ng-show=" personalDetails.form.resLine1.$error.pattern && (personalDetails.form.resLine1.$touched||personalDetails.ShowValidationError)">Min 7 letter only is required.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 no-border-right">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>PinCode<span class="spanRequiredStar">*</span></label>
+                                                    <input type="text" ng-disabled="personalDetails.MakeFieldsDisable" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="personalPin"
+                                                           ng-model="personalDetails.Person.Pincode" required
+                                                           ng-blur="getDataFromPinForPersonalDetail(personalDetails.Person, false)"
+                                                           class="form-control">
+                                                    <span style="color:red"
+                                                          ng-show="(personalDetails.form.personalPin.$dirty && personalDetails.form.personalPin.$invalid)|| personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.personalPin.$error.required">PinCode is required.</span>
+                                                        <span ng-show="personalDetails.form.personalPin.$error.pattern && (personalDetails.form.personalPin.$touched||personalDetails.ShowValidationError)">This field is required 6 numbers</span>
+
+                                                    </span>
+                                                </div>
+                                                <div class="errMsg" ng-if="personalDetails.pinCodeError">
+                                                    <div>{{personalDetails.pinCodeError}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>City<span class="spanRequiredStar">*</span></label>
+                                                    <input ng-disabled="personalDetails.MakeFieldsDisable" type="text" name="personCity" ng-pattern="/[A-Za-z]{3,}/" ng-model="personalDetails.Person.CityName" class="form-control" required>
+                                                    <span style="color:red"
+                                                          ng-show="(personalDetails.form.personCity.$dirty && personalDetails.form.personCity.$invalid)||personalDetails.ShowValidationError">
+                                                        <span ng-show="personalDetails.form.personCity.$error.required">City is required</span>
+                                                        <span ng-show=" personalDetails.form.personCity.$error.pattern  && (personalDetails.form.personCity.$touched||personalDetails.ShowValidationError)">Min 3 letter only is required.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>State<span class="spanRequiredStar">*</span></label>
+                                                    <input ng-disabled="personalDetails.MakeFieldsDisable" name="personState" ng-pattern="/[A-Za-z]{3,}/" ng-model="personalDetails.Person.State" class="form-control" required>
+                                                    <span class="color-red"
+                                                          ng-show="(personalDetails.form.personState.$dirty && personalDetails.form.personState.$invalid)||personalDetails.ShowValidationError">
+                                                        <span ng-show=" personalDetails.form.personState.$error.required">State required.</span>
+                                                        <span ng-show=" personalDetails.form.personState.$error.pattern && (personalDetails.form.personState.$touched||personalDetails.ShowValidationError)">Min 3 letter only is required.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-3">
+                                            <div class="NameEntity">
+                                                <div class="labelInput">
+                                                    <label>Residence Ownership</label>
+                                                    <!--<select name="ownershipStatus" ng-model="personalDetails.Person.FkOwnerShipId" class="form-control"
+                                            ng-options="data.OwnerShipId as data.Name for data in businessOwnerships">
+                                        <option value="" disabled>---Please Select---</option>
+                                    </select>-->
+                                                    <select ng-disabled="personalDetails.MakeFieldsDisable" name="product" ng-model="personalDetails.Person.FkOwnerShipId" class="form-control">
+                                                        <option value="" disabled>---Please Select---</option>
+                                                        <optgroup ng-repeat="businessOwnership in businessOwnerships" label="{{businessOwnership.Name}}">
+                                                            <option ng-repeat="data in businessOwnership.OwnerShips" value="{{data.OwnerShipId}}">{{data.Name}}</option>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 pull-right">
+                                            <div class="pull-right" style="width: 100%">
+                                                <div class="NameEntity">
+                                                    &nbsp;
+                                                </div>
+                                                <button style="width: 100%" class="btn btn-primary" ng-if="personalDetails.Person.FacebookUserId == undefined || personalDetails.Person.FacebookUserId == null" ng-click="openFacebookLogin('Link-Facebook', personalDetails.Person)"><i class="fa fa-facebook"></i> &nbsp;Link with Facebook</button>
+                                                <label ng-if="personalDetails.Person.FacebookUserId != null" style="margin-top: 3%">Linked with Facebook</label>
+                                                <span class="color-red"
+                                                      ng-show="AlreadyLinked">
+                                                    <span>This account is linked already.</span>
+                                                </span>
+                                                <br />
+                                                <span>* Optional</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                   </div>
+                                    <div class="col-lg-12 centerButtonContinue ng-scope" ng-hide="applicantsArray.length==1">
+                                        <button type="submit"
+                                                ng-click="submitPersonDetails(personalDetails,personalDetails.form.$invalid); personalDetails.showForm=personalDetails.form.$invalid"
+                                                class="btn btn-primary ContinueButton">
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center ownership-error" ng-show="ownershipErrr">The ownership should be 100%</div>
+
+        <div class="col-lg-12 centerButtonContinue" ng-show="applicantsArray[applicantsArray.length-1]">
+            <button type="submit" ng-click="goToReferences()" ng-show="loanDetail.entityType == 'Salaried Professional'" class="btn btn-primary ContinueButton">
+                Continue
+            </button>
+            <button type="submit" ng-click="goToReferences()"
+                    ng-hide="loanDetail.entityType == 'Salaried Professional'" class="btn btn-primary ContinueButton">
+                Continue
+            </button>
+            <button type="button" ng-click="cancel()"
+                    class="btn btn-primary cancel-button">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+<!--<div class="col-lg-12">
+
+    <div class="col-lg-2">
+        <div class="NameEntity">
+            <div class="labelInput capitalize">
+                <label>Middle Name</label>
+                <input type="text" name="middleName1" ng-model="personalDetails.Person.MiddleName" class="form-control">
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="col-lg-12">
+
+    <div class="col-lg-3">
+        <div class="NameEntity">
+            <div class="labelInput">
+                <label>Address Line 2</label>
+                <input type="text" name="resLine2" ng-model="personalDetails.Person.AddressLine2"
+                       class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="NameEntity">
+            <div class="labelInput">
+                <label>Landmark</label>
+                <input type="text" name="resLine2" ng-model="personalDetails.Person.Landmark"
+                       class="form-control">
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-lg-12">
+
+
+    <div class="col-lg-3">
+        <div class="NameEntity">
+            <div class="labelInput">
+                <label>Landline No.</label>
+                <input type="text" name="phone1" ng-model="personalDetails.Person.WorkPhone"
+                       class="form-control">
+            </div>
+        </div>
+    </div>
+
+</div>-->
+<!--</div>-->
+<!-- Modal Example PERSONAL DETAILS -->
+<!--<div class="modalExamplepersonalDetails" ng-if="businessDetails.FKBusinessConstitutionId != 2">
+    <div class="add_container" ng-click="showPersonalDetailsModal()">
+        <div class="add1"><i class="fa fa-plus-circle" aria-hidden="true"></i></div>
+        <div class="add2">
+            <h3>Add Co-Applicant</h3>
+
+            <p>This might help you improve your eligibility</p>
+        </div>
+    </div>
+</div>-->
+<!--Co-Applicants-->
+<div id="myModal" class="modal fade" role="dialog" ng-controller="AuthCtrl">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" ng-show="!loginModal">
+            <div class="modal-header LoginHeader">
+                <button type="button" class="close" ng-click="reset(validateLogin)" data-dismiss="modal"> <span>  &times; </span></button>
+                <h4 class="modal-title" ng-if="environmentUrl!='lender'">Login  to <span>FundsCorner </span></h4>
+                <h4 class="modal-title" ng-if="environmentUrl=='lender'">Login as Lender</h4>
+            </div>
+            <!--Body-->
+            <div class="registration-footer text-center">
+                <span> New to </span> FundsCorner? <a class="underline" href="#" ng-click="switchToRegister()">Register</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModa3" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <!--<div class="modal-header LoginHeader">
+                <button type="button" class="close" data-dismiss="modal"> <span>  &times; </span></button>
+                <h4 class="modal-title">Co-Applicant </h4>
+                To be filled only in consultation with and after an authorization from the proposed
+            </div>-->
+            <div class="modal-header LoginHeader">
+                <button type="button" class="close" ng-click="reset(validateLogin)" data-dismiss="modal"> <span>  &times; </span></button>
+                <h4 class="modal-title">Login  to <span>FundsCorner </span></h4>
+                <h4 class="modal-title">Login as Lender</h4>
+            </div>
+            <div class="modal-body">
+                <div class="CoApplicantGuarantor">
+                    <form name="personnelModalDetails" novalidate>
+                        <div class="businessDetailsSection">
+                            <div class="businessDetailsTitle">Personal Details</div>
+                            <div class="col-lg-12">
+
+
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput capitalize">
+                                            <label>First Name<span class="spanRequiredStar">*</span></label>
+                                            <input type="text" name="ownerName1" ng-model="personalModalDetails.Person.FirstName"
+                                                   class="form-control" required>
+                                            <span style="color:red"
+                                                  ng-show="(personnelModalDetails.ownerName1.$dirty && personnelModalDetails.ownerName1.$invalid)||personalModalDetails.ShowValidationError">
+                                                <span ng-show="personnelModalDetails.ownerName1.$error.required">First Name is required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput capitalize">
+                                            <label>Middle Name</label>
+                                            <input type="text" name="ownerName1" ng-model="personnelModalDetails.Person.MiddleName"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput capitalize">
+                                            <label>Last Name</label>
+                                            <input type="text" name="ownerName1" ng-model="personalModalDetails.Person.LastName"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput">
+                                            <label>Father's Name<span class="spanRequiredStar">*</span></label>
+                                            <input type="text" name="father1" ng-model="personalModalDetails.Person.FatherName"
+                                                   class="form-control" required>
+                                            <span style="color:red"
+                                                  ng-show="(personnelModalDetails.father1.$dirty && personnelModalDetails.father1.$invalid)||personalModalDetails.ShowValidationError">
+                                                <span ng-show="personnelModalDetails.father1.$error.required">Father's Name is required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput">
+                                            <label>Gender<span class="spanRequiredStar">*</span></label>
+
+                                            <select ng-model="personalModalDetails.Person.Gender" name="gender1" class="form-control" required>
+                                                <option value="" disabled>---Please Select---</option>
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                            </select>
+                                            <span style="color:red"
+                                                  ng-show="(personnelModalDetails.gender1.$dirty && personnelModalDetails.gender1.$invalid)||personalModalDetails.ShowValidationError">
+                                                <span ng-show="personnelModalDetails.gender1.$error.required">Gender is required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput" id="datepickerInput">
+                                            <label>DOB (Enter date like dd-mm-yyyy)<span class="spanRequiredStar">*</span></label>
+
+                                            <p class="input-group">
+                                                <input type="text" class="form-control" uib-datepicker-popup="{{Dateformat}}" name="dob1"
+                                                       ng-model="personalModalDetails.Person.DOB" is-open="popup1.opened" datepicker-options="dateOptions"
+                                                       required max-date="dateOptions" close-text="Close"
+                                                       alt-input-formats="altInputFormats" />
+                                                <span class="input-group-btn">
+                                                    <button tabindex="-1" type="button" class="btn btn-default ColorFont" ng-click="open1()">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </p>
+                                            <span style="color:red"
+                                                  ng-show="(personnelDetails.dob1.$dirty && personnelDetails.dob1.$invalid)|| personalDetails.ShowValidationError">
+                                                <span ng-show="personnelDetails.dob1.$error.required">Date Of Birth is required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--</div>-->
+                                <!--<div class="col-lg-12">-->
+
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput">
+                                            <label>Education Qualification<span class="spanRequiredStar">*</span> </label>
+                                            <select name="qualification1" ng-model="personalModalDetails.Person.FKOwnerQualificationId" class="form-control"
+                                                    required ng-options="data.QualificationId as data.QualificationName for data in qualifications">
+                                                <option value="" disabled>---Please Select---</option>
+                                            </select>
+                                            <span style="color:red"
+                                                  ng-show="(personnelModalDetails.qualification1.$dirty && personnelModalDetails.qualification1.$invalid)||personalModalDetails.ShowValidationError">
+                                                <span ng-show="personnelModalDetails.qualification1.$error.required">Education Qualification is required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <!--ng-show="personalModalDetails.Person.FKOwnerQualificationId==5"-->
+                                    <div class="NameEntity">
+                                        <div class="labelInput capitalize">
+                                            <label>Other Qualification<span class="spanRequiredStar">*</span></label>
+                                            <input type="text" name="othrQualification" ng-model="personalModalDetails.Person.OtherOwnerQualification"
+                                                   class="form-control" ng-required="personalModalDetails.Person.FKOwnerQualificationId==5">
+                                            <span style="color:red"
+                                                  ng-show="(personnelModalDetails.othrQualification.$dirty && personnelModalDetails.othrQualification.$invalid)||personalModalDetails.ShowValidationError">
+                                                <span ng-show="personnelModalDetails.othrQualification.$error.required">Other qualification is required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput">
+                                            <label>Marital Status<span class="spanRequiredStar">*</span></label>
+                                            <select ng-model="personalModalDetails.Person.FKMaritalStatusId" class="form-control" name="marital1"
+                                                    required ng-options="data.MaritalStatusId as data.Name for data in maritalstatus">
+                                                <option value="" disabled>---Please Select---</option>
+                                            </select>
+                                            <span style="color:red"
+                                                  ng-show="(personnelModalDetails.marital1.$dirty && personnelModalDetails.marital1.$invalid)||personalModalDetails.ShowValidationError">
+                                                <span ng-show="personnelModalDetails.marital1.$error.required">Marital Status is required.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput">
+                                            <label>PAN No.<span class="spanRequiredStar">*</span></label>
+                                            <input type="text" name="pan1" ng-model="personalModalDetails.Person.PanNumber"
+                                                   ng-pattern="/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/" class="form-control" ng-blur="ChangeCaseForPersonPAN(personalModalDetails.Person)"
+                                                   required>
+                                            <span style="color:red"
+                                                  ng-show="(personnelModalDetails.pan1.$dirty && personnelModalDetails.pan1.$invalid)||personalModalDetails.ShowValidationError">
+                                                <span ng-show="personnelModalDetails.pan1.$error.required">PAN No. is required.</span>
+                                                <span ng-show="personnelModalDetails.pan1.$error.pattern">Invalid PAN No.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--</div>-->
+                                <!--<div class="col-lg-12">-->
+                                <div class="col-lg-4">
+                                    <div class="NameEntity">
+                                        <div class="labelInput">
+                                            <label>Aadhar No</label>
+                                            <input type="text" numbers-only minlength="12" maxlength="12" name="adhar1"
+                                                   ng-model="personalModalDetails.Person.adhaarCardNumber" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4" ng-if="personalModalDetails.FKBusinessConstitutionId != 2">
+                                    <div class="NameEntity">
+                                        <div class="labelInput">
+                                            <label>Ownership %<span class="spanRequiredStar">*</span></label>
+                                            <input type="text" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?/" name="ownership" ng-model="personalModalDetails.OwnershipPer"
+                                                   class="form-control" ng-required="personalModalDetails.FKBusinessConstitutionId != 2">
+                                            <span style="color:red"
+                                                  ng-show="(personnelModalDetails.ownership.$dirty && personnelModalDetails.ownership.$invalid)||personalModalDetails.ShowValidationError">
+                                                <span ng-show="personnelModalDetails.ownership.$error.required">Ownsership is required</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--</div>-->
+                                <!--<div class="col-lg-12">-->
+                            </div>
+                        </div>
+                        <div class="businessDetailsSection">
+                            <div class="businessDetailsTitle">Personal Contact</div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Residence Address Line 1<span class="spanRequiredStar">*</span></label>
+                                                <input type="text" name="resLine1" ng-model="personalModalDetails.Person.AddressLine1"
+                                                       class="form-control" required>
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.resLine1.$dirty && personnelModalDetails.resLine1.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.resLine1.$error.required">Residence Address Line 1 is required.</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Residence Address Line 2</label>
+                                                <input type="text" name="resLine2" ng-model="personalModalDetails.Person.AddressLine2"
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Landmark</label>
+                                                <input type="text" name="resLine2" ng-model="personalModalDetails.Person.Landmark"
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>PinCode<span class="spanRequiredStar">*</span></label>
+                                                <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="personalPin"
+                                                       ng-model="personalModalDetails.Person.Pincode"
+                                                       ng-change="getDataFromPinForPersonalDetail(personalModalDetails.Person, false)"
+                                                       class="form-control" required>
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.personalPin.$dirty && personnelModalDetails.personalPin.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.personalPin.$error.required && !personalDetails.pinCodeError">PinCode is required</span>
+                                                    <span ng-show="personnelModalDetails.personalPin.$error.pattern">This field is required 6 numbers</span>
+                                                </span>
+                                            </div>
+                                            <div class="errMsg" ng-if="personalDetails.pinCodeError">
+                                                <div>{{personalDetails.pinCodeError}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>City<span class="spanRequiredStar">*</span></label>
+                                                <input type="text" name="personCity1" ng-model="personalModalDetails.Person.CityName" class="form-control" required>
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.personCity1.$dirty && personnelModalDetails.personCity1.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.personCity1.$error.required">City is required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>State<span class="spanRequiredStar">*</span></label>
+                                                <input type="text" name="personState11"
+                                                       ng-model="personalModalDetails.Person.State" ng-readonly="true" class="form-control" required>
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.personState11.$dirty && personnelModalDetails.personState11.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.personState11.$error.required">State is required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Residence phone no.</label>
+                                                <input type="text" ng-model="personalModalDetails.Person.WorkPhone" name="phone1"
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Mobile<span class="spanRequiredStar">*</span></label>
+                                                <div class="BusinessLandline">
+                                                    <span class="numberCord">+91</span>
+                                                    <input type="text" name="perMobile1" ng-model="personalModalDetails.Person.MobilePhone"
+                                                           ng-pattern="/[7-9]{1}\d{9}/" maxlength="10">
+                                                </div>
+
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.perMobile1.$dirty && personnelModalDetails.perMobile1.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.perMobile1.$error.required">Mobile is required.</span>
+                                                    <span ng-show="personnelModalDetails.perMobile1.$error.pattern">Invalid Mobile No.</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Email ID (Personal)<span class="spanRequiredStar">*</span></label>
+                                                <input type="email" name="email1" ng-model="personalModalDetails.Person.EmailId"
+                                                       ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
+                                                       required>
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.email1.$dirty && personnelModalDetails.email1.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.email1.$error.required">Email is required.</span>
+                                                    <span ng-show="personnelModalDetails.email1.$error.pattern">Invalid Email</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Is it owned?</label>
+                                                <select class="form-control" ng-model="personalModalDetails.isOwned">
+                                                    <option value="" disabled>---Please Select---</option>
+                                                    <option value="1">Yes</option>
+                                                    <option value="2">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                    <div class="col-lg-12">
+                                        <div class="NameEntity Permanentboxs">
+                                            <div class="labelInput">
+                                                <input class="Permanentbox" type="checkbox" ng-model="personalModalDetails.Person.Samelocationresidence">
+                                                <label>My Permanent address is same as above address</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-lg-12" ng-if="!personalModalDetails.Person.Samelocationresidence">
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Permanent Address Line 1<span class="spanRequiredStar">*</span></label>
+                                                <input type="text" name="residanceLine1" ng-model="personalModalDetails.Person.AddressLine1_Permanent1"
+                                                       class="form-control"
+                                                       ng-required="personalModalDetails.Person.Samelocationresidence == 0">
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.residanceLine1.$dirty && personnelModalDetails.residanceLine1.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.residanceLine1.$error.required">Residence Address Line 1 is required.</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Permanent Address Line 2</label>
+                                                <input type="text" name="residanceLine2" ng-model="personalModalDetails.Person.AddressLine1_Permanent2"
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>PinCode<span class="spanRequiredStar">*</span></label>
+                                                <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="pin22"
+                                                       ng-model="personalModalDetails.Person.Pin_Permanent"
+                                                       ng-change="getDataFromPinForPersonalDetail(personalModalDetails.Person, true)"
+                                                       class="form-control" ng-required="personalModalDetails.Person.Samelocationresidence == 0">
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.pin22.$dirty && personnelModalDetails.pin22.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.pin22.$error.required && !personalModalDetails.pinCodeError">PinCode is required</span>
+                                                    <span ng-show="personnelModalDetails.pin22.$error.pattern">This field is required 6 numbers</span>
+                                                </span>
+                                            </div>
+                                            <div class="errMsg" ng-if="personalModalDetails.pinCodeError">
+                                                <div>{{personalModalDetails.pinCodeError}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>City<span class="spanRequiredStar">*</span></label>
+                                                <input type="text" name="prsnCity" ng-model="personalModalDetails.Person.City_Permanent" class="form-control"
+                                                       ng-required="personalModalDetails.Person.Samelocationresidence == 0">
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.prsnCity.$dirty && personnelModalDetails.prsnCity.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.prsnCity.$error.required">City is required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>State<span class="spanRequiredStar">*</span></label>
+                                                <input type="text" name="prsnState"
+                                                       ng-model="personalModalDetails.Person.State_Permanent" ng-readonly="true" class="form-control"
+                                                       ng-required="personalModalDetails.Person.Samelocationresidence == 0">
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.prsnState.$dirty && personnelModalDetails.prsnState.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.prsnState.$error.required">State is required</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Permanent address phone no.</label>
+                                                <input type="text" name="residencePhone"
+                                                       ng-model="personalModalDetails.Person.PhoneNumber_Permanent">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Mobile<span class="spanRequiredStar">*</span></label>
+                                                <div class="BusinessLandline">
+                                                    <span class="numberCord">+91</span>
+                                                    <input type="text" maxlength="10" name="perMobile2"
+                                                           ng-model="personalModalDetails.Person.MobilePhone_Permanent"
+                                                           ng-pattern="/[7-9]{1}\d{9}/"
+                                                           ng-required="personalModalDetails.Person.Samelocationresidence == 0">
+                                                </div>
+
+
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.perMobile2.$dirty && personnelModalDetails.perMobile2.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.perMobile2.$error.required">Mobile is required.</span>
+                                                    <span ng-show="personnelModalDetails.perMobile2.$error.pattern">Invalid Mobile No.</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Email ID (Personal)<span class="spanRequiredStar">*</span></label>
+                                                <input type="email" name="email2" ng-model="personalModalDetails.Person.EmailId_Permanent"
+                                                       ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
+                                                       ng-required="personalModalDetails.Person.Samelocationresidence == 0">
+                                                <span style="color:red"
+                                                      ng-show="(personnelModalDetails.email2.$dirty && personnelModalDetails.email2.$invalid)||personalModalDetails.ShowValidationError">
+                                                    <span ng-show="personnelModalDetails.email2.$error.required">Email is required.</span>
+                                                    <span ng-show="personnelModalDetails.email2.$error.pattern">Invalid Email</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="NameEntity">
+                                            <div class="labelInput">
+                                                <label>Is it owned?</label>
+                                                <select ng-model="personalModalDetails.isOwned">
+                                                    <option value="" disabled>---Please Select---</option>
+                                                    <option value="1">Yes</option>
+                                                    <option value="2">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 centerButtonContinue">
+                            <button type="submit"
+                                    ng-click="submitPersonDetails(personalModalDetails,personnelModalDetails.$invalid)" class="btn btn-primary ContinueButton">
+                                Confirm Details
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal ExamplePERSONAL DETAILS end -->
+
+
+<!--Model for delete co-applicant-->
+<div id="deletecoApplicant" class="modal fade deleteApp" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+                <h4 class="modal-title">Do you want to remove this Co Applicant?</h4>
+            </div>
+            <div class="modal-body" id="delForm">
+                <button type="button" class="btn btn-default" ng-click="deleteCoApplicant(coApplicantId, coApplicantIndex)">
+                    Yes
+                </button>
+                <button type="button" class="btn btn-default closeModalButton" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modal end-->
+
+<!--Model for PAN already exist And user want to them or not-->
+<div id="PersonWantUseExistingDetails" class="modal fade person-detail-from-pan-popUp" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="closePersonWantUseExistingDetails()"><span>&times; </span></button>
+                <h4 class="modal-title">Applicant Details are already registered.Use Existing details that are attached with entered PAN?</h4>
+            </div>
+            <div class="modal-body col-sm-offset-5" id="delForm">
+                <button type="button" class="btn btn-default" ng-click="populateDetailsGetFromPan()">
+                    Yes
+                </button>
+                <button type="button" class="btn btn-default closeModalButton" ng-click="closePersonWantUseExistingDetails()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modal end-->
+
+
+
+

@@ -1,0 +1,90 @@
+<div id="myAccount">
+    <div class="loanApplication">
+        <div class="container">
+            <h1 ng-if="loggedInUser.user_type=='borrower'">My Application</h1>
+            <h1 ng-if="loanDetail.display_id && (loggedInUser.user_type=='operator' || loggedInUser.user_type=='KC manager' || loggedInUser.user_type=='channel partner')">Application ID: {{loanDetail.display_id}}</h1>
+
+        </div>
+    </div>
+    <div class="container positionRelative">
+        <div class="dashboardStepper Application">
+            <section>
+                <div class="board">
+                    <!-- Navigation tabs-->
+                    <div class="no-padding  board-inner loanDetailTopBarFix">
+                        <!--fsm-sticky-header scroll-body=".board" scroll-stop='0'-->
+                        <div class="container">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <!--------------------loan details------------------>
+                                <!--<li ui-sref-active="active">
+                                   <button ng-click="ActivateStep('borrower.application.loan_details',true,'step1')" title="Loan Details">
+                                        <span class="round-tabs one {{applicationCompletedTabs.completedStep1}}">
+                                            1
+                                        </span>
+                                    </button>
+                                    <span class="TitledashboardStepper"> Loan Details </span>
+                                    <div class="liner {{applicationTabs.liner1}}"></div>
+                                </li>-->
+                                <!--------------------business details------------------>
+                                <li ui-sref-active="active" class="col-sm-offset-1">
+                                    <button ng-click="ActivateStep('borrower.application.business_details',businessDetailCompleted,'step2')" title="Business Details">
+
+                                        <span class="round-tabs one {{applicationCompletedTabs.completedStep2}}">
+                                            1
+
+                                        </span>
+                                    </button>
+                                    <span class="TitledashboardStepper" ng-show="applicationCompletedTabs.completedStep2=='blueBg'"><b>Business Details</b></span>
+                                    <span class="TitledashboardStepper" ng-hide="applicationCompletedTabs.completedStep2=='blueBg'">Business Details</span>
+                                    <div class="liner {{applicationTabs.liner2}}"></div>
+                                </li>
+                                <!--------------------Personnel/Partner details------------------>
+                                <li ui-sref-active="active">
+                                    <button ng-click="ActivateStep('borrower.application.personal_details',partnerDetailsCompleted,'step3')" title="Personnel/Partner Details">
+
+                                        <span class="round-tabs two {{applicationCompletedTabs.completedStep3}}">
+                                            2
+
+                                        </span>
+                                    </button>
+                                    <span class="TitledashboardStepper" ng-show="applicationCompletedTabs.completedStep3=='blueBg'"><b>Personnel/Partner Details</b></span>
+                                    <span class="TitledashboardStepper" ng-hide="applicationCompletedTabs.completedStep3=='blueBg'">Personnel/Partner Details</span>
+                                    <div class="liner {{applicationTabs.liner3}}"></div>
+                                </li>
+                                <!--------------------reference details------------------>
+                                <li ui-sref-active="active">
+                                    <button ng-click="ActivateStep('borrower.application.references',referenceDtlCompleted,'step4')" title="Reference Details">
+
+                                        <span class="round-tabs three {{applicationCompletedTabs.completedStep4}}">
+                                            3
+
+                                        </span>
+                                    </button>
+                                    <span class="TitledashboardStepper" ng-show="applicationCompletedTabs.completedStep4=='blueBg'"><b>Reference Details</b></span>
+                                    <span class="TitledashboardStepper" ng-hide="applicationCompletedTabs.completedStep4=='blueBg'">Reference Details</span>
+                                    <div class="liner {{applicationTabs.liner4}}"></div>
+                                </li>
+                                <!--------------------Uploads------------------>
+                                <li ui-sref-active="active">
+                                    <button ng-click="ActivateStep('borrower.application.uploads',documentUploadCompleted,'step5')" title="Upload Documents">
+
+                                        <span class="round-tabs four {{applicationCompletedTabs.completedStep5}}">
+                                            4
+
+                                        </span>
+                                    </button>
+                                    <span class="TitledashboardStepper" ng-show="applicationCompletedTabs.completedStep5=='blueBg'"><b>Upload Documents</b></span>
+                                    <span class="TitledashboardStepper" ng-hide="applicationCompletedTabs.completedStep5=='blueBg'">Upload Documents</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div ui-view />
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

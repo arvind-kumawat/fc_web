@@ -1,0 +1,130 @@
+<div>
+    <h3>My Applications</h3>
+    <div uib-alert ng-repeat="notification in notifications" ng-class="'alert-success'" close="hideNotification(notification.id, $index)" ng-if="$index == 0 && notification.status_name == 'loan approved'">{{notification.title}}</div>
+    <div class="lightyellowbg">
+        <div class="lightyellowbgLeft">
+            <button class="md-raised md-primary" ui-sref="borrower.application.business_details({id:''})">
+                <span>Apply for New Loan</span>
+            </button>
+        </div>
+        <div class="text-center lightyellowbgOR"><span>OR</span></div>
+        <div class="lightyellowbgRight">
+            <h1>Continue/Update</h1>
+            <p> with incomplete/complete applications below</p>
+        </div>
+    </div>
+    <!--// list of all loans -->
+    <div class="loandetaildiv" ng-repeat="application in applications | orderBy:'is_assigned_for_offer_acceptance'" ng-class="application.is_assigned_for_offer_acceptance ? 'lenderAccepted' : ''">
+        <div class="loantitle">
+            <div class="listcircle ng-binding">{{$index+1}}</div>
+            <strong>Application ID: </strong>{{application.display_id}} <span class="ng-binding"><strong>Loan Purpose:</strong> {{application.purpose}}</span>
+        </div>
+        <div class="col-lg-3 padding5">
+            <p>Loan Amount</p>
+            <i class="fa fa-rupee"></i> {{application.amount | INR}}
+        </div>
+        <div class="col-lg-3 padding5">
+            <p>Need Loan For</p>
+            {{application.typeOfLoan}} Use
+        </div>
+        <div class="col-lg-3 padding5" ng-if="!application.is_assigned_for_offer_acceptance">
+            <p>Last Updated Date</p>
+            {{application.updatedAt | date:"dd-MM-yy"}}
+        </div>
+        <div class="col-lg-3 padding5" ng-if="application.is_assigned_for_offer_acceptance">
+            <p>Status</p>
+            Approved by Kreditcart
+        </div>
+
+        <div class="col-lg-3 padding5 txt-right" ng-if="!application.is_assigned_for_offer_acceptance && application.status !='borrower-accepted' && application.status !='borrower-rejected'">
+            <p ng-if="!application.is_completed">Continue/ Delete</p>
+            <p ng-if="application.is_completed">Update/ Delete</p>
+            <button ng-if="!application.is_completed" class="continueButton" ng-click="editApplication(application.id, application.is_completed)"><span>Continue</span></button>
+            <button ng-if="application.is_completed" class="continueButton" ng-click="editApplication(application.id, application.is_completed)"><span>Update</span></button>
+            
+            <i class="fa fa-trash" ng-click="openDeleteApplicationModal(application.id,$index)"></i>
+        </div>
+        application.LoanActions:{{application.LoanActions}}
+        <div class="col-lg-3 padding5 txt-right" ng-if="application.is_assigned_for_offer_acceptance && application.status !='borrower-accepted' && application.status !='borrower-rejected'">
+            <p>Offer by Kreditcart</p>
+            <button class="continueButton" ng-click="openRejectOfferModal(application.id, $index)"><span>Reject</span></button>
+            <button class="continueButton" ng-click="openAcceptOfferModal(application.id, $index)"><span>Accept</span></button>
+        </div>
+        <div class="col-lg-3 padding5 txt-right" ng-if="application.status =='borrower-accepted'">
+            <p>Offer by Kreditcart</p>
+            Offer Accepted by you
+        </div>
+        <div class="col-lg-3 padding5 txt-right" ng-if="application.status =='borrower-rejected'">
+            <p>Offer by Kreditcart</p>
+            Offer Rejected by you
+            <button class="continueButton" ng-click="openAcceptOfferModal(application.id, $index)"><span>Accept</span></button>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <ul uib-pagination total-items="totalApplications" ng-model="CurrentPage" items-per-page="applicationPerPage" class="pagination-sm" ng-change="getApplications(CurrentPage)" boundary-links="true"></ul>
+    </div>
+    <div class="col-lg-offset-5 col-lg-2" ng-show="applications.length == 0">
+        Nothing to display
+    </div>
+</div>
+
+
+<!--Model for delete application-->
+<div id="deleteAppBychannelPartner" class="modal fade deleteApp" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header partnerModal colorChng">
+                <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+                <h4 class="modal-title">Are You Sure?</h4>
+
+            </div>
+            <div class="modal-body" id="delForm">
+                <button type="button" class="btn btn-default" ng-click="deleteApplication(currentApplicationId, currentApplicationIndex)">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--modal end-->
+<!--Model for Accept application-->
+<div id="acceptApplicationByChannelPartnerModal" class="modal fade deleteApp" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header partnerModal colorChng">
+                <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+                <h4 class="modal-title">Do you want to accept this offer?</h4>
+
+            </div>
+            <div class="modal-body" id="delForm">
+                <button type="button" class="btn btn-default" ng-click="acceptOffer(offerAcceptedApplicationId, offerAcceptedIndex)">Yes</button>
+                <button type="button" class="btn btn-default closeModalButton" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--modal end-->
+<!--Model for reject application-->
+<div id="rejectApplicationByChannelPartnerModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header partnerModal colorChng">
+                <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+                <h4 class="modal-title">Please give a reason and reject</h4>
+            </div>
+            <div class="modal-body" id="delForm">
+                <div class="formRowLenderRe">
+                    <textarea rows="5" cols="90" name="comments" ng-model="rejectionReason" class="textAreaWidth100Pc" required></textarea>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary" ng-disabled="!rejectionReason" ng-click="rejectOffer(offerRejectedApplicationId, offerRejectedIndex, rejectionReason)">Submit & Reject</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--modal end-->

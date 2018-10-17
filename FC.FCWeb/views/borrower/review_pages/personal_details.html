@@ -1,0 +1,35 @@
+<div role="tabpanel" class="tab-pane" id="personalDetail" ng-show="personalDetails">
+  <div class="loantitlereview" ng-repeat="personalDetail in personalDetails">
+    <h4 class="reviewHeadingTabs" ng-show="personalDetail.detail_for=='self'"> Applicant Details </h4>
+    <h4 class="reviewHeadingTabs" ng-hide="personalDetail.detail_for=='self'"> {{personalDetail.detail_for}} Details </h4>
+    <ul>
+      <li><strong>Gender :</strong> {{personalDetail.gender}} </li>
+      <li><strong>Name :</strong> {{personalDetail.name}}</li>
+      <li><strong>DOB : </strong>{{personalDetail.dob | date:'dd-MM-yyyy'}}</li>
+    </ul>
+    <ul>
+      <li><strong>PAN :</strong> {{personalDetail.pan}} </li>
+      <li><strong>Aadhar no. :</strong>{{personalDetail.aadhar_no}}</li>
+      <li><strong>Education Qualification :</strong>{{personalDetail.qualification}}</li>
+    </ul>
+    <ul>
+      <li><strong>Marital Status:</strong> {{personalDetail.marital_status}}</li>
+      <li><strong>Father's Name:</strong> {{personalDetail.father_name}}</li>
+      <li><strong>No. of Dependents:</strong> {{personalDetail.dependents_count}}</li>
+    </ul>
+    <ul>
+      <li><strong>Category : </strong>{{personalDetail.category}}</li>
+      <li><strong>Residence Address : </strong>{{personalDetail.address_lin1}} {{personalDetail.address_lin2}}</li>
+      <li><strong>PinCode :</strong>{{personalDetail.pin}}</li>
+    </ul>
+    <ul>
+      <li><strong>City : </strong>{{personalDetail.city}}</li>
+      <li><strong>State :</strong>{{personalDetail.state}}</li>
+      <li><strong>Is it owned? : </strong>{{personalDetail.isOwned}}</li>
+    </ul>
+    <ul>
+      <li><strong>Mobile : </strong>{{personalDetail.residence_mobile_number}}</li>
+      <li><strong>Email ID (Personal) :</strong>{{personalDetail.personal_email}}</li>
+    </ul>
+  </div>
+</div>

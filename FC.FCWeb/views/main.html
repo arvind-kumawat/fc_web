@@ -1,0 +1,172 @@
+<div id="header" ng-controller="AuthCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="productSection col-lg-12">
+                <slick class="slider" settings="slickConfig4" ng-if="slickConfig4Loaded">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="workingCapital ">
+                            <span> <img src="../images/workingcapital.png" alt="Mountain View"> </span>
+                            <h3>Online Merchant Loan </h3>
+                            <p>Loan for merchants who sell online</p>
+                        </div>
+                        <div class="applyButton mt-32">
+                            <!--<a ui-sref="borrower.application.business_details({productId:'4'})">Apply</a>-->
+                            <a ng-click="applyNowHome(4)">Apply</a>
+                            <a href="#/products#online-merchant-loans">More Info</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="workingCapital ">
+                            <span> <img src="../images/AssetFinancing.png" alt="working capital"> </span>
+                            <h3>POS/Wallet Merchant Loan</h3>
+                            <p>Loan for merchants using EDC/POS Machines </br>or e-wallets for sales </p>
+                        </div>
+                        <div class="applyButton">
+                            <!--<a ui-sref="borrower.application.business_details({productId:'5'})">Apply</a>-->
+                            <a ng-click="applyNowHome(5)">Apply</a>
+                            <a href="#/products#pos-merchant-loans">More Info</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="workingCapital ">
+                            <span> <img src="../images/Discounting.png" alt="Mountain View"> </span>
+                            <h3>Purchase Order Loan</h3>
+                            <p>Loan for merchants to purchase inventory</p>
+                        </div>
+                        <div class="applyButton mt-32">
+                            <!--<a ui-sref="borrower.application.business_details({productId:'15'})">Apply</a>-->
+                            <a ng-click="applyNowHome(15)">Apply</a>
+                            <a href="#/products#purchase-order-loans">More Info</a>
+                        </div>
+                    </div>
+                    <!--<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="workingCapital ">
+                            <span> <img src="../images/Discounting.png" alt="Mountain View"> </span>
+                            <h3>Travel Agent</h3>
+                            <p>Loan for Travel Agent</p>
+                        </div>
+                        <div class="applyButton mt-32">
+                            <a ui-sref="borrower.application.business_details({productId:'13'})">Apply</a>
+                            <a href="#/products#purchase-order-loans">More Info</a>
+                        </div>
+                    </div>-->
+
+                </slick>
+
+            </div>
+            <!--  <div class="col-lg-3">
+                <div class="proceed">
+                   <div class="getYour">Get Your Loan Approved in as less as 10 mins</div>
+                   <h2>Amount I Require?</h2>
+                   <div class="proceedRs">
+                      <span class="proceedRsLeft"> <i class="fa fa-inr" aria-hidden="true"></i>
+                      <span class="sliderProducts"><input type="number" ng-model="sliderValue" /></span>  </span>
+                      <span class="proceedRsRight"><i class="fa fa-inr" aria-hidden="true"></i>  <span>  {{sliderValue | amount}} </span></span>
+                   </div>
+                   <div class="silder">
+                     <slider id="amountSlider" ng-model="sliderValue" min="30000" max="2000000" step="1000"></slider>
+                   </div>
+                  <div class="Proceed"> <a href="#"> Proceed </a></div>
+                </div>
+             </div> -->
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="ourProcess">
+        <h1 id="ourProcess">Simple Application Process</h1>
+        <p>Online Loan Approval in 4 Hours and Disbursement in 72 Hours</p>
+        <div class="col-lg-12 extra-padding">
+            <slick class="slider" settings="slickConfig3" ng-if="slickConfig3Loaded">
+                <div class="col-lg-3">
+                    <div class="Apply">
+                        <div class="applyIcons"> <img src="../images/Apply-icons.png" alt="Mountain View"> </div>
+                        <h1>Apply </h1>
+                        <p>Fill application form in 10 minutes</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="Apply">
+                        <div class="applyIcons"> <img src="../images/Upload-icons.png" alt="Mountain View"> </div>
+                        <h1>Upload </h1>
+                        <p>Upload documents digitally</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="Apply">
+                        <div class="applyIcons"> <img src="../images/Approval-icons.png" alt="Mountain View"> </div>
+                        <h1>Approval</h1>
+                        <p>Receive online approval in 4 hours</p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="Apply ">
+                        <div class="applyIcons Disbursal"> <img src="../images/Disbursal-icons.png" alt="Mountain View"> </div>
+                        <h1>Disbursal </h1>
+                        <p>Get Funds in 72 hours</p>
+                    </div>
+                </div>
+            </slick>
+        </div>
+    </div>
+</div>
+<div class="whyKreditcart">
+    <div class="ourProcess">
+        <div class="container">
+            <h1> Why FundsCorner?</h1>
+            <div class="col-lg-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="Secure">
+                        <div class="SecureIcons"><img src="../images/Secure-icons.png" alt="Mountain View"></div>
+                        <h1> Secure</h1>
+                        <p>Information is 100% safe</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="Secure">
+                        <div class="SecureIcons"><img src="../images/mobile.png" alt="Mountain View"></div>
+                        <h1>Online</h1>
+                        <p>Apply from anywhere anytime</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="Secure">
+                        <div class="SecureIcons"><img src="../images/magnifying.png" alt="Mountain View"></div>
+                        <h1> Transparent</h1>
+                        <p>No Hidden Charges</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 padding-bottom">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="Secure">
+                        <div class="SecureIcons">  <img src="../images/Fast-icons.png" alt="Mountain View"></div>
+                        <h1> Fast</h1>
+                        <p>Disbursement in 72 hours</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="Secure">
+                        <div class="SecureIcons">  <img src="../images/Paperless-icons.png" alt="Mountain View"></div>
+                        <h1>Easy</h1>
+                        <p>Minimal information. Takes less than 10 minutes to apply.</p>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="Secure">
+                        <div class="SecureIcons">  <img src="../images/CollateralFree-icons.png" alt="Mountain View"></div>
+                        <h1>Collateral Free</h1>
+                        <p>No Collaterals Required</p>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+

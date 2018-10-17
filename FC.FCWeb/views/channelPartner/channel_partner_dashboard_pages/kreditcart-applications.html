@@ -1,0 +1,68 @@
+<div id="lenderadmin">
+
+    <div class="loandetaildiv" ng-repeat="application in applications">
+      <div class="loantitle">
+        <ul>
+          <li><strong>Name : {{application.application.user.fullname}} </strong> </li>
+          <li ng-if="application.application.user.phone"><strong>Mobile No :  {{application.application.user.phone}}</strong> </li>
+          <li><strong>Email :  {{application.application.user.email}}</strong></li>
+        </ul>
+      </div>
+      <div class="loandetaildivStatus">
+        <ul>
+          <li>
+            <p>S.No.</p>
+          </li>
+          <li>
+            <p>Application No.</p>
+          </li>
+          <li>
+            <p>Amount</p>
+          </li>
+          <li>
+            <p>Actions</p>
+          </li>
+        </ul>
+        <ul class="loandetaildivStatusApplicationStatus">
+          <li>{{$index+1}}</li>
+          <li>{{application.application.display_id}}</li>
+          <li>{{application.application.amount}}</li>
+           <li>
+             <div class="rejectionIcons">
+                 <a ui-sref="borrower.application.business_details({id:application.application.id})" target="_blank"><img src="/images/completeAppIcon.png" alt="Complete this Application" /> <div class="btn btn-primary posBtnOpen">Complete this Application<b></b></div> </a>
+               <a ui-sref="application.review.loan_details({id:application.application.id})" target="_blank"><img src="/images/viewIcon.png" alt="View"/> <div class="btn btn-primary posBtnOpen">View<b></b></div></a>
+               <a ng-click="openCloseModal($index, application.application.id)"><img src="/images/closeIcon.png" alt="Close"/> <div class="btn btn-danger posBtnOpen">Close<b></b></div>  </a>
+             </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="noAppFound" ng-show="applications.length ==0">
+      <span>No applications found</span>
+    </div>
+
+    <ul uib-pagination total-items="totalApplications" ng-model="currentPage" items-per-page="applicationPerPage"
+        class="pagination-sm" ng-change="getApplications(currentPage)" boundary-links="true">
+    </ul>
+
+</div>
+
+<!--Model for close application-->
+<div id="closeApplicationsByChannelPartner" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Do you want to close this application?</h4>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="closeApplication(applicationIndex, applicationId)">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default closeModalButton" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal end-->

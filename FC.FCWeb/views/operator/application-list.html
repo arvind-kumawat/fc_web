@@ -1,0 +1,822 @@
+<div id="lenderadmin">
+  <div class="container">
+    <!----------------FILTERS START------------------------->
+    <div class="fullDivWidthLender" ng-init="isOpen = false">
+      <div class="panel panel-info applicationFilterPanel">
+        <div class="panel-heading" ng-click="openFilter(isOpen);isOpen=!isOpen">
+          <h3 class="panel-title" >Filters</h3>
+        </div>
+     <form ng-submit="applyFilters()">
+        <div class="panel-body">
+          <!--panel body start-->
+
+          <div class="col-lg-12">
+
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Application ID</label>
+                  <input type="text" name="application_id" ng-model="filters.application_id" class="form-control" placeholder="Application ID">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Name of applicant</label>
+                  <input type="text" name="applicant_name" ng-model="filters.applicant_name" class="form-control" placeholder="Applicant Name">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>City of applicant</label>
+                  <input type="text" name="applicant_city" ng-model="filters.applicant_city" class="form-control" placeholder="Applicant City">
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Channel partner</label>
+                  <select ui-select2="select2Options" multiple ng-model="filters.assignedChannelPartners" data-placeholder="Select Channel Partner">
+                    <option ng-repeat="channelPartner in channelPartners" value="{{channelPartner.id}}">{{channelPartner.fullname}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-12 centerButtonContinue">
+            <button type="submit"  class="btn btn-primary ContinueButton">Apply Filters</button>
+          </div>
+
+          <!--panel body end-->
+        </div>
+     </form>
+      </div>
+      <div class="fullDivWidthLender resetFiltersBtn">
+        <a href="#" ng-click="resetAllFilters()">Reset All Filters</a>
+      </div>
+    </div>
+  </div>
+
+    <!----------------FILTERS END ------------------------->
+
+    <div class="fullDivWidthLender changeUiLenderJan">
+      <uib-tabset active="active" class="operatorApplicationstab">
+
+        <uib-tab index="0" heading="Incomplete Applications" select="getApplications(1, 'incomplete', 'fromTab')" class="{{activateTabs.incompleteTab}}">
+          <div class="loandetaildiv  marginleftright" ng-repeat="application in incompleteApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan / Entity / City</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Assign to Channel Partner</p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li ><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}} / {{application.business_details[0].entity_name ? application.business_details[0].entity_name : 'NA'}} / {{application.personal_details[0].city ? application.personal_details[0].city : 'NA'}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  <select ui-select2="select2Options" multiple ng-model="application.selectedChannelPartners" data-placeholder="Select Channel Partner" ng-change="selectChannelPartner(application.selectedChannelPartners, application.id, 'incomplete')">
+                    <option ng-repeat="channelPartner in channelPartners" value="{{channelPartner.id}}">{{channelPartner.fullname}}</option>
+                  </select>
+                </li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                      <a ui-sref="borrower.application.business_details({id:application.id})" target="_blank"><img src="/images/completeAppIcon.png" alt="Complete this Application" /> <div class="btn btn-primary posBtnOpen">Complete this Application<b></b></div> </a>
+                    <a ui-sref="application.review.loan_details({id:application.id})" target="_blank"><img src="/images/viewIcon.png" alt="View"/> <div class="btn btn-primary posBtnOpen">View<b></b></div></a>
+                    <a ng-click="openCloseModal($index, application.id, 'incomplete')"><img src="/images/closeIcon.png" alt="Close"/> <div class="btn btn-danger posBtnOpen">Close<b></b></div>  </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="incompleteCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(incompleteCurrentPage, 'incomplete')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="1" heading="Submitted Applications" select="getApplications(1, 'submitted', 'fromTab')" class="{{activateTabs.completeTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in submittedApplications">
+            <div class="loandetaildivStatus AssignLenders alignTabingSomeCntnt">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type 0f Loan/Entity Name /City / Score</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Recommended Lenders and Channel Partners </p></li>
+                <li><p><a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                  <span>
+                    <a class="sortByDateLink"  ng-click="applyFilters('sortBySubmittedDate')">Submitted</a>
+                     <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortBySubmittedDate == 'DESC'"></i>
+                     <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortBySubmittedDate == 'ASC'"></i>
+                  </span></p></li>
+                <li><p>Next Action</p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}} /  {{application.business_details[0].entity_name ? application.business_details[0].entity_name : 'NA'}}  /  {{application.personal_details[0].city ? application.personal_details[0].city : 'NA'}}  /  {{application.score}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  <button ng-class="application.score && application.is_all_docs_verified && !application.is_lenders_assigned ? 'thisIsNextAction' : ''" ng-click="openRecommendedLendersModal(application.id, application.isTotalAmountApproved)" ng-disabled="!application.score || !application.is_all_docs_verified"><img src="/images/showLenderIcon.png" alt="Show Lenders"/> <div class="btn btn-primary posBtnOpen">Show Lenders<b></b></div><div class="bouncingArrowDiv"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></div></button><br>
+                  <select ui-select2="select2Options" multiple ng-model="application.selectedChannelPartners">
+                    <option ng-repeat="channelPartner in channelPartners" value="{{channelPartner.id}}">{{channelPartner.fullname}}</option>
+                  </select>
+                </li>
+                <li><strong>{{application.updatedAt | date:'dd-MM-yyyy'}}</strong>  <strong>{{application.submittedAt | date:'dd-MM-yyyy'}}</strong></li>
+                 <li>
+                   <span ng-show="application.score && application.is_all_docs_verified && application.is_lenders_assigned">Submit for approval</span>
+                   <span ng-show="application.score && application.is_all_docs_verified && !application.is_lenders_assigned">Assign lenders</span>
+                   <span ng-show="application.score && !application.is_all_docs_verified && !application.is_lenders_assigned">Verify documents</span>
+                   <span ng-show="!application.score && !application.is_all_docs_verified && !application.is_lenders_assigned">Add score</span>
+                 </li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ng-class="!application.score && !application.is_all_docs_verified && !application.is_lenders_assigned ? 'thisIsNextAction' : ''" ng-hide="application.score && application.score >0" ui-sref="operator.applicationScore({id:application.id})" target="_blank"><img src="/images/addScoreImg.png" alt="Add Score"/> <div class="btn btn-primary posBtnOpen">Add Score<b></b></div><div class="bouncingArrowDiv"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></div></a>
+                    <a ng-class="!application.score && !application.is_all_docs_verified && !application.is_lenders_assigned ? 'thisIsNextAction' : ''" ng-show="application.score && application.score >0" ui-sref="operator.applicationScore({id:application.id})" target="_blank"><img src="/images/reviewIcon.png" alt="Review/ Edit Score"/> <div class="btn btn-primary posBtnOpen">Review/ Edit Score<b></b></div><div class="bouncingArrowDiv"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></div></a>
+                    <a ng-class="application.score && !application.is_all_docs_verified && !application.is_lenders_assigned ? 'thisIsNextAction' : ''" ng-disabled="!application.score" ui-sref="application.review.documents({id:application.id})" target="_blank"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div><div class="bouncingArrowDiv"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></div></a>
+                    <a ui-sref="borrower.application.uploads({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/uploadDocsIcon.png" alt="Upload Docs"/> <div class="btn btn-primary posBtnOpen">Upload Docs<b></b></div> <div class="bouncingArrowDiv"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></div> </a>
+                    <button ng-class="application.score && application.is_all_docs_verified && application.is_lenders_assigned ? 'thisIsNextAction' : ''" ng-click="openSubmitForApprovalModal($index, application.id, 'submitted')" ng-disabled="!application.score || !application.is_all_docs_verified || !application.is_lenders_assigned"><img src="/images/submitApprovalIcon.png" alt="Submit for approval"/> <div class="btn btn-primary posBtnOpen">Submit for approval<b></b></div><div class="bouncingArrowDiv"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></div></button>
+                    <a ng-click="openCloseModal($index, application.id, 'submitted')"> <img src="/images/closeIcon.png" alt="Close"/> <div class="btn btn-danger posBtnOpen">Close<b></b></div> <div class="bouncingArrowDiv"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></div></a>
+                    <button ng-click="openRejectModal($index, application.id, 'submitted')"><img src="/images/rejectIcon.png" alt="Reject"/> <div class="btn btn-danger posBtnOpen">Reject<b></b></div><div class="bouncingArrowDiv"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></div></button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="submittedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(submittedCurrentPage, 'submitted')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="2" ng-if="isLoggedIn && loggedInUser.user_type=='KC manager'" heading="Processed Applications" select="getApplications(1, 'processed', 'fromTab')" class="{{activateTabs.processedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in processedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Recommended Lenders </p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  <button ng-click="openRecommendedLendersModal(application.id, application.isTotalAmountApproved)"><img src="/images/showLenderIcon.png" alt="Show Lenders"/> <div class="btn btn-primary posBtnOpen">Show Lenders<b></b></div></button>
+                </li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ng-hide="application.score && application.score >0" ui-sref="operator.applicationScore({id:application.id})" target="_blank"><img src="/images/addScoreImg.png" alt="Add Score"/> <div class="btn btn-primary posBtnOpen">Add Score<b></b></div></a>
+                    <a ng-show="application.score && application.score >0" ui-sref="operator.applicationScore({id:application.id})" ng-class="application.score && application.score >0 ? 'score_updated' : ''" target="_blank"><img src="/images/reviewIcon.png" alt="Review/ Edit Score"/> <div class="btn btn-primary posBtnOpen">Review/ Edit Score<b></b></div></a>
+                    <a ui-sref="application.review.documents({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                    <button ng-click="openResendToOperatorModal($index, application.id, 'processed')"><img src="/images/resendIcon.png" alt="Resend to Operator"/> <div class="btn btn-primary posBtnOpen">Resend to Operator<b></b></div></button>
+                    <button ng-click="openRejectModal($index, application.id, 'processed')"><img src="/images/rejectIcon.png" alt="Reject"/> <div class="btn btn-primary posBtnOpen">Reject<b></b></div></button>
+                    <button ng-click="openApprovedModal($index, application.id, 'processed')"><img src="/images/approveIcon.png" alt="Approve"/> <div class="btn btn-primary posBtnOpen">Approve<b></b></div></button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="processedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(processedCurrentPage, 'processed')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="7" ng-if="isLoggedIn && loggedInUser.user_type=='operator'" heading="Pending Applications with KC Manager" select="getApplications(1, 'reminders', 'fromTab')" class="{{activateTabs.remindersTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in remindersApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>KC Manager name / Phone </p></li>
+                <li><p>Assigned Date</p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  Kreditcart Manager / 9999999999
+                </li>
+                <li>{{application.kc_manager_assigned_date | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <button ng-click="changeApplicationStatus(application.id, 'processed', 'reminders', remindersCurrentPage)"><img src="/images/remindIcon.png" alt="Remind"/> <div class="btn btn-primary posBtnOpen">Remind<b></b></div></button>
+                    <a ui-sref="application.review.documents({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="remindersCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(remindersCurrentPage, 'reminders')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="6" ng-if="isLoggedIn && loggedInUser.user_type=='operator'" heading="Rejected by Kreditcart" select="getApplications(1, 'rejected', 'fromTab')" class="{{activateTabs.rejectedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in rejectedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByCreateDate')">Created</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByCreateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByCreateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>{{application.createdAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ui-sref="application.review.loan_details({id:application.id})" target="_blank"><img src="/images/viewIcon.png" alt="View"/> <div class="btn btn-primary posBtnOpen">View<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="rejectedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(rejectedCurrentPage, 'rejected')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="3" heading="Approved by lender" select="getLenderApprovedRejectApplications(1, 'lender-approved', 'fromTab')" class="{{activateTabs.lenderApprovedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in lenderApprovedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of Loan </p></li>
+                <li><p>Lender Name - Product Name</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.application.id, application.application.display_id)">{{application.application.display_id}}</a></li>
+                <li>{{application.application.typeOfLoan}}</li>
+                <li>{{application.display_name}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>{{application.application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <button ng-click="openRecommendedLendersModal(application.application.id, application.application.isTotalAmountApproved)"><img src="/images/showLenderIcon.png" alt="Show Lenders"/> <div class="btn btn-primary posBtnOpen">Show Lenders<b></b></div></button>
+                    <a ui-sref="application.review.loan_details({id:application.application.id})" target="_blank"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="lenderApprovedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(lenderApprovedCurrentPage, 'lender-approved')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="4" heading="Rejected by lender" select="getLenderApprovedRejectApplications(1, 'lender-rejected', 'fromTab')" class="{{activateTabs.lenderRejectedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in lenderRejectedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of Loan </p></li>
+                <li><p>Lender Name - Product Name</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Reason</p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.application.id, application.application.display_id)">{{application.application.display_id}}</a></li>
+                <li>{{application.application.typeOfLoan}}</li>
+                <li>{{application.display_name}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>{{application.reason_for_rejection}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ui-sref="application.review.loan_details({id:application.application.id})" target="_blank"><img src="/images/reviewDocIcon.png" alt="Review App"/> <div class="btn btn-primary posBtnOpen">Review App<b></b></div></a>
+                    <a ng-click="openCloseModal($index, application.id, 'incomplete')"> <img src="/images/closeIcon.png" alt="Close"/> <div class="btn btn-danger posBtnOpen">Close<b></b></div> </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="lenderRejectedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(lenderRejectedCurrentPage, 'lender-rejected')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="8"  heading="Partial Lender Approval" select="getApplications(1, 'amount-modified', 'fromTab')" class="{{activateTabs.amountModifiedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in amountModifiedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Re-assign Lenders </p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  <button ng-click="openRecommendedLendersModal(application.id, application.isTotalAmountApproved)"><img src="/images/showLenderIcon.png" alt="Show Lenders"/> <div class="btn btn-primary posBtnOpen">Show Lenders<b></b></div></button>
+                </li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ui-sref="application.review.documents({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="amountModifiedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(amountModifiedCurrentPage, 'amount-modified')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="9"  heading="Ready for Borrower Acceptance" select="getApplications(1, 'total-amount-approved', 'fromTab')" class="{{activateTabs.totalAmountApprovedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in totalAmountApprovedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Show All Lenders </p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  <button ng-click="openRecommendedLendersModal(application.id, application.isTotalAmountApproved)"><img src="/images/showLenderIcon.png" alt="Show Lenders"/> <div class="btn btn-primary posBtnOpen">Show Lenders<b></b></div></button>
+                </li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <button ng-click="openAssignedToBorrowerForOfferAcceptanceModal(application.id, $index)" ng-class="application.is_assigned_for_offer_acceptance ? 'assignedToBorrowerForOfferAcceptance' : ''" ng-disabled = 'application.is_assigned_for_offer_acceptance'><img src="/images/remindIcon.png" alt="Notify Approval To Borrower"/> <div class="btn btn-primary posBtnOpen">Notify Approval to Borrower<b></b></div></button>
+                    <a ui-sref="application.review.documents({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="totalAmountApprovedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(totalAmountApprovedCurrentPage, 'total-amount-approved')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="10"  heading="Assigned to borrower" select="getApplications(1, 'assigned-to-borrower', 'fromTab')" class="{{activateTabs.assignedToBorrowerTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in assignedToBorrowerApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Show All Lenders </p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  <button ng-click="openRecommendedLendersModal(application.id, application.isTotalAmountApproved)"><img src="/images/showLenderIcon.png" alt="Show Lenders"/> <div class="btn btn-primary posBtnOpen">Show Lenders<b></b></div></button>
+                </li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <button  ng-click="openAssignedToBorrowerForOfferAcceptanceModal(application.id, $index, 'notification')" ng-show="application.is_assigned_for_offer_acceptance"><img src="/images/remindIcon.png" alt="Send Notification to Borrower"/> <div class="btn btn-primary posBtnOpen">Send Notification to Borrower<b></b></div></button>
+                    <a ui-sref="application.review.documents({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="assignedToBorrowerCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(assignedToBorrowerCurrentPage, 'assigned-to-borrower')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="11"  heading="Accepted by borrower" select="getApplications(1, 'borrower-accepted', 'fromTab')" class="{{activateTabs.borrowerAcceptedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in borrowerAcceptedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Lenders </p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  <button ng-click="openRecommendedLendersModal(application.id, application.isTotalAmountApproved)"><img src="/images/showLenderIcon.png" alt="Show Lenders"/> <div class="btn btn-primary posBtnOpen">Show Lenders<b></b></div></button>
+                </li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ui-sref="application.review.documents({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="borrowerAcceptedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(borrowerAcceptedCurrentPage, 'borrower-accepted')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="12"  heading="Rejected by borrower" select="getApplications(1, 'borrower-rejected', 'fromTab')" class="{{activateTabs.borrowerRejectedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in borrowerRejectedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>Lenders </p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>
+                  <button ng-click="openRecommendedLendersModal(application.id, application.isTotalAmountApproved)"><img src="/images/showLenderIcon.png" alt="Show Lenders"/> <div class="btn btn-primary posBtnOpen">Show Lenders<b></b></div></button>
+                </li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ui-sref="application.review.documents({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="borrowerRejectedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(borrowerRejectedCurrentPage, 'borrower-rejected')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="13" ng-if="isLoggedIn && loggedInUser.user_type=='operator'" heading="Approval Expired" select="getApplications(1, 'approval-expired', 'fromTab')" class="{{activateTabs.approvalExpiredTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in approvalExpiredApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByCreateDate')">Created</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByCreateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByCreateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Assigned Date</p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>{{application.createdAt | date:'dd-MM-yyyy'}}</li>
+                <li>{{application.borrowerAssignedAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ui-sref="application.review.documents({id:application.id})" target="_blank" ng-class="application.is_all_docs_verified ? 'all_docs_verified' : ''"><img src="/images/reviewDocIcon.png" alt="Review Docs/App"/> <div class="btn btn-primary posBtnOpen">Review Docs/App<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="approvalExpiredCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(approvalExpiredCurrentPage, 'approval-expired')" boundary-links="true"></ul>
+        </uib-tab>
+
+        <uib-tab index="5" heading="Closed Applications" select="getApplications(1, 'closed', 'fromTab')" class="{{activateTabs.closedTab}}">
+          <div class="loandetaildiv marginleftright" ng-repeat="application in closedApplications">
+            <div class="loandetaildivStatus AssignLenders">
+              <ul>
+                <li><p>Application ID</p></li>
+                <li><p>Type of loan</p></li>
+                <li><p>Loan Amount</p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByUpdateDate')">Last Updated</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByUpdateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>
+                  <a class="sortByDateLink"  ng-click="applyFilters('sortByCreateDate')">Created</a>
+                  <i class="fa fa-sort-desc" aria-hidden="true" ng-show="filters.sortByCreateDate == 'DESC'"></i>
+                  <i class="fa fa-sort-asc" aria-hidden="true" ng-show="filters.sortByCreateDate == 'ASC'"></i>
+                </p></li>
+                <li><p>Actions</p></li>
+              </ul>
+              <ul class="loandetaildivStatusApplicationStatus">
+                <li><a href="#" ng-click="openPersonalDiscussionChatBox(application.id, application.display_id)">{{application.display_id}}</a></li>
+                <li>{{application.typeOfLoan}}</li>
+                <li><i class="fa fa-inr" aria-hidden="true"></i> {{application.amount | INR}}</li>
+                <li>{{application.updatedAt | date:'dd-MM-yyyy'}}</li>
+                <li>{{application.createdAt | date:'dd-MM-yyyy'}}</li>
+                <li>
+                  <div class="rejectionIcons">
+                    <a ui-sref="application.review.loan_details({id:application.id})" target="_blank"><img src="/images/viewIcon.png" alt="View"/> <div class="btn btn-primary posBtnOpen">View<b></b></div></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ul uib-pagination total-items="totalApplications" ng-model="closedCurrentPage" items-per-page="applicationPerPage"
+              class="pagination-sm" ng-change="getApplications(closedCurrentPage, 'closed')" boundary-links="true"></ul>
+        </uib-tab>
+
+      </uib-tabset>
+    </div>
+
+</div>
+
+<!--Model for delete application-->
+<div id="recommendedLender" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Recommended Lenders</h4>
+      </div>
+      <div class="modal-body lenderSelect">
+        <form name="lenderRecommended" novalidate>
+        <div class="someInfoApplication">
+          <h4>Grade {{currentApplicationGrade}} application  ({{currentApplicationDisplayId}})</h4>
+          <h5>Total Loan Amount : <span>{{currentApplicationAmount}}</span></h5>
+          <h5>Loan Type : <span>{{currentApplicationTypeOfLoan}}</span></h5>
+          <h5>Application Score : <span>{{currentApplicationScore>100 ? 100 : currentApplicationScore}}</span></h5>
+        </div>
+        <div class="lenderTableRow">
+          <ul class="firstHeadUl">
+            <li>Assigned</li>
+            <li>Lender with product name</li>
+            <li ng-if="currentApplicationStatus == 'KC-approved'">Status</li>
+            <li>Tenure</li>
+            <li>Pf</li>
+            <li>ROI</li>
+            <li>Amount</li>
+          </ul>
+
+          <ul ng-repeat="recommendedLender in recommendedLendersWithData">
+            <li><input type="checkbox" ng-model="recommendedLender.isAssigned" ng-change="sumAssignedAmount($index)" ng-disabled="recommendedLender.lender_status == 'lender-approved'"/></li>
+            <li>{{recommendedLender.display_name}}</li>
+            <li ng-if="currentApplicationStatus == 'KC-approved'">
+              <span ng-if="currentApplicationStatus == 'KC-approved' && recommendedLender.lender_status == 'lender-approved'">Approved</span>
+              <span ng-if="currentApplicationStatus == 'KC-approved' && recommendedLender.lender_status == 'lender-rejected'">Rejected</span>
+            </li>
+            <li><input type="number" ng-model="recommendedLender.tenure" name="tenure{{$index}}" ng-required="recommendedLender.isAssigned" ng-disabled="!recommendedLender.isAssigned || recommendedLender.lender_status == 'lender-approved'"/></li>
+            <li><input type="number" ng-model="recommendedLender.PF" name="PF{{$index}}" ng-required="recommendedLender.isAssigned" ng-disabled="!recommendedLender.isAssigned || recommendedLender.lender_status == 'lender-approved'"/></li>
+            <li><input type="number" ng-model="recommendedLender.ROI" name="ROI{{$index}}" ng-required="recommendedLender.isAssigned" ng-disabled="!recommendedLender.isAssigned || recommendedLender.lender_status == 'lender-approved'"/></li>
+            <li><input type="number" ng-model="recommendedLender.amount" name="amount{{$index}}" ng-change="sumAssignedAmount($index)" ng-required="recommendedLender.isAssigned" ng-disabled="!recommendedLender.isAssigned || recommendedLender.lender_status == 'lender-approved'"/></li>
+          </ul>
+        </div>
+        <div class="someInfoApplication">
+          <h5>Total Assigned Amount : <span>{{totalAssignedAmount}}  (Approved amount can not be change)</span></h5>
+          <div class="formColLenderRe">
+            <input type="submit" id="loanSubmit" ng-click="assignThisLender(recommendedLendersWithData)" ng-show="!showLendersTotalAmountApproved" ng-disabled="lenderRecommended.$invalid"/>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal end-->
+
+<!--Model for close application-->
+<div id="closeApplications" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Do you want to close this application?</h4>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="closeApplication(applicationIndex, applicationId, tabName)">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default closeModalButton" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal end-->
+
+<!-----------------------CHAT  BOX------------------------------>
+
+<div class="popup-box chat-popup" id="qnimate" ng-class="chatBoxOpened ? 'popup-box-on' : ''"><!--popup-box-on-->
+  <div class="popup-head">
+    <div class="popup-head-left pull-left">{{personalDiscussionApplicationDisplayId}}</div>
+    <div class="popup-head-right pull-right">
+      <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button" ng-click="chatBoxOpened=false"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <div class="popup-messages" id="popup-messages">
+    <div id="ppmsgHeight">
+
+    <div class="direct-chat-messages"  ng-repeat="personalDiscussion in personalDiscussionData" >
+
+      <div class="chat-box-single-line">
+        <abbr class="timestamp">{{personalDiscussion.createdAt | date :  "dd.MM.y"}}</abbr>
+      </div>
+      <!-- Message. Default to the left -->
+      <div class="direct-chat-msg doted-border">
+        <div class="direct-chat-info clearfix">
+          <span class="direct-chat-name pull-left">{{personalDiscussion.name_of_sender}}</span>
+        </div>
+        <!-- /.direct-chat-info -->
+        <div class="direct-chat-text">
+         {{personalDiscussion.text}}
+        </div>
+        <div class="direct-chat-info clearfix">
+          <span class="direct-chat-timestamp pull-right">{{personalDiscussion.createdAt | date :  "h:mm:a"}}</span>
+        </div>
+        <div class="direct-chat-info clearfix">
+						<span class="direct-chat-img-reply-small pull-left">
+						</span>
+        </div>
+        <!-- /.direct-chat-text -->
+      </div>
+
+    </div>
+      </div>
+  </div>
+  <div class="popup-messages-footer">
+    <textarea class="textAreaWidth100Pc" id="status_message" ng-enter="savePersonalDiscussion(personal_discussion, personalDiscussionApplicationId)" placeholder="Type a message..." rows="10" cols="40" name="message" ng-model="$parent.personal_discussion.text"></textarea>
+    <div class="btn-footer">
+      <button class="bg_none" ng-click="savePersonalDiscussion(personal_discussion, personalDiscussionApplicationId)"><i class="fa fa-paper-plane" aria-hidden="true"></i> </button>
+    </div>
+  </div>
+</div>
+
+
+<!--Model for add rejection reason-->
+<div id="rejectionReasonByOperatorModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Please give a reason and reject </h4>
+      </div>
+      <div class="modal-body lenderSelect">
+        <form name="rejectionReasonForm" class="lenderRecommendedForm" novalidate>
+          <div class="formRowLenderRe">
+            <textarea class="textAreaWidth100Pc" rows="5" cols="90" name="comments" ng-model="rejectionReason"  required></textarea>
+          </div>
+
+          <div class="formRowLenderRe">
+            <div>
+              <button type="button" class="btn btn-primary" id="loanSubmit" ng-click="rejectApplication(applicationIndex, applicationId, tabName, rejectionReason)" ng-disabled="rejectionReasonForm.$invalid">Submit & Reject</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--modal end-->
+
+
+<!--Model for close application-->
+<div id="submitForApprovalModal" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Do you want to assign this application to KC manager?</h4>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="submitForApproval(applicationIndex, applicationId, tabName)">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default closeModalButton" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal end-->
+
+<!--Model for close application-->
+<div id="approvedModal" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Do you want to approve this application?</h4>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="approveApplication(applicationIndex, applicationId, tabName)">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default closeModalButton"  data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal end-->
+
+
+<!--Model for close application-->
+<div id="resendToOperatorModal" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Do you want to return this application to operator?</h4>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="resendToOperator(applicationIndex, applicationId, tabName)">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default closeModalButton" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal end-->
+
+
+<!--Model for close application-->
+<div id="assignedToBorrowerForOfferAcceptance" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title" ng-if="!assignmentType">Do you want to assign this application to borrower?</h4>
+        <h4 class="modal-title" ng-if="assignmentType">Send notification to borrower?</h4>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="assignedToBorrowerForOfferAcceptance(applicationIndex, applicationId, assignmentType)">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default closeModalButton" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal end-->

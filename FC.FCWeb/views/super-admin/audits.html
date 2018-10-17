@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="dataTables">
+    <div class="row">
+     <div class="col-lg-5">
+      <div class="NameEntity">
+        <div class="labelInput" id="datepickerInput">
+          <label>From</label>
+
+          <p class="input-group">
+
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-readonly="true"
+                   ng-model="audit.from_date" is-open="popup1.opened" datepicker-options="dateOptions"
+                   ng-required="true" max-date="dateOptions" close-text="Close" alt-input-formats="altInputFormats"
+                   placeholder="From Date"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default ColorFont" ng-click="open1()"><i
+                class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+     <div class="col-lg-5">
+      <div class="NameEntity">
+        <div class="labelInput" id="datepickerInput">
+          <label>To</label>
+
+          <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-readonly="true"
+                   ng-model="audit.to_date" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true"
+                   max-date="dateOptions" close-text="Close" alt-input-formats="altInputFormats" placeholder="To Date"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default ColorFont" ng-click="open2()"><i
+                class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+     <div class="col-lg-2 ">
+      <button type="button" class="btn btn-primary pull-right marginTop" ng-click="getAudit(audit.from_date,audit.to_date)">Apply Date Filter
+      </button>
+    </div>
+      </div>
+  </div>
+  <div class="wrapper-md">
+    <div class="row">
+      <div class="col-lg-5"><p id="table_name"></p></div>
+    </div>
+    <table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="row-border hover">
+    </table>
+  </div>
+</div>

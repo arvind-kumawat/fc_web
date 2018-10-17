@@ -1,0 +1,70 @@
+<div id="contactUs" class="contact-us mid-ui">
+   <div class="container">
+       <div class="col-lg-12" ng-show="MailSent">
+           <p class="alert alert-success">Your message has been sent. We will contact you soon.</p>
+       </div>
+      <h3 class="contactUs"></h3>
+      <div class="col-lg-12">
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+             <div id="map" style="width:100%;height: 450px"></div>
+             <!--<iframe src="//www.google.com/maps/embed/v1/place?q=1-8-526, Jatkar Bhavan Chikkadpally, Hyderabad, Telangana&zoom=17&key=AIzaSyBtgOrc4IOEz5RlAoEpKh-ebUPzLnR7pgs" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>-->
+            <div class="connectAddress">
+               <b>E-mail:</b>  contact@fundscorner.com
+               <p><b>Registered Address: </b> 
+                <br />
+                    RAJKAMAL LEASING AND INVESTMENTS PRIVATE LIMITED 
+                <br />1-8-526/m1, Jatkar Bhavan, Chikadpally, HYDERABAD 500020
+                </p>
+            </div>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+             <form ng-submit="submit()">
+                 <div class="YourName">
+                     <label>Your Name (required)</label>
+                     <input type="text" name="your-name" value="" placeholder="Your Name" ng-model="Info.Name" required>
+                 </div>
+                 <div class="YourName">
+                     <label>Your Email (required)</label>
+                     <input type="email" name="your-email" value="" placeholder="Your Email" ng-model="Info.Email" required>
+                 </div>
+                 <div class="YourName">
+                     <label>Contact Number</label>
+                     <input type="number" maxlength="10" name="your-contact" value="" placeholder="Contact" ng-model="Info.Contact">
+                 </div>
+                 <div class="YourName">
+                     <label>Select Product</label>
+                     <select ng-model="Info.Product" ng-options="product.name as product.name for product in Products">
+                         <option value="">--Select a product--</option>
+                     </select>
+                 </div>
+                 <div class="YourName">
+                     <label>Your Message</label>
+                     <textarea name="your-message" placeholder="Your Message" ng-model="Info.Message"></textarea>
+                 </div>
+                 <button type="submit" class="btn btn-default marginBottom">SUBMIT</button>
+             </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+function resetFtr(){
+	
+	var wHeight = $(window).height();
+		var hdrHeight = $('.header').height();
+		var midHeight = $('.mid-ui').outerHeight(true);
+		var ftrHeight = $('.footer').outerHeight(true);		
+		var allHeight = hdrHeight+midHeight+ftrHeight;
+		if(allHeight < wHeight){
+			var midH=(wHeight-(hdrHeight+ftrHeight));
+			$('.mid-ui').css('min-height', (midHeight+(wHeight-allHeight)-30)+'px');			
+		}
+	}
+	$(document).ready(function(){
+		resetFtr();
+		$(window).resize(function(){
+			resetFtr();
+		});
+	});
+</script>

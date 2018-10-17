@@ -1,0 +1,45 @@
+<div id="loginPageChannerPartner">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header LoginHeader">
+        <h4 class="modal-title">Login as Channel partner</h4>
+      </div>
+      <div class="modal-body" id="loginfrom">
+        <form name="validateLogin" ng-submit="login(localUser)" novalidate>
+          <div>
+            <label>Enter Mobile Number</label>
+            <input type="text" numbers-only maxlength="10" name="EnterMobileNumber" placeholder="Enter Mobile Number" ng-model="localUser.phone" class="form-control" required>
+    <span class="errorShowInt" style="color:red;margin-left:10px;" ng-show="validateLogin.EnterMobileNumber.$dirty && validateLogin.EnterMobileNumber.$invalid">
+  <span ng-show="validateLogin.EnterMobileNumber.$error.required">Enter Mobile Number</span>
+  </span>
+          </div>
+          <div>
+            <label>Enter Password</label>
+            <input type="password" minlength="8" name="EnterdigitPin" placeholder="Enter Password" ng-model="localUser.password" class="form-control" required>
+            <span ng-show="iserror" style="color:red;">{{message}}</span>
+    <span class="errorShowInt" style="color:red;margin-left:10px;" ng-show="validateLogin.EnterdigitPin.$dirty && validateLogin.EnterdigitPin.$invalid">
+  <span ng-show="validateLogin.EnterdigitPin.$error.required">Enter Password</span>
+  </span>
+          </div>
+
+          <button type="submit" class="btn btn-default"   ng-disabled="validateLogin.$invalid" ng-click="channelPartnerLogin(localUser)">  Login </button>
+          <div class="ForgotRemember">
+            <input type="checkbox" id="inputCheckboxs" ng-model="remember" name="remember">  <span class="rememberMe">   Remember me </span>
+          </div>
+        </form>
+      </div>
+
+      <div class="registration-footer text-center" >
+        <span> New to </span> Kreditcart? <a class="underline" ui-sref="channelPartner.register">Register</a> </div>
+
+    </div>
+    <!-- Modal content-->
+
+
+
+
+
+  </div>
+</div>

@@ -1,0 +1,1558 @@
+<!-- partner details section-->
+<div class="tab-pane fade in" id="partner-details">
+  <div>
+    <div class="businessCompanyDetails"> Partner Details</div>
+
+    <div class="col-lg-12 " ng-repeat="personalDetails in personalDetailsArray"
+         ng-if="personalDetails.detail_for == 'self'">
+      <div class="panel-group CollapsibleApplications">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <span class="partnerNameInapnel" ng-show="$index == 0 && !personalDetails.name">{{loggedInUser.fullname}} (Partner 1)</span>
+              <span class="partnerNameInapnel" ng-show="$index == 0 && personalDetails.name">{{personalDetails.name}} (Partner 1)</span>
+              <span class="partnerNameInapnel" ng-show="$index > 0">{{personalDetails.name}} (Partner 1)</span>
+              <a ng-click="personalDetails.showForm = !personalDetails.showForm">
+                  <i ng-show="personalDetails.id!='' && !personalDetails.showForm" class="fa fa-plus" aria-hidden="true"></i>
+                  <i ng-show="personalDetails.id!='' && personalDetails.showForm" class="fa fa-minus" aria-hidden="true"></i>
+              </a>
+            </h4>
+          </div>
+          <div ng-show="personalDetails.showForm || personalDetails.id==''">
+            <form name="personnelDetails" novalidate>
+              <div class="businessDetailsSection">
+                <div class="businessDetailsTitle">Personnel Details</div>
+                <div class="col-lg-12">
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Gender<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="personalDetails.gender" name="gender1" class="form-control" required
+                                ng-options="data.value as data.key for data in genderOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="personnelDetails.gender1.$dirty && personnelDetails.gender1.$invalid">
+                        <span ng-show="personnelDetails.gender1.$error.required">Gender is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="col-lg-4 noPadding">
+                      <div class="NameEntity">
+                        <div class="labelInput capitalize" ng-init="personalDetails.firstName=personalDetails.name">
+                          <label>First Name<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="ownerName1" ng-model="personalDetails.firstName" class="form-control"
+                                 placeholder="First Name" required>
+                          <span style="color:red"
+                                ng-show="personnelDetails.ownerName1.$dirty && personnelDetails.ownerName1.$invalid">
+                            <span ng-show="personnelDetails.ownerName1.$error.required">First Name is required.</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 noPadding">
+                      <div class="NameEntity">
+                        <div class="labelInput capitalize">
+                          <label>Middle Name</label>
+                          <input type="text" name="middleName1" ng-model="personalDetails.middleName"
+                                 class="form-control" placeholder="Middle Name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 noPadding">
+                      <div class="NameEntity">
+                        <div class="labelInput capitalize">
+                          <label>Last Name</label>
+                          <input type="text" name="lastName1" ng-model="personalDetails.lastName" class="form-control"
+                                 placeholder="Last Name">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput" id="datepickerInput">
+                        <label>DOB (Enter date like dd-mm-yyyy)<span class="spanRequiredStar">*</span></label>
+                          <p class="input-group">
+                              <input type="text" class="form-control" uib-datepicker-popup="{{Dateformat}}"
+                                     ng-model="personalDetails.dob" is-open="popup1.opened" datepicker-options="dateOptions"
+                                     ng-required="true" max-date="dateOptions" close-text="Close"
+                                     alt-input-formats="altInputFormats" placeholder="DOB" />
+                             <!--<span class="eg">Please enter date like dd-mm-yyyy</span>-->
+                              <span class="input-group-btn">
+                              <button tabindex = "-1" type="button" class="btn btn-default ColorFont" ng-click="open1()"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                        </p>
+                        <span style="color:red"
+                              ng-show="personnelDetails.dob1.$dirty && personnelDetails.dob1.$invalid">
+                          <span ng-show="personnelDetails.dob1.$error.required">Date Of Birth is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>PAN No.<span class="spanRequiredStar">*</span></label>
+                        <input type="text" name="pan1" ng-model="personalDetails.pan"
+                               ng-pattern="/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/" class="form-control"
+                               placeholder="PAN No." required>
+                        <span style="color:red"
+                              ng-show="personnelDetails.pan1.$dirty && personnelDetails.pan1.$invalid">
+                          <span ng-show="personnelDetails.pan1.$error.required">PAN No. is required.</span>
+                          <span ng-show="personnelDetails.pan1.$error.pattern">Invalid PAN No.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Aadhar No</label>
+                        <input type="text" numbers-only minlength="12" maxlength="12"
+                               ng-change='setAddhar(personalDetails.aadhar_no)' class="adharNo" name="adhar1"
+                               ng-model="personalDetails.aadhar_no" placeholder="Aadhar No">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity" ng-hide="personalDetails.qualification=='others'">
+                      <div class="labelInput">
+                        <label>Education Qualification<span class="spanRequiredStar">*</span></label>
+                        <select name="qualification1" ng-model="personalDetails.qualification" class="form-control"
+                                required ng-options="data.value as data.key for data in qualificationOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="personnelDetails.qualification1.$dirty && personnelDetails.qualification1.$invalid">
+                          <span ng-show="personnelDetails.qualification1.$error.required">Education Qualification is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="NameEntity" ng-show="personalDetails.qualification=='others'">
+                        <div class="labelInput">
+                                             <label>Education Qualification<span class="spanRequiredStar">*</span> </label>
+                                             <input type="text" name="otherPartEducation" ng-model="personalDetails.otherEducation" class="form-control" placeholder="Fill Other Education Qualificatione" ng-required="personalDetails.qualification=='others'"><button class="btn btn-default relationBtn" ng-click="personalDetails.qualification=''">x</button>
+                                             <span style="color:red" ng-show="personnelDetails.otherPartEducation.$dirty && personnelDetails.otherPartEducation.$invalid">
+                                             <span ng-show="personnelDetails.otherPartEducation.$error.required">Fill Other Education Qualification</span>
+                                             </span>
+                                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Marital Status<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="personalDetails.marital_status" class="form-control" name="marital1" required
+                                ng-options="data.value as data.key for data in maritalStatusOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="personnelDetails.marital1.$dirty && personnelDetails.marital1.$invalid">
+                          <span ng-show="personnelDetails.marital1.$error.required">Marital Status is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Father's Name<span class="spanRequiredStar">*</span></label>
+                        <input type="text" name="father1" ng-model="personalDetails.father_name" alphabets-only
+                               class="form-control" placeholder="Father's Name" required>
+                        <span style="color:red"
+                              ng-show="personnelDetails.father1.$dirty && personnelDetails.father1.$invalid">
+                          <span ng-show="personnelDetails.father1.$error.required">Father's Name is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>No. of Dependents<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="personalDetails.dependents_count" name="dependants1" class="form-control"
+                                required ng-options="data.value as data.key for data in dependentsCountOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="personnelDetails.dependants1.$dirty && personnelDetails.dependants1.$invalid">
+                          <span
+                            ng-show="personnelDetails.dependants1.$error.required">No. of Dependents is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Facebook Profile</label>
+                        <input type="url" name="facebook1" ng-pattern="/http(?:s)?:\/\/(?:www\.)?facebook\.com\/([a-zA-Z0-9_]+)/" ng-model="personalDetails.facebook_profile_url"
+                               class="form-control" placeholder="Facebook Profile">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Ownership %<span class="spanRequiredStar">*</span></label>
+                        <input type="number" name="ownerShip" ng-model="personalDetails.ownership"
+                               class="form-control" placeholder="Ownership %" required>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.ownerShip.$dirty && personalPartnerDetails.ownerShip.$invalid">
+                          <span
+                            ng-show="personalPartnerDetails.ownerShip.$error.required">Ownership % is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                </div>
+                <div class="col-lg-12">
+                </div>
+              </div>
+              <div class="businessDetailsSection">
+                <div class="businessDetailsTitle">Personal Contact</div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Residence Address Line 1<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="resLine1" ng-model="personalDetails.address_lin1"
+                                 class="form-control" placeholder="Address Line 1" required>
+                          <span style="color:red"
+                                ng-show="personnelDetails.resLine1.$dirty && personnelDetails.resLine1.$invalid">
+                            <span ng-show="personnelDetails.resLine1.$error.required">Residence Address Line 1 is required.</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Residence Address Line 2</label>
+                          <input type="text" name="resLine2" ng-model="personalDetails.address_lin2"
+                                 class="form-control" placeholder="Address Line 2">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>PinCode<span class="spanRequiredStar">*</span></label>
+                          <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="personalPin"
+                                 ng-model="personalDetails.pin" placeholder="PinCode"
+                                 ng-change="getDataFromPin(personalDetails.pin, 'personalDetails', $index)"
+                                 class="form-control" required />
+                           <span style="color:red"
+                                 ng-show="personnelDetails.personalPin.$dirty && personnelDetails.personalPin.$invalid">
+                              <span
+                                ng-show="personnelDetails.personalPin.$error.required && !personalDetails.pinCodeError">PinCode is required</span>
+                              <span ng-show="personnelDetails.personalPin.$error.pattern">This field is required 6 numbers</span>
+                           </span>
+                        </div>
+                        <div class="errMsg" ng-if="personalDetails.pinCodeError">
+                          <div>{{personalDetails.pinCodeError}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>City<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="personCity" ng-model="personalDetails.city" ng-readonly="true"
+                                 placeholder="City" class="form-control" required>
+                           <span style="color:red"
+                                 ng-show="personnelDetails.personCity.$dirty && personnelDetails.personCity.$invalid">
+                            <span ng-show="personnelDetails.personCity.$error.required">City is required</span>
+                           </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>State<span class="spanRequiredStar">*</span></label>
+                          <input placeholder="State" name="personState" ng-model="personalDetails.state"
+                                 ng-readonly="true" class="form-control">
+                           <span style="color:red"
+                                 ng-show="personnelDetails.personState.$dirty && personnelDetails.personState.$invalid">
+                            <span ng-show="personnelDetails.personState.$error.required">State is required</span>
+                           </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Is it owned?</label>
+                          <select ng-model="personalDetails.isOwned" class="form-control"
+                                  ng-options="data.value as data.key for data in isOwnedOptions">
+                            <option value="" disabled>---Please Select---</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-lg-12 mar-bottom-2per">
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Residence phone no.</label>
+                                    <input type="text" name="phone1" ng-model="personalDetails.residence_phone_number"
+                                           class="form-control" placeholder="Residence phone no" numbers-only>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Mobile<span class="spanRequiredStar">*</span></label>
+                                    <input type="text" maxlength="10" name="perMobile1"
+                                           ng-model="personalDetails.residence_mobile_number" ng-pattern="/[7-9]{1}\d{9}/"
+                                           placeholder="Mobile" class="form-control" required>
+                                    <span style="color:red"
+                                          ng-show="personnelDetails.perMobile1.$dirty && personnelDetails.perMobile1.$invalid">
+                                        <span ng-show="personnelDetails.perMobile1.$error.required">Mobile is required.</span>
+                                        <span ng-show="personnelDetails.perMobile1.$error.pattern">Invalid Mobile No.</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Email ID (Personal)<span class="spanRequiredStar">*</span></label>
+                                    <input type="email" class="form-control" name="email1"
+                                           ng-model="personalDetails.personal_email"
+                                           ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
+                                           placeholder="Email ID (Personal)" required>
+                                    <span style="color:red"
+                                          ng-show="personnelDetails.email1.$dirty && personnelDetails.email1.$invalid">
+                                        <span ng-show="personnelDetails.email1.$error.required">Email is required.</span>
+                                        <span ng-show="personnelDetails.email1.$error.pattern">Invalid Email</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <div class="col-lg-12">
+                    <div class="col-lg-6">
+                      <div class="NameEntity Permanentboxs">
+                        <div class="labelInput">
+                          <input class="Permanentbox" type="checkbox" ng-model="personalDetails.isSameCurrentAddress"
+                                 ng-checked="personalDetails.isSameCurrentAddress==1">
+                          <label>My Permanent address is same as above address</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" ng-show="personalDetails.isSameCurrentAddress == 0">
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Residence Address Line 1<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="residanceLine1" ng-model="personalDetails.current_address_lin1"
+                                 class="form-control" placeholder="Address Line 1"
+                                 ng-required="personalDetails.isSameCurrentAddress == 0">
+                          <span style="color:red"
+                                ng-show="personnelDetails.residanceLine1.$dirty && personnelDetails.residanceLine1.$invalid">
+                          <span ng-show="personnelDetails.residanceLine1.$error.required">Residence Address Line 1 is required.</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Residence Address Line 2</label>
+                          <input type="text" name="residanceLine2" ng-model="personalDetails.current_address_lin2"
+                                 class="form-control" placeholder="Address Line 2">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>PinCode<span class="spanRequiredStar">*</span></label>
+                          <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="pin22"
+                                 ng-model="personalDetails.current_pin" placeholder="PinCode"
+                                 ng-change="getDataFromPin(personalDetails.current_pin, 'personalDetailsCurrent', $index)"
+                                 class="form-control" ng-required="personalDetails.isSameCurrentAddress == 0">
+                          <span style="color:red"
+                                ng-show="personnelDetails.pin22.$dirty && personnelDetails.pin22.$invalid">
+                             <span
+                               ng-show="personnelDetails.pin22.$error.pattern">This field is required 6 numbers</span>
+                              <span ng-show="personnelDetails.pin22.$error.required && !personalDetails.pinCodeError">PinCode is required</span>
+                          </span>
+                        </div>
+                        <div class="errMsg" ng-if="personalDetails.pinCodeError">
+                          <div>{{personalDetails.pinCodeError}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>City<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="currentCity1" ng-model="personalDetails.current_city"
+                                 ng-readonly="true" placeholder="City" class="form-control"
+                                 ng-required="personalDetails.isSameCurrentAddress == 0">
+                          <span style="color:red"
+                                ng-show="personnelDetails.currentCity1.$dirty && personnelDetails.currentCity1.$invalid">
+                            <span ng-show="personnelDetails.currentCity1.$error.required">City is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>State<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="currentState1" placeholder="State"
+                                 ng-model="personalDetails.current_state" ng-readonly="true" class="form-control"
+                                 ng-required="personalDetails.isSameCurrentAddress == 0">
+                          <span style="color:red"
+                                ng-show="personnelDetails.currentState1.$dirty && personnelDetails.currentState1.$invalid">
+                            <span ng-show="personnelDetails.currentState1.$error.required">State is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Is it owned?</label>
+                          <select ng-model="personalDetails.current_isOwned" class="form-control"
+                                  ng-options="data.value as data.key for data in isOwnedOptions">
+                            <option value="" disabled>---Please Select---</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-lg-12 mar-bottom-2per">
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Residence phone no.</label>
+                                    <input type="text" ng-model="personalDetails.current_resedence_phone_number"
+                                           name="residencePhone" placeholder="Landline" class="form-control" numbers-only>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Mobile<span class="spanRequiredStar">*</span></label>
+                                    <input type="text" maxlength="10" name="perMobile2"
+                                           ng-model="personalDetails.current_resedence_mobile_number" ng-pattern="/[7-9]{1}\d{9}/"
+                                           placeholder="Mobile" class="form-control"
+                                           ng-required="personalDetails.isSameCurrentAddress == 0">
+                                    <span style="color:red"
+                                          ng-show="personnelDetails.perMobile2.$dirty && personnelDetails.perMobile2.$invalid">
+                                        <span ng-show="personnelDetails.perMobile2.$error.required">Mobile is required.</span>
+                                        <span ng-show="personnelDetails.perMobile2.$error.required">Invalid Mobile No.</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Email ID (Personal)<span class="spanRequiredStar">*</span></label>
+                                    <input type="email" name="email2" ng-model="personalDetails.current_personal_email"
+                                           ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"
+                                           placeholder="Email ID (Personal)"
+                                           ng-required="personalDetails.isSameCurrentAddress == 0">
+                                    <span style="color:red"
+                                          ng-show="personnelDetails.email2.$dirty && personnelDetails.email2.$invalid">
+                                        <span ng-show="personnelDetails.email2.$error.required">Email is required.</span>
+                                        <span ng-show="personnelDetails.email2.$error.pattern">Invalid Email</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-12 centerButtonContinue ng-scope">
+                <button type="submit" ng-disabled="personnelDetails.$invalid"
+                        ng-click="submitPersonDetails(personalDetails,personalDetails.id);"
+                        class="btn btn-primary ContinueButton" disabled="disabled">Confirm Details
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personnel/Partner Details -->
+    <div class="col-lg-12 " ng-repeat="personnelPartnerDetail in partnerDetailsArray" ng-if="personnelPartnerDetail.id">
+      <!-- Collapsible -->
+      <div class="panel-group CollapsibleApplications">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <span class="partnerNameInapnel">{{personnelPartnerDetail.name}}  (Partner {{$index+2}})</span>
+              <a>
+                <i class="fa fa-trash-o" aria-hidden="true" ng-click="openDeletePartnerModal(personnelPartnerDetail.id, $index)"></i>
+              </a>
+              <a ng-click="personnelPartnerDetail.showForm = !personnelPartnerDetail.showForm ">
+                <i ng-show="personnelPartnerDetail.id!='' && !personnelPartnerDetail.showForm" class="fa fa-plus" aria-hidden="true"></i>
+                <i ng-show="personnelPartnerDetail.id!='' && personnelPartnerDetail.showForm" class="fa fa-minus" aria-hidden="true"></i>
+              </a>
+
+            </h4>
+          </div>
+          <!-----After click on edit button ---->
+          <div ng-show="personnelPartnerDetail.showForm">
+            <form name="personalPartnerDetails" novalidate>
+              <div class="businessDetailsSection">
+                <div class="businessDetailsTitle">Personnel/Partner Details</div>
+                <div class="col-lg-12">
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Gender<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="personnelPartnerDetail.gender" class="form-control" name="gender" required
+                                ng-options="data.value as data.key for data in genderOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.gender.$dirty && personalPartnerDetails.gender.$invalid">
+                          <span ng-show="personalPartnerDetails.gender.$error.required">Gender is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput capitalize">
+                        <label>Name of Proprietor/Partner/Director/Authorized Representative<span
+                          class="spanRequiredStar">*</span></label>
+                        <input type="text" name="ownerName" ng-model="personnelPartnerDetail.name" class="form-control"
+                               placeholder="Name of Owner" required>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.ownerName.$dirty && personalPartnerDetails.ownerName.$invalid">
+                          <span ng-show="personalPartnerDetails.ownerName.$error.required">Name of Proprietor/Partner/Director/Authorized Representative is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput" id="datepickerInput">
+                        <label>DOB (Enter date like dd-mm-yyyy)<span class="spanRequiredStar">*</span></label>
+
+                        <p class="input-group">
+                          <input type="text" class="form-control" uib-datepicker-popup="{{Dateformat}}"
+                                 ng-model="personnelPartnerDetail.dob" is-open="popup1.opened"
+                                 datepicker-options="dateOptions" ng-required="true" max-date="dateOptions"
+                                 close-text="Close" alt-input-formats="altInputFormats" placeholder="DOB"/>
+                             <!--<span class="eg">Please enter date like dd-mm-yyyy</span>-->
+                          <span class="input-group-btn">
+                            <button tabindex = "-1" type="button" class="btn btn-default ColorFont" ng-click="open1()"><i
+                              class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.partnerDob.$dirty && personalPartnerDetails.partnerDob.$invalid">
+                          <span
+                            ng-show="personalPartnerDetails.partnerDob.$error.required">Date of Birth is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>PAN No.<span class="spanRequiredStar">*</span></label>
+                        <input type="text" name="panNo" ng-model="personnelPartnerDetail.pan"
+                               ng-pattern="/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/" class="form-control"
+                               placeholder="PAN No." required>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.panNo.$dirty && personalPartnerDetails.panNo.$invalid">
+                          <span ng-show="personalPartnerDetails.panNo.$error.required">PAN No. is required.</span>
+                          <span ng-show="personalPartnerDetails.panNo.$error.pattern">Invalid PAN No.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Aadhar No</label>
+                        <input type="text" numbers-only minlength="12" maxlength="12" name="adhar"
+                               ng-model="personnelPartnerDetail.aadhar_no" class="form-control" placeholder="Aadhar No">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Education Qualification<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="personnelPartnerDetail.qualification" name="qualification"
+                                class="form-control" required
+                                ng-options="data.value as data.key for data in qualificationOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.qualification.$dirty && personalPartnerDetails.qualification.$invalid">
+                          <span ng-show="personalPartnerDetails.qualification.$error.required">Education Qualification is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Marital Status<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="personnelPartnerDetail.marital_status" name="marital" class="form-control"
+                                required ng-options="data.value as data.key for data in maritalStatusOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.marital.$dirty && personalPartnerDetails.marital.$invalid">
+                          <span
+                            ng-show="personalPartnerDetails.marital.$error.required">Marital Status is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Father's Name<span class="spanRequiredStar">*</span></label>
+                        <input type="text" name="father" ng-model="personnelPartnerDetail.father_name" alphabets-only
+                               class="form-control" placeholder="Father's Name" required>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.father.$dirty && personalPartnerDetails.father.$invalid">
+                          <span
+                            ng-show="personalPartnerDetails.father.$error.required">Father's Name is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label> Category<span class="spanRequiredStar">*</span></label>
+                        <select name="category" ng-model="personnelPartnerDetail.category" class="form-control" required
+                                ng-options="data.value as data.key for data in categoryOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="personalPartnerDetails.category.$dirty && personalPartnerDetails.category.$invalid">
+                          <span ng-show="personalPartnerDetails.category.$error.required">Category is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 mar-bottom-2per">
+                    <div class="col-lg-4">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>No. of Dependents<span class="spanRequiredStar">*</span></label>
+                                <select ng-model="personnelPartnerDetail.dependents_count" name="dependants"
+                                        class="form-control" required
+                                        ng-options="data.value as data.key for data in dependentsCountOptions">
+                                    <option value="" disabled>---Please Select---</option>
+                                </select>
+                                <span style="color:red"
+                                    ng-show="personalPartnerDetails.dependants.$dirty && personalPartnerDetails.dependants.$invalid">
+                                    <span ng-show="personalPartnerDetails.dependants.$error.required">No. of Dependents is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Ownership %<span class="spanRequiredStar">*</span></label>
+                                <input type="number" name="ownerShip" ng-model="personnelPartnerDetail.ownership"
+                                        class="form-control" placeholder="Ownership %" required>
+                                <span style="color:red"
+                                    ng-show="personalPartnerDetails.ownerShip.$dirty && personalPartnerDetails.ownerShip.$invalid">
+                                    <span ng-show="personalPartnerDetails.ownerShip.$error.required">Ownership % is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Facebook Profile</label>
+                                <input type="url" ng-pattern="/http(?:s)?:\/\/(?:www\.)?facebook\.com\/([a-zA-Z0-9_]+)/" name="facebook" ng-model="personnelPartnerDetail.facebook_profile_url"
+                                        class="form-control" placeholder="Facebook Profile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="businessDetailsSection">
+                <div class="businessDetailsTitle">Personnel/Partner Contact</div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Address Line 1<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="partnerLine1" ng-model="personnelPartnerDetail.address_lin1"
+                                 class="form-control" placeholder="Address Line 1" required>
+                          <span style="color:red"
+                                ng-show="personalPartnerDetails.partnerLine1.$dirty && personalPartnerDetails.partnerLine1.$invalid">
+                            <span ng-show="personalPartnerDetails.partnerLine1.$error.required">Address Line 1 is required.</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Address Line 2</label>
+                          <input type="text" name="partnerLine2" ng-model="personnelPartnerDetail.address_lin2"
+                                 class="form-control" placeholder="Address Line 2">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>PinCode<span class="spanRequiredStar">*</span></label>
+                          <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="partnerPin"
+                                 ng-model="personnelPartnerDetail.pin" placeholder="PinCode"
+                                 ng-change="getDataFromPin(personnelPartnerDetail.pin,'personnelPartnerDetail', $index)"
+                                 class="form-control" required>
+                          <span style="color:red"
+                                ng-show="personalPartnerDetails.partnerPin.$dirty && personalPartnerDetails.partnerPin.$invalid">
+                            <span
+                              ng-show="personalPartnerDetails.partnerPin.$error.required && !partnerDetails.pinCodeError">Pin Code is required</span>
+                            <span ng-show="personalPartnerDetails.partnerPin.$error.pattern">This field required 6 numbers</span>
+                          </span>
+                        </div>
+                        <div class="errMsg" ng-if="partnerDetails.pinCodeError">
+                          <div>{{partnerDetails.pinCodeError}}</div>
+                        </div>
+                      </div>
+                    </div>
+                   </div>
+                   <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>City<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="personalCity" ng-model="personnelPartnerDetail.city"
+                                 ng-readonly="true" class="form-control" placeholder="City" required>
+                          <span style="color:red"
+                                ng-show="personalPartnerDetails.personalCity.$dirty && personalPartnerDetails.personalCity.$invalid">
+                            <span ng-show="personalPartnerDetails.personalCity.$error.required">City is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>State<span class="spanRequiredStar">*</span></label>
+                          <input type="" name="personalState" class="form-control" placeholder="State"
+                                 ng-model="personnelPartnerDetail.state" ng-readonly="true" required>
+                          <span style="color:red"
+                                ng-show="personalPartnerDetails.personalState.$dirty && personalPartnerDetails.personalState.$invalid">
+                            <span
+                              ng-show="personalPartnerDetails.personalState.$error.required">State is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Is it owned?</label>
+                          <select name="itOwned" ng-model="personnelPartnerDetail.isOwned" class="form-control"
+                                  ng-options="data.value as data.key for data in isOwnedOptions">
+                            <option value="" disabled>---Please Select---</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-lg-12 mar-bottom-2per">
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Residence phone no.</label>
+                                    <input type="text" ng-model="personnelPartnerDetail.residence_phone_number" numbers-only
+                                           name="residencePhone" class="form-control" placeholder="Residence phone no.">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Mobile<span class="spanRequiredStar">*</span></label>
+                                    <input type="text" maxlength="10" name="partnerMobile"
+                                           ng-model="personnelPartnerDetail.residence_mobile_number" ng-pattern="/[7-9]{1}\d{9}/"
+                                           class="form-control" placeholder="Mobile" required>
+                                    <span style="color:red"
+                                          ng-show="personalPartnerDetails.partnerMobile.$dirty && personalPartnerDetails.partnerMobile.$invalid">
+                                        <span ng-show="personalPartnerDetails.partnerMobile.$error.required">Mobile is required.</span>
+                                        <span ng-show="personalPartnerDetails.partnerMobile.$error.pattern">Invalid Mobile No.</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Email ID (Personal)<span class="spanRequiredStar">*</span></label>
+                                    <input type="email" name="partnerEmail" ng-model="personnelPartnerDetail.personal_email"
+                                           ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" class="form-control"
+                                           placeholder="Email ID (Personal)" required>
+                                    <span style="color:red"
+                                          ng-show="personalPartnerDetails.partnerEmail.$dirty && personalPartnerDetails.partnerEmail.$invalid">
+                                        <span ng-show="personalPartnerDetails.partnerEmail.$error.required">Email is required.</span>
+                                        <span ng-show="personalPartnerDetails.partnerEmail.$error.pattern">Invalid Email </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <div class="col-lg-12">
+                    <div class="col-lg-6">
+                      <div class="NameEntity Permanentboxs">
+                        <div class="labelInput">
+                          <input class="Permanentbox" type="checkbox"
+                                 ng-model="personnelPartnerDetail.isSameCurrentAddress"
+                                 ng-checked="personnelPartnerDetail.isSameCurrentAddress==1">
+                          <label>My Permanent address is same as above address</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" ng-show="personnelPartnerDetail.isSameCurrentAddress == 0">
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Address Line 1<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="currentLine1" ng-model="personnelPartnerDetail.current_address_lin1"
+                                 class="form-control" placeholder="Address Line 1"
+                                 ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="personalPartnerDetails.currentLine1.$dirty && personalPartnerDetails.currentLine1.$invalid">
+                            <span ng-show="personalPartnerDetails.currentLine1.$error.required">Address Line 1 is required.</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Address Line 2</label>
+                          <input type="text" name="currentLine2" ng-model="personnelPartnerDetail.current_address_lin2"
+                                 class="form-control" placeholder="Address Line 2">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>PinCode<span class="spanRequiredStar">*</span></label>
+                          <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="currentPartnerPin"
+                                 ng-model="personnelPartnerDetail.current_pin" placeholder="PinCode"
+                                 ng-change="getDataFromPin(personnelPartnerDetail.current_pin, 'personnelPartnerDetailCurrent',$index)"
+                                 ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="personalPartnerDetails.currentPartnerPin.$dirty && personalPartnerDetails.currentPartnerPin.$invalid">
+                            <span
+                              ng-show="personalPartnerDetails.currentPartnerPin.$error.required && !partnerDetails.pinCodeError">Pincode is required</span>
+                            <span ng-show="personalPartnerDetails.currentPartnerPin.$error.pattern">This field required 6 numbers</span>
+                          </span>
+                        </div>
+                        <div class="errMsg" ng-if="partnerDetails.pinCodeError">
+                          <div>{{partnerDetails.pinCodeError}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>City<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="currentPartnerCity" ng-model="personnelPartnerDetail.current_city"
+                                 ng-readonly="true" class="form-control" placeholder="City"
+                                 ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="personalPartnerDetails.currentPartnerCity.$dirty && personalPartnerDetails.currentPartnerCity.$invalid">
+                            <span
+                              ng-show="personalPartnerDetails.currentPartnerCity.$error.required">City is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>State<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="currentPartnerState" placeholder="State"
+                                 ng-model="personnelPartnerDetail.current_state" ng-readonly="true" class="form-control"
+                                 placeholder="State" ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="directorDetails.currentPartnerState.$dirty && directorDetails.currentPartnerState.$invalid">
+                            <span ng-show="directorDetails.currentPartnerState.$error.required">State is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Is it owned?</label>
+                          <select name="currentOwned" ng-model="personnelPartnerDetail.current_isOwned"
+                                  class="form-control" ng-options="data.value as data.key for data in isOwnedOptions">
+                            <option value="" disabled>---Please Select---</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-lg-12 mar-bottom-2per">
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Residence phone no.</label>
+                                    <input type="text" name="currentResidencePhone"
+                                           ng-model="personnelPartnerDetail.current_resedence_phone_number" class="form-control"
+                                           placeholder="Residence phone no." numbers-only>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Mobile<span class="spanRequiredStar">*</span></label>
+                                    <input type="text" maxlength="10" name="currentPartnerMobile"
+                                           ng-model="personnelPartnerDetail.current_resedence_mobile_number"
+                                           ng-pattern="/[7-9]{1}\d{9}/" class="form-control" placeholder="Mobile"
+                                           ng-required="partnerDetails.residentialAddress == 0">
+                                    <span style="color:red"
+                                          ng-show="personalPartnerDetails.currentPartnerMobile.$dirty && personalPartnerDetails.currentPartnerMobile.$invalid">
+                                        <span ng-show="personalPartnerDetails.currentPartnerMobile.$error.required">Mobile is required.</span>
+                                        <span ng-show="personalPartnerDetails.currentPartnerMobile.$error.pattern">Invalid Mobile No.</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="NameEntity">
+                                <div class="labelInput">
+                                    <label>Email ID (Personal)</label>
+                                    <input type="email" name="currentPartnerEmail"
+                                           ng-model="personnelPartnerDetail.current_personal_email"
+                                           ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" class="form-control"
+                                           placeholder="Email ID (Personal)" ng-required="partnerDetails.residentialAddress == 0">
+                                    <span style="color:red"
+                                          ng-show="personalPartnerDetails.currentPartnerEmail.$dirty && personalPartnerDetails.currentPartnerEmail.$invalid">
+                                        <span ng-show="personalPartnerDetails.currentPartnerEmail.$error.required">Email is required.</span>
+                                        <span ng-show="personalPartnerDetails.currentPartnerEmail.$error.pattern">Invalid Email</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-12 centerButtonContinue">
+                <button type="submit" ng-disabled="personalPartnerDetails.$invalid"
+                        ng-click="submitPartnerDetails(personnelPartnerDetail,personnelPartnerDetail.id)"
+                        class="btn btn-primary ContinueButton">Confirm Details
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- CollapsibleEnd -->
+    </div>
+    <!--end ng repeat of partner details-->
+
+  </div>
+</div>
+
+<!-- Trigger the modal with a button -->
+<div class="modalExamplepersonalDetails" ng-click="openPartnerDetailsModals()">
+  <div class="add_container">
+    <div class="add1"><i class="fa fa-plus-circle" aria-hidden="true"></i></div>
+    <div class="add2">
+      <h3>Add Partner/Director</h3>
+
+      <p>(It is mandatory to add all Partners with >=25% shareholding in the company)</p>
+      <h4>This might help you improve your eligibility</h4>
+    </div>
+  </div>
+</div>
+<!-- Modal Example -->
+<div class="ModalExample">
+  <!--Personnel/Partner Details Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header partnerModal">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="col-lg-12">
+            <form name="directorDetails" novalidate>
+              <div class="businessDetailsSection">
+                <div class="businessDetailsTitle">Personnel/Partner Details</div>
+                <div class="col-lg-12">
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Gender<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="partnerDetails.gender" class="form-control" name="gender" required
+                                ng-options="data.value as data.key for data in genderOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="directorDetails.gender.$dirty && directorDetails.gender.$invalid">
+                          <span ng-show="directorDetails.gender.$error.required">Gender is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput capitalize">
+                        <label>Name of Proprietor/Partner/Director/Authorized Representative<span
+                          class="spanRequiredStar">*</span></label>
+                        <input type="text" name="ownerName" ng-model="partnerDetails.name" class="form-control"
+                               placeholder="Name of Owner" required>
+                        <span style="color:red"
+                              ng-show="directorDetails.ownerName.$dirty && directorDetails.ownerName.$invalid">
+                          <span ng-show="directorDetails.ownerName.$error.required">Name of Proprietor/Partner/Director/Authorized Representative is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                <!--</div>-->
+                <!--<div class="col-lg-12">-->
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput" id="datepickerInput">
+                        <label>DOB (Enter date like dd-mm-yyyy)<span class="spanRequiredStar">*</span></label>
+
+                        <p class="input-group">
+                          <input type="text" class="form-control" uib-datepicker-popup="{{Dateformat}}"
+                                 ng-model="partnerDetails.dob" is-open="popup1.opened" datepicker-options="dateOptions"
+                                 ng-required="true" max-date="dateOptions" close-text="Close"
+                                 alt-input-formats="altInputFormats" placeholder="DOB"/>
+                             <!--<span class="eg">Please enter date like dd-mm-yyyy</span>-->
+                          <span class="input-group-btn">
+                            <button tabindex = "-1" type="button" class="btn btn-default ColorFont" ng-click="open1()"><i
+                              class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                        <span style="color:red"
+                              ng-show="directorDetails.partnerDob.$dirty && directorDetails.partnerDob.$invalid">
+                          <span ng-show="directorDetails.partnerDob.$error.required">Date of Birth is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>PAN No.<span class="spanRequiredStar">*</span></label>
+                        <input type="text" name="panNo" ng-model="partnerDetails.pan"
+                               ng-pattern="/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/" class="form-control"
+                               placeholder="PAN No." required>
+                        <span style="color:red"
+                              ng-show="directorDetails.panNo.$dirty && directorDetails.panNo.$invalid">
+                          <span ng-show="directorDetails.panNo.$error.required">PAN No. is required.</span>
+                          <span ng-show="directorDetails.panNo.$error.pattern">Invalid PAN No.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                <!--</div>-->
+                <!--<div class="col-lg-12">-->
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Aadhar No</label>
+                        <input type="text" numbers-only minlength="12" maxlength="12" name="adhar"
+                               ng-model="partnerDetails.aadhar_no" class="form-control" placeholder="Aadhar No">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity" ng-hide="partnerDetails.qualification=='others'">
+                      <div class="labelInput">
+                        <label>Education Qualification<span class="spanRequiredStar">*</span> </label>
+                        <select ng-model="partnerDetails.qualification" name="qualification" class="form-control"
+                                required ng-options="data.value as data.key for data in qualificationOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="directorDetails.qualification.$dirty && directorDetails.qualification.$invalid">
+                          <span ng-show="directorDetails.qualification.$error.required">Education Qualification is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="NameEntity" ng-show="partnerDetails.qualification=='others'">
+                       <div class="labelInput">
+                                             <label>Education Qualification<span class="spanRequiredStar">*</span> </label>
+                                             <input type="text" name="otherPartEducation" ng-model="personalDetails.otherEducation" class="form-control" placeholder="Fill Other Education Qualificatione" ng-required="partnerDetails.qualification=='others'"><button class="btn btn-default relationBtn" ng-click="partnerDetails.qualification =''">x</button>
+                                             <span style="color:red" ng-show="directorDetails.otherPartEducation.$dirty && directorDetails.otherPartEducation.$invalid">
+                                             <span ng-show="directorDetails.otherPartEducation.$error.required">Fill Other Education Qualification</span>
+                                             </span>
+                                          </div>
+                      </div>
+                  </div>
+                <!--</div>-->
+                <!--<div class="col-lg-12">-->
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Marital Status<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="partnerDetails.marital_status" name="marital" class="form-control" required
+                                ng-options="data.value as data.key for data in maritalStatusOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="directorDetails.marital.$dirty && directorDetails.marital.$invalid">
+                          <span ng-show="directorDetails.marital.$error.required">Marital Status is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Father's Name<span class="spanRequiredStar">*</span></label>
+                        <input type="text" name="father" ng-model="partnerDetails.father_name" alphabets-only
+                               class="form-control" placeholder="Father's Name" required>
+                        <span style="color:red"
+                              ng-show="directorDetails.father.$dirty && directorDetails.father.$invalid">
+                          <span ng-show="directorDetails.father.$error.required">Father's Name is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                <!--</div>-->
+                <!--<div class="col-lg-12">-->
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Category<span class="spanRequiredStar">*</span></label>
+                        <select name="category" ng-model="partnerDetails.category" class="form-control" required
+                                ng-options="data.value as data.key for data in categoryOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="directorDetails.category.$dirty && directorDetails.category.$invalid">
+                          <span ng-show="directorDetails.category.$error.required">Category is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>No. of Dependents<span class="spanRequiredStar">*</span></label>
+                        <select ng-model="partnerDetails.dependents_count" name="dependants" class="form-control"
+                                required ng-options="data.value as data.key for data in dependentsCountOptions">
+                          <option value="" disabled>---Please Select---</option>
+                        </select>
+                        <span style="color:red"
+                              ng-show="directorDetails.dependants.$dirty && directorDetails.dependants.$invalid">
+                          <span
+                            ng-show="directorDetails.dependants.$error.required">No. of Dependents is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                <!--</div>-->
+                <!--<div class="col-lg-12">-->
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Ownership %<span class="spanRequiredStar">*</span></label>
+                        <input type="number" ng-keyup="numberAllow(partnerDetails.ownership)" name="ownerShip"
+                               ng-model="partnerDetails.ownership" class="form-control" placeholder="Ownership %"
+                               required>
+                        <span style="color:red" ng-show="partnerDetails.ownership != '' && ownershipError!='' ">{{ownershipError}}</span>
+                        <span style="color:red"
+                              ng-show="directorDetails.ownerShip.$dirty && directorDetails.ownerShip.$invalid">
+                          <span ng-show="directorDetails.ownerShip.$error.required">Ownership % is required.</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="NameEntity">
+                      <div class="labelInput">
+                        <label>Facebook Profile</label>
+                        <input type="url" ng-pattern="/http(?:s)?:\/\/(?:www\.)?facebook\.com\/([a-zA-Z0-9_]+)/" name="facebook" ng-model="partnerDetails.facebook_profile_url" class="form-control" placeholder="Facebook Profile">
+                      </div>
+                    </div>
+                  </div>
+                <!--</div>-->
+                <!--<div class="col-lg-12">-->
+                </div>
+              </div>
+              <div class="businessDetailsSection">
+                <div class="businessDetailsTitle">Personnel/Partner Contact</div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Address Line 1<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="partnerLine1" ng-model="partnerDetails.address_lin1"
+                                 class="form-control" placeholder="Address Line 1" required>
+                          <span style="color:red"
+                                ng-show="directorDetails.partnerLine1.$dirty && directorDetails.partnerLine1.$invalid">
+                            <span
+                              ng-show="directorDetails.partnerLine1.$error.required">Address Line 1 is required.</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Address Line 2</label>
+                          <input type="text" name="partnerLine2" ng-model="partnerDetails.address_lin2"
+                                 class="form-control" placeholder="Address Line 2">
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                  <!--<div class="col-lg-12">-->
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>PinCode<span class="spanRequiredStar">*</span></label>
+                          <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="partnerPin"
+                                 ng-model="partnerDetails.pin" placeholder="PinCode"
+                                 ng-change="getDataFromPin(partnerDetails.pin, 'partnerDetails')" class="form-control"
+                                 required>
+                          <span style="color:red"
+                                ng-show="directorDetails.partnerPin.$dirty && directorDetails.partnerPin.$invalid">
+                            <span ng-show="directorDetails.partnerPin.$error.required && !partnerDetails.pinCodeError">Pin Code is required</span>
+                            <span
+                              ng-show="directorDetails.partnerPin.$error.pattern">This field required 6 numbers</span>
+                          </span>
+                        </div>
+                        <div class="errMsg" ng-if="partnerDetails.pinCodeError">
+                          <div>{{partnerDetails.pinCodeError}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>City<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="personalCity" ng-model="partnerDetails.city" ng-readonly="true"
+                                 class="form-control" placeholder="City" required>
+                          <span style="color:red"
+                                ng-show="directorDetails.personalCity.$dirty && directorDetails.personalCity.$invalid">
+                            <span ng-show="directorDetails.personalCity.$error.required">City is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                  <!--<div class="col-lg-12">-->
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>State<span class="spanRequiredStar">*</span></label>
+                          <input type="" name="personalState" class="form-control" placeholder="State"
+                                 ng-model="partnerDetails.state" ng-readonly="true" required>
+                          <span style="color:red"
+                                ng-show="directorDetails.personalState.$dirty && directorDetails.personalState.$invalid">
+                            <span ng-show="directorDetails.personalState.$error.required">State is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Is it owned?</label>
+                          <select name="itOwned" ng-model="partnerDetails.isOwned" class="form-control"
+                                  ng-options="data.value as data.key for data in isOwnedOptions">
+                            <option value="" disabled>---Please Select---</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                  <!--<div class="col-lg-12">-->
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Residence phone no.</label>
+                          <input type="text" ng-model="partnerDetails.residence_phone_number" name="residencePhone"
+                                 class="form-control" placeholder="Residence phone no." numbers-only>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Mobile<span class="spanRequiredStar">*</span></label>
+                          <input type="text" maxlength="10" name="partnerMobile"
+                                 ng-model="partnerDetails.residence_mobile_number" ng-pattern="/[7-9]{1}\d{9}/"
+                                 class="form-control" placeholder="Mobile" required>
+                          <span style="color:red"
+                                ng-show="directorDetails.partnerMobile.$dirty && directorDetails.partnerMobile.$invalid">
+                            <span ng-show="directorDetails.partnerMobile.$error.required">Mobile is required.</span>
+                            <span ng-show="directorDetails.partnerMobile.$error.pattern">Invalid Mobile No.</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                  <!--<div class="col-lg-12">-->
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Email ID (Personal)<span class="spanRequiredStar">*</span></label>
+                          <input type="email" name="partnerEmail" ng-model="partnerDetails.personal_email"
+                                 ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" class="form-control"
+                                 placeholder="Email ID (Personal)" required>
+                          <span style="color:red"
+                                ng-show="directorDetails.partnerEmail.$dirty && directorDetails.partnerEmail.$invalid">
+                            <span ng-show="directorDetails.partnerEmail.$error.required">Email is required.</span>
+                            <span ng-show="directorDetails.partnerEmail.$error.pattern">Invalid Email </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="col-lg-6">
+                      <div class="NameEntity Permanentboxs">
+                        <div class="labelInput">
+                          <input class="Permanentbox" name="permanent" type="checkbox"
+                                 ng-model="partnerDetails.isSameCurrentAddress" required>
+                          <label>My Permanent address is same as above address</label>
+                          <span style="color:red"
+                                ng-show="directorDetails.permanent.$dirty && directorDetails.permanent.$invalid">
+                            <span ng-show="directorDetails.permanent.$error.required"></span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" ng-show="!partnerDetails.isSameCurrentAddress">
+                  <div class="col-lg-12">
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Address Line 1<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="currentLine1" ng-model="partnerDetails.current_address_lin1"
+                                 class="form-control" placeholder="Address Line 1"
+                                 ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="directorDetails.currentLine1.$dirty && directorDetails.currentLine1.$invalid">
+                            <span
+                              ng-show="directorDetails.currentLine1.$error.required">Address Line 1 is required.</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Address Line 2</label>
+                          <input type="text" name="currentLine2" ng-model="partnerDetails.current_address_lin2"
+                                 class="form-control" placeholder="Address Line 2">
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                  <!--<div class="col-lg-12">-->
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>PinCode<span class="spanRequiredStar">*</span></label>
+                          <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="currentPartnerPin"
+                                 ng-model="partnerDetails.current_pin" placeholder="PinCode"
+                                 ng-change="getDataFromPin(partnerDetails.pin, 'partnerDetails1')"
+                                 ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="directorDetails.currentPartnerPin.$dirty && directorDetails.currentPartnerPin.$invalid">
+                            <span
+                              ng-show="directorDetails.currentPartnerPin.$error.required && !partnerDetails.pinCodeError">Pincode is required</span>
+                            <span ng-show="directorDetails.currentPartnerPin.$error.pattern">This field required 6 numbers</span>
+                          </span>
+                        </div>
+                        <div class="errMsg" ng-if="partnerDetails.pinCodeError">
+                          <div>{{partnerDetails.pinCodeError}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>City<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="currentPartnerCity" ng-model="partnerDetails.current_city"
+                                 ng-readonly="true" class="form-control" placeholder="City"
+                                 ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="directorDetails.currentPartnerCity.$dirty && directorDetails.currentPartnerCity.$invalid">
+                            <span ng-show="directorDetails.currentPartnerCity.$error.required">City is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                  <!--<div class="col-lg-12">-->
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>State<span class="spanRequiredStar">*</span></label>
+                          <input type="text" name="currentPartnerState" placeholder="State"
+                                 ng-model="partnerDetails.current_state" ng-readonly="true" class="form-control"
+                                 placeholder="State" ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="directorDetails.currentPartnerState.$dirty && directorDetails.currentPartnerState.$invalid">
+                            <span ng-show="directorDetails.currentPartnerState.$error.required">State is required</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Is it owned?</label>
+                          <select name="currentOwned" ng-model="partnerDetails.current_isOwned" class="form-control"
+                                  ng-options="data.value as data.key for data in isOwnedOptions">
+                            <option value="" disabled>---Please Select---</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                  <!--<div class="col-lg-12">-->
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Residence phone no.</label>
+                          <input type="text" name="currentResidencePhone"
+                                 ng-model="partnerDetails.current_resedence_phone_number" class="form-control"
+                                 placeholder="Residence phone no." numbers-only>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Mobile<span class="spanRequiredStar">*</span></label>
+                          <input type="text" maxlength="10" name="currentPartnerMobile"
+                                 ng-model="partnerDetails.current_resedence_mobile_number" ng-pattern="/[7-9]{1}\d{9}/"
+                                 class="form-control" placeholder="Mobile"
+                                 ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="directorDetails.currentPartnerMobile.$dirty && directorDetails.currentPartnerMobile.$invalid">
+                            <span
+                              ng-show="directorDetails.currentPartnerMobile.$error.required">Mobile is required.</span>
+                            <span ng-show="directorDetails.currentPartnerMobile.$error.pattern"></span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  <!--</div>-->
+                  <!--<div class="col-lg-12">-->
+                    <div class="col-lg-4">
+                      <div class="NameEntity">
+                        <div class="labelInput">
+                          <label>Email ID (Personal)<span class="spanRequiredStar">*</span></label>
+                          <input type="email" name="currentPartnerEmail"
+                                 ng-model="partnerDetails.current_personal_email"
+                                 ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" class="form-control"
+                                 placeholder="Email ID (Personal)" ng-required="partnerDetails.residentialAddress == 0">
+                          <span style="color:red"
+                                ng-show="directorDetails.currentPartnerEmail.$dirty && directorDetails.currentPartnerEmail.$invalid">
+                            <span
+                              ng-show="directorDetails.currentPartnerEmail.$error.required">Email is required.</span>
+                            <span ng-show="directorDetails.currentPartnerEmail.$error.pattern">Invalid Email </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 centerButtonContinue">
+                <button type="submit" ng-disabled="directorDetails.$invalid"
+                        ng-click="submitPartnerDetails(partnerDetails)" class="btn btn-primary ContinueButton">Confirm
+                  Details
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Example end -->
+<div class="col-lg-12 centerButtonContinue">
+  <button type="submit" ng-click="gotoReferences()" class="btn btn-primary ContinueButton">Continue</button>
+</div>
+
+
+<!--Model for delete partner-->
+<div id="deletePartner" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Do you want to remove this partner?</h4>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="deletePartner(partnerId, partnerIndex)">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default closeModalButton" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal end-->

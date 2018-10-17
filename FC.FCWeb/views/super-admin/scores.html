@@ -1,0 +1,100 @@
+<div id="scoreTypes">
+  <div class="container">
+    <div class="row">
+      <div class="superAdmin">
+        <div class="col-md-4 borderLeft">
+          <label>Key</label>
+        </div>
+        <div class="col-md-1 borderLeft">
+          <label>Condition</label>
+        </div>
+        <div class="col-md-2 borderLeft">
+          <label>Value</label>
+        </div>
+        <div class="col-md-1 borderLeft">
+          <label>Score</label>
+        </div>
+        <div class="col-md-1 borderLeft calculationInput">
+          <label>From DB?</label>
+        </div>
+        <div class="col-md-2 borderLeft  ">
+          <label>Formula</label>
+        </div>
+        <div class="col-md-1 borderLeft">
+          <label>Action</label>
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-repeat="segment_score in segment_scores">
+      <div class="superAdmin">
+        <div class="col-md-4 borderLeft">
+          <input ng-show="segment_score.editMode" type="text" ng-model="segment_score.key">
+          <span ng-hide="segment_score.editMode">{{segment_score.key}}</span>
+        </div>
+        <div class="col-md-1 borderLeft">
+          <input ng-show="segment_score.editMode" type="text" ng-model="segment_score.condition">
+          <span ng-hide="segment_score.editMode">{{segment_score.condition}}</span>
+        </div>
+
+        <div class="col-md-2 borderLeft">
+          <input ng-show="segment_score.editMode" type="text" ng-model="segment_score.value">
+          <span ng-hide="segment_score.editMode">{{segment_score.value}}</span>
+        </div>
+
+        <div class="col-md-1 borderLeft">
+          <input ng-show="segment_score.editMode" type="number" ng-model="segment_score.conditional_score">
+          <span ng-hide="segment_score.editMode">{{segment_score.conditional_score}}</span>
+        </div>
+
+        <div class="col-md-1 borderLeft calculationInput">
+          <input ng-show="segment_score.editMode" type="checkbox" ng-model="segment_score.calculated">
+          <span ng-hide="segment_score.editMode">{{segment_score.calculated}}</span>
+        </div>
+
+        <div class="col-md-2 borderLeft  ">
+          <input ng-show="segment_score.editMode" type="text" ng-model="segment_score.calculation_formula"
+                 ng-disabled="segment_score.calculated">
+          <span ng-hide="segment_score.editMode">{{segment_score.calculation_formula}}</span>
+        </div>
+
+        <div class="col-md-1 borderLeft">
+          <i ng-hide="segment_score.editMode" class="fa fa-edit"
+             ng-click="segment_score.editMode = !segment_score.editMode"></i>
+          <i
+            ng-show="segment_score.editMode && segment_score.key!='' && segment_score.condition!='' && segment_score.value!='' && segment_score.conditional_score!=''"
+            class="fa fa-check-square-o" ng-click="submitSegmentScore(segment_score, $index)"></i>
+          <i class="fa fa-trash" ng-click="openDeleteModalForSegmentScore($index, segment_score.id)"></i>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="rowBottomBdr"></div>
+    <button type="button" class="btn btn-primary greenBgcolor marginBottom" ng-click="addSegmentScore()"><i
+      class="fa fa-plus" aria-hidden="true"></i> Add New
+    </button>
+
+  </div>
+</div>
+
+
+<!--Model for delete application-->
+<div id="deleteSegmentScore" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Are You Sure?</h4>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="deleteSegmentScore(segmentScoreIndex, segmentScoreId)">
+          Yes
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--modal end-->

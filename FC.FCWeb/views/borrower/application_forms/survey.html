@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="container">
+      <div class="cYa">
+         <h2>Congratulation, your application has been submitted successfully. </h2>
+        <h3>We will revert back shortly </h3>
+
+        <div class="blogPost" ng-init="surveyText='Blog post'">
+          <p>we'd now like to ask a minute of your time to tell us how you heard about us</p>
+            <p><input type="radio" name="surveyText" ng-model="surveyText" value="Blog post"> Blog post</p>
+            <p><input type="radio" name="surveyText" ng-model="surveyText" value="Someone I know"> Someone I know</p>
+            <p><input type="radio" name="surveyText" ng-model="surveyText" value="Social media: Twitter, Facebook, Other"> Social media: Twitter, Facebook, Other</p>
+            <p><input type="radio" name="surveyText" ng-model="surveyText" value="Another website"> Another website</p>
+            <p><input type="radio" name="surveyText" ng-model="surveyText" value="Event: Conference, event"> Event: Conference, event</p>
+            <p><input type="radio" name="surveyText" ng-model="surveyText" value="Other"> Other</p>
+            <p class="fullsize" ng-show="surveyText=='Other'"><input type="text" value="" ng-model="otherSurveyValue"></p>
+            <p><input type="radio" name="surveyText" ng-model="surveyText" value="I have a promo code"> I have a promo code</p>
+            <p class="fullsize" ng-show="surveyText=='I have a promo code'"><input type="text" value="" ng-model="surveyPromoCode"></p>
+          <p><a href="" ng-click="skipSurvey()">Skip survey</a> &nbsp;&nbsp; <button type="button" class="btn btn-primary" ng-click="submitSurvey(surveyText, otherSurveyValue, surveyPromoCode)">Continue</button></p>
+        </div>
+      </div>
+
+  </div>
+</div>

@@ -1,0 +1,322 @@
+<div role="tabpanel" class="tab-pane documentsTab" id="documents" ng-show="loanDetails.is_completed">
+
+  <div class="loantitlereview" ng-show="businessDetails && businessDetails.business_banking_docs.length > 0 && loanDetails.entityType != 'Salaried Professional'">
+    <h4 class="reviewHeadingTabs"> Business Banking Docs: </h4>
+    <ul ng-repeat="business_banking_doc in businessDetails.business_banking_docs">
+      <li><strong>Business entity name: </strong> {{businessDetails.entity_name}}
+      </li>
+      <li><strong>Bank name: </strong> {{business_banking_doc.bank_name}}
+      </li>
+      <li>
+        <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(business_banking_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+        <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="business_banking_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(business_banking_doc.id, 'business_banking_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+        <span ng-show="business_banking_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+        <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="business_banking_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(business_banking_doc.id, 'business_banking_doc', business_banking_doc.comments)">
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><script src="//13.76.244.62:35729/livereload.js?snipver=1" async="" defer=""></script>
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+
+        </button>
+        <span ng-show="business_banking_doc.is_verified != true && business_banking_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="loantitlereview" ng-show="businessDetails && businessDetails.business_kyc_docs.length > 0 && loanDetails.entityType != 'Salaried Professional'">
+    <h4 class="reviewHeadingTabs">Business KYC Docs: </h4>
+    <ul ng-repeat="business_kyc_doc in businessDetails.business_kyc_docs">
+      <li><strong>Business entity name: </strong> {{businessDetails.entity_name}}
+      </li>
+      <li>
+        <strong>Proof Type: </strong> {{business_kyc_doc.proof_type}}<br>
+        <strong ng-show="business_kyc_doc.proof_name == 'PAN'">Proof Name:  {{business_kyc_doc.proof_name}}  ({{businessDetails.pan}})</strong>
+        <strong ng-show="business_kyc_doc.proof_name != 'PAN'">Proof Name:  {{business_kyc_doc.proof_name}}</strong>
+      </li>
+      <li>
+        <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(business_kyc_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+        <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="business_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(business_kyc_doc.id, 'business_kyc_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+        <span ng-show="business_kyc_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+        <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="business_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(business_kyc_doc.id, 'business_kyc_doc', business_kyc_doc.comments)">
+
+          <?xml version="1.0" encoding="utf-8"?>
+          <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+          <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+        </button>
+        <span ng-show="business_kyc_doc.is_verified != true && business_kyc_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+
+      </li>
+    </ul>
+  </div>
+
+  <div ng-show="personal_banking_docs && (loanDetails.typeOfLoan == 'Personal' || ( loanDetails.entityType == 'Own Business') || (loanDetails.entityType == 'Self Employed Professional') || (loanDetails.entityType == 'Proprietor') || (businessDetails.constitution=='self employed professional' || businessDetails.constitution=='proprietorship' || businessDetails.constitution=='huf'))">
+    <h4 class="reviewHeadingTabs">Personal Banking Docs: </h4>
+    <div class="loantitlereview" ng-repeat="personal_banking_doc in personal_banking_docs" >
+      <ul>
+        <li><strong>Applicant Name: </strong> {{personalDetails[0].name}}
+        </li>
+        <li><strong>Bank name: </strong> {{personal_banking_doc.bank_name}}
+        </li>
+        <li>
+          <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(personal_banking_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="personal_banking_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(personal_banking_doc.id, 'personal_banking_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <span ng-show="personal_banking_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="personal_banking_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(personal_banking_doc.id, 'personal_banking_doc', personal_banking_doc.comments)">
+            <?xml version="1.0" encoding="utf-8"?>
+            <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+          </button>
+          <span ng-show="personal_banking_doc.is_verified != true && personal_banking_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div ng-show="personal_kyc_docs && (loanDetails.typeOfLoan == 'Personal' || ( loanDetails.entityType == 'Own Business') || (loanDetails.entityType == 'Self Employed Professional') || (loanDetails.entityType == 'Proprietor') || (businessDetails.constitution=='self employed professional' || businessDetails.constitution=='proprietorship' || businessDetails.constitution=='huf'))">
+    <h4 class="reviewHeadingTabs">  Personal KYC Docs: </h4>
+    <div class="loantitlereview" ng-repeat="personal_kyc_doc in personal_kyc_docs" >
+      <ul>
+        <li><strong>Applicant Name: </strong> {{personalDetails[0].name}}
+        </li>
+        <li>
+          <strong>Proof Type: </strong> {{personal_kyc_doc.proof_type}}<br>
+          <strong ng-show="personal_kyc_doc.proof_name == 'Aadhar Card'">Proof Name:  {{personal_kyc_doc.proof_name}}  ({{personalDetails[0].aadhar_no}}) </strong>
+          <strong ng-show="personal_kyc_doc.proof_name == 'PAN Card'">Proof Name: {{personal_kyc_doc.proof_name}} ({{personalDetails[0].pan}})</strong>
+          <strong ng-show="personal_kyc_doc.proof_name != 'Aadhar Card' && personal_kyc_doc.proof_name != 'PAN Card'">Proof Name:  {{personal_kyc_doc.proof_name}}  </strong>
+        </li>
+        <li>
+          <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(personal_kyc_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="personal_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(personal_kyc_doc.id, 'personal_kyc_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <span ng-show="personal_kyc_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="personal_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(personal_kyc_doc.id, 'personal_kyc_doc', personal_kyc_doc.comments)">
+            <?xml version="1.0" encoding="utf-8"?>
+            <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+          </button>
+          <span ng-show="personal_kyc_doc.is_verified != true && personal_kyc_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div ng-show="partnerDetails.length > 0 && (loanDetails.typeOfLoan == 'Business') && (businessDetails.constitution!='self employed professional' && businessDetails.constitution!='proprietorship' && businessDetails.constitution!='huf')">
+    <h4 class="reviewHeadingTabs"> Partner Banking Docs: </h4>
+
+    <div class="loantitlereview" ng-repeat="personal_banking_doc in personal_banking_docs" >
+      <ul>
+        <li><strong>Partner Name: </strong> {{personalDetails[0].name}}  (Partner 1)
+        </li>
+        <li><strong>Bank name: </strong> {{personal_banking_doc.bank_name}}
+        </li>
+        <li>
+          <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(personal_banking_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="personal_banking_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(personal_banking_doc.id, 'personal_banking_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <span ng-show="personal_banking_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="personal_banking_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(personal_banking_doc.id, 'personal_banking_doc', personal_banking_doc.comments)">
+            <?xml version="1.0" encoding="utf-8"?>
+            <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+          </button>
+          <span ng-show="personal_banking_doc.is_verified != true && personal_banking_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+
+        </li>
+      </ul>
+    </div>
+
+    <div class="loantitlereview" ng-repeat="partnerDetail in partnerDetails">
+      <ul ng-repeat="partner_banking_doc in partnerDetail.partner_banking_docs">
+        <li><strong>Partner Name: </strong> {{partnerDetail.name}}   (Partner {{$parent.$index+2}})
+        </li>
+        <li><strong>Bank name: </strong> {{partner_banking_doc.bank_name}}
+        </li>
+        <li>
+          <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(partner_banking_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="partner_banking_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(partner_banking_doc.id, 'partner_banking_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <span ng-show="partner_banking_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="partner_banking_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(partner_banking_doc.id, 'partner_banking_doc', partner_banking_doc.comments)">
+            <?xml version="1.0" encoding="utf-8"?>
+            <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+          </button>
+          <span ng-show="partner_banking_doc.is_verified != true && partner_banking_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div ng-show="personalDetails && personalDetails.length > 1 && (loanDetails.typeOfLoan == 'Personal' || ( loanDetails.entityType == 'Own Business') || (loanDetails.entityType == 'Self Employed Professional') || (loanDetails.entityType == 'Proprietor') || (businessDetails.constitution=='self employed professional' || businessDetails.constitution=='proprietorship' || businessDetails.constitution=='huf'))">
+    <h4 class="reviewHeadingTabs"> Co-applicant/Guarantor KYC Docs: </h4>
+    <div class="loantitlereview" ng-repeat="personalDetail in personalDetails" ng-if="(personalDetail.detail_for=='Co-Applicant' || personalDetail.detail_for=='Guarantor')">
+      <ul ng-repeat="guarantor_kyc_doc in personalDetail.guarantor_kyc_docs">
+        <li><strong>Name: </strong> {{personalDetail.name}}
+        </li>
+        <li>
+          <strong>Proof Type: </strong> {{guarantor_kyc_doc.proof_type}}<br>
+          <strong ng-show="guarantor_kyc_doc.proof_name == 'Aadhar Card'">Proof Name: {{guarantor_kyc_doc.proof_name}} ({{personalDetail.aadhar_no}})</strong>
+          <strong ng-show="guarantor_kyc_doc.proof_name == 'PAN Card'">Proof Name: {{guarantor_kyc_doc.proof_name}} ({{personalDetail.pan}})</strong>
+          <strong ng-show="guarantor_kyc_doc.proof_name != 'PAN Card' && guarantor_kyc_doc.proof_name != 'Aadhar Card'">Proof Name: {{guarantor_kyc_doc.proof_name}}</strong>
+        </li>
+        <li>
+          <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(guarantor_kyc_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="guarantor_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(guarantor_kyc_doc.id, 'guarantor_kyc_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <span ng-show="guarantor_kyc_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="guarantor_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(guarantor_kyc_doc.id, 'guarantor_kyc_doc', guarantor_kyc_doc.comments)">
+            <?xml version="1.0" encoding="utf-8"?>
+            <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+          </button>
+          <span ng-show="guarantor_kyc_doc.is_verified != true && guarantor_kyc_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div ng-show="partnerDetails.length > 0 && (loanDetails.typeOfLoan == 'Business') && (businessDetails.constitution!='self employed professional' && businessDetails.constitution!='proprietorship' && businessDetails.constitution!='huf')">
+    <h4 class="reviewHeadingTabs"> Partner KYC Docs: </h4>
+    <div class="loantitlereview" ng-repeat="personal_kyc_doc in personal_kyc_docs" >
+      <ul>
+        <li><strong>Partner Name: </strong> {{personalDetails[0].name}}   (Partner 1)
+        </li>
+        <li>
+          <strong>Proof Type: </strong> {{personal_kyc_doc.proof_type}}<br>
+          <strong ng-show="personal_kyc_doc.proof_name == 'Aadhar Card'">Proof Name:  {{personal_kyc_doc.proof_name}}  ({{personalDetails[0].aadhar_no}}) </strong>
+          <strong ng-show="personal_kyc_doc.proof_name == 'PAN Card'">Proof Name: {{personal_kyc_doc.proof_name}} ({{personalDetails[0].pan}})</strong>
+          <strong ng-show="personal_kyc_doc.proof_name != 'Aadhar Card' && personal_kyc_doc.proof_name != 'PAN Card'">Proof Name:  {{personal_kyc_doc.proof_name}}  </strong>
+        </li>
+        <li>
+          <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(personal_kyc_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="personal_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(personal_kyc_doc.id, 'personal_kyc_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <span ng-show="personal_kyc_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="personal_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(personal_kyc_doc.id, 'personal_kyc_doc', personal_kyc_doc.comments)">
+            <?xml version="1.0" encoding="utf-8"?>
+            <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+          </button>
+          <span ng-show="personal_kyc_doc.is_verified != true && personal_kyc_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="loantitlereview" ng-repeat="partnerDetail in partnerDetails">
+      <ul ng-repeat="partner_kyc_doc in partnerDetail.partner_kyc_docs">
+        <li><strong>Partner Name: </strong> {{partnerDetail.name}}   (Partner {{$parent.$index+2}})
+        </li>
+        <li>
+          <strong>Proof Type: </strong> {{partner_kyc_doc.proof_type}}<br>
+          <strong ng-show="partner_kyc_doc.proof_name == 'Aadhar Card'">Proof Name: {{partner_kyc_doc.proof_name}} ({{partnerDetail.aadhar_no}})</strong>
+          <strong ng-show="partner_kyc_doc.proof_name == 'PAN Card'">Proof Name: {{partner_kyc_doc.proof_name}} ({{partnerDetail.pan}})</strong>
+          <strong ng-show="partner_kyc_doc.proof_name != 'PAN Card' && partner_kyc_doc.proof_name != 'Aadhar Card'">Proof Name: {{partner_kyc_doc.proof_name}}</strong>
+        </li>
+        <li>
+          <button type="button" tooltip-placement="top" uib-tooltip="Download" class="btn btn-default" ng-click="downloadDocs(partner_kyc_doc.filepath)"><i class="fa fa-download" aria-hidden="true"></i></button>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Verify" class="btn btn-default" ng-show="partner_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="verifyDocs(partner_kyc_doc.id, 'partner_kyc_doc')"><i class="fa fa-check" aria-hidden="true"></i></button>
+          <span ng-show="partner_kyc_doc.is_verified == true"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
+
+          <button type="button" tooltip-placement="top" uib-tooltip="Need to resubmit" class="btn btn-default" ng-show="partner_kyc_doc.is_verified != true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')" ng-click="openNeedToResubmitModal(partner_kyc_doc.id, 'partner_kyc_doc', partner_kyc_doc.comments)">
+            <?xml version="1.0" encoding="utf-8"?>
+            <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+            <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             width="14px" height="14px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+          <path fill="#000" d="M256.031,288v-63.563c-68.813,2.125-124,58.219-124,127.563s55.188,125.406,124,127.594V480
+            c-106.063,0.031-192.063-85.938-192.063-192s86-192.031,192.063-192V32l192,128L256.031,288z"/>
+          </svg>
+
+          </button>
+          <span ng-show="partner_kyc_doc.is_verified != true && partner_kyc_doc.need_to_resubmit == true && (loggedInUser.user_type=='operator' ||  loggedInUser.user_type=='KC manager')">Notification Sent</span>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
+<!--Model for send notification-->
+<div id="needToresubmitComment" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Enter comments</h4>
+      </div>
+      <div class="modal-body lenderSelect">
+        <form name="needTorResubmitForm" class="lenderRecommendedForm" novalidate>
+          <div class="formRowLenderRe">
+            <textarea rows="5" cols="90" name="comments" ng-model="$parent.commentsData"  required></textarea>
+          </div>
+
+          <div class="formRowLenderRe">
+            <div class="formColLenderRe"></div>
+            <div class="formColLenderRe">
+              <input type="submit" id="loanSubmit" ng-click="sendComments(docId, docType, commentsData)" ng-disabled="needTorResubmitForm.$invalid"/>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--modal end-->

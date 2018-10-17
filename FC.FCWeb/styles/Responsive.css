@@ -1,0 +1,1581 @@
+
+#scoreTypes a.pull-right{ margin-left: 0px; padding-top: 2px; font-size: 15px;}
+#scoreTypes a.pull-right.collapsed i.fa-plus{ display: block;}
+#scoreTypes a.pull-right.collapsed i.fa-minus{ display: none;}
+#scoreTypes a.pull-right i.fa-minus{ display: block;}
+#scoreTypes a.pull-right i.fa-plus{ display: none;}
+.search_dd
+{
+    font-size: 16px;margin-bottom: 10px;display:block;padding-left: 0;width: 100%;
+}
+.search_ip{
+  width: 230px;
+  float: left;
+}
+.search_bt{
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+}
+span.ver_titl{
+  font-size: 26px;
+}
+span.ver_det{
+    font-size: 18px;
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 20px;
+    float: left;
+}
+.search_bt i{height: 16px;width: 16px;}
+@media(max-width:585px){
+.board{width:100%;height:auto!important}
+.nav-tabs>li a,span.round-tabs{width:50px;height:50px;line-height:50px}
+span.round-tabs{font-size:16px}
+.tab-content .head{font-size:20px}.nav-tabs>li.active:after{content:" ";position:absolute;left:35%}
+.btn-outline-rounded{padding:12px 20px}
+.NameEntity.bankStatement button.btn.btn-default{ width: auto; margin-top: 8px;}
+.bankStatementTitle{ font-size: 20px; margin-bottom: 5px; }
+.NameEntity.bankStatement.leftbox{
+  width: 100%;
+  margin-left: 0;
+  border: 0;
+  padding: 0 10px;
+  margin: 0;
+  border-bottom: solid 1px #ccc;
+}
+.NameEntity.bankStatement.leftbox select {margin-top: 10px;}
+.NameEntity.bankStatement.leftbox  button.btn.btn-default{ width: auto; margin-top: 10px; }
+.NameEntity.bankStatement.righttbox {
+  width: 100%;
+  margin-left: 0;
+  border: 0;
+  padding: 0 10px;
+  margin: 10px 0px;
+  border-bottom: solid 0px #ccc;
+}
+.NameEntity.bankStatement.righttbox  button.btn.btn-default{ width: auto; margin-top: 10px; }
+.NameEntity.bankStatement.righttbox select {margin-top: 10px;}
+.NameEntity.bankStatement.leftbox.IncorporationProof button.btn.btn-default{ width: auto; }
+input[type="checkbox"] {padding-top: 3px; float: left; margin-right: 6px;}
+.labelInput.TypeOfLoan.Reference span.TypeOfLoanBusiness , .labelInput.TypeOfLoan.Reference span.TypeOfLoanPersonal{ width: 100%; }
+.navbar-collapse.in {    overflow-y: hidden;}
+span.sellThru {  float: left;  width: 100% !important;}
+span.proceedRsLeft span{ width: 80%; }
+span.proceedRsLeft{ width: 49% !important; }
+.ModalExample .modal-dialog{ width: 100%; }
+.modalExamplepersonalDetails .modal-dialog{ width: 90%;   }
+span.TypeOfLoanBusiness input[type="radio"] , span.TypeOfLoanPersonal input[type="radio"]{ width: auto; }
+.NameEntity.bankStatement .labelInput  select{    margin: 0 2%;    width: 96%;}
+.butBank button.btn.btn-primary{margin-top: 0;}
+#otpfrom .btn-default{ width: 100%; }
+.modal-title{ width: 89%; font-size: 14px; }
+p.Submodal-title{ font-size: 14px; }
+#myModal .applyNowheader button.close{ margin-top: 12px; }
+.marginBottom{ margin-bottom: 20px; }
+.fullSizetitle.ng-binding{ width: auto; margin-left: 0; }
+.fullSizeborder{ width: 92%; }
+.uib-datepicker-popup.dropdown-menu{left: -28px !important;  z-index: 9999;}
+span.eg{ font-size: 12px; }
+.modal{z-index: 99999; }
+.extraHeightdiv .col-lg-4 {
+    min-height:auto;
+}
+
+
+
+}
+
+@media screen and (max-width:768px) {
+
+  .search_dd
+  {
+    margin: auto;padding: 10px 20px;
+  }
+  .search_ip{
+  width: 88%;
+  float: left;
+}
+.search_bt{
+  width: 34px;
+  height: 34px;
+  padding: 6px !important;
+  font-size: 14px !important;
+}
+  .footer, .header, .marketing {
+    padding-left: 0;
+    padding-right: 0
+  }
+
+  .jumbotron {
+    border-bottom: 0
+  }
+
+  .slider-selection {
+    background: #10bcf0 !important
+  }
+
+  .NameEntity .labelInput {
+    float: left;
+    width: 100%
+  }
+
+  span.TypeOfLoanBusiness, span.TypeOfLoanPersonal {
+    float: left;
+    width: 50%
+  }
+
+  .fullSizeborder {
+    width: 92%;
+  }
+
+  .extraHeightdiv .col-lg-4 {
+    min-height: auto;
+  }
+
+  .NameEntity.bankStatement .NameEntity.bankStatement.leftbox{ margin-left: 0px; width: 100%;}
+  .NameEntity.bankStatement .NameEntity.bankStatement.righttbox{ margin-right: 0px; width: 100%;}
+  .pageLoadOnMobile{ width: 100%; float: left;}
+
+  .modal-dialog {
+    width: 90% !important; margin: 15px 5% !important;
+  }
+
+
+}
+
+@media only screen and (max-width:767px){
+.businessDetailsTitle{ float: left; padding: 5px;}
+.businessDetailsTitle span{ width: 100%; float: left; margin-left: 0px; line-height: 10px; font-size: 10px;}
+
+.NameEntity.bankStatement.leftbox.IncorporationProof{ border: 0px; width: 100%; margin: 0px;}
+
+.businessDetailsSection > .col-lg-12{ padding: 05px;}
+
+  .businessDetailsSection > .col-lg-12 + div > .col-lg-12{ padding: 0px;}
+.businessDetailsSection{ margin-bottom: 10px;}
+.loginApplyNow { width: 88%;background: #2c4055; float: left; color: #fff; margin-bottom: 10px;}
+.loginApplyNow.notificationDiv{ width: 10%; float: right;}
+.loginApplyNow.notificationDiv ul{ padding: 0px !important;}
+.loginApplyNow.notificationDiv > ul > li {
+  padding: 7px 7px;
+  margin-top: 1px;
+  border: 0px;
+}
+.notificationDiv .dropdown-menu {
+  right: -10px !important;
+  width: 310px;
+  left: inherit;
+}
+.arrowBox{ width: 100%;}
+.arrowBox:after, .arrowBox:before{ left: 92%;}
+  ul.dropdown-menu li a.notifyRemove{ width: auto; float: right;}
+.loginApplyNow ul.dropdown-menu ul span{ color: #000;}
+
+  .formUI{ padding: 10px 0px;}
+  .formUI .row{ margin: 0px;}
+  .formUI form.row div .padding{ padding: 5px 0px;}
+
+  .loandetaildiv .padding5 p{ width: auto; margin-right: 30px; min-width: 150px;}
+  button.continueButton {
+    padding: 2px 5px 2px 5px;
+  }
+
+
+}
+
+@media only screen and (max-width:359px){
+	
+	
+	
+  .loandetaildiv .padding5 p{ min-width: inherit;}
+.Company ul h1,.ourProcess p{font-size:17px}
+.Company ul h1{font-weight:600}
+.navbar-toggle{margin-top:-53px;margin-right:0}
+.loginApplyNow ul{padding-top:10px}
+.myAccountTitle h1,.ourProcess h1{font-size:25px}
+.applyIcons{background-size:100%;margin-left:0;background-image:inherit;border:2px solid #2c4055;width:120px;height:120px;border-radius:100%;position:relative}
+.applyIcons.Disbursal:after,.applyIcons:after{content:" ";position:absolute;width:0;height:0}
+.applyIcons:after{border-top:10px solid transparent;border-left:27px solid #2c4055;border-bottom:10px solid transparent;top:49px;right:-27px}
+.applyIcons.Disbursal:after{border-left:12px solid transparent;border-right:12px solid transparent;border-top:25px solid #2c4055;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;right:-12px}
+.Secure h1::after{left:42%}
+.forAssistance{margin-bottom:20px}
+.Newsletter input[type=submit]{width:50%}
+.applyIcons img{left:0;padding-left:0;width:auto;text-align:center;margin:auto;display:inline-block;float:none;padding-top:21px}
+.TitledashboardStepper,.liner,span.dashboardTitle{display:none}
+.applyButton{margin:20px 0}
+.myAccount-ele-wrapper{padding:8px;margin-bottom:20px}
+.myAccount-ele-wrapper h3{font-size:18px}
+button.md-raised.md-primary{width:100%;left:44%;top:33px}
+.board-inner .nav-tabs>li a,.board-inner span.round-tabs{width:40px;height:40px;line-height:40px}
+.myAccountTitle h1::after{left:43%;top:34px}
+.padding40{padding:0 0 20px;float:left;width:100%; text-align: center;}
+.dashboardStepper span.round-tabs{line-height:40px}
+.labelInput label{font-size:12px}
+.errMsg{top:72px;left:0;font-size:10px}
+.navbar-default .navbar-collapse,.navbar-default .navbar-form{float:left;width:100%;text-align:left; border: 0;}
+.navbar-nav{background: #2c4055;border: none;float: left;margin-left: 0;margin-right: 0;padding: 15px;width: 100%;}
+.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:focus,.navbar-default .navbar-nav>.active>a:hover{background-color:transparent;color:#fff!important}
+.navbar-default .navbar-nav>li>a{color:#fff!important}
+.navbar-default .navbar-nav>li>a:hover{color:#6c8aaf!important}
+.loandetaildiv .txt-right{text-align:left}
+.lightyellowbgLeft{width:100%}
+.lightyellowbgLeft button.md-raised.md-primary{margin-top:35px;width:85%}
+.lightyellowbgOR,.lightyellowbgRight{width:100%;margin-top:11px}
+.text-center.lightyellowbgOR::after{left:50%}
+.applyIcons.Disbursal{background-size:100%;background-image:inherit}
+.applyIcons.Disbursal img{padding-top:11px;padding-left:0;width:auto;margin:auto auto auto 14px;float:none;display:inline-block;text-align:center}
+#productspage .workingCapitalImages{border:0}#productspage .workingCapitalTitle{margin-top:10px}
+.workingCapitalTable ul li{width:100%}
+#review ul.nav.nav-tabs{float:left;width:30%}
+#review .tab-content{float:right;width:70%;height:412px;overflow-y:scroll}
+#review ul.nav.nav-tabs li a{padding:9px 5px 9px 4px!important;font-size:13px;line-height:inherit;text-align:center;width:100%}
+#loginfrom .btn-default{width:100%}
+.ForgotRemember{width:100%;margin-left:0}
+.completeloansocial a{width:auto ;margin-bottom:10px;float:left;font-size:12px;padding:8px; margin-left: 5px;}
+.extra-padding .col-lg-3{padding:0}
+
+span.proceedRsLeft{ width: 40%; padding-left: 5px; }
+span.sliderProducts input{ width: 85% }
+span.proceedRsRight span{ font-size: 14px; }
+span.TypeOfLoanBusiness{ width: 100%;  float: left; }
+span.TypeOfLoanPersonal { width: 100%;  float: left; }
+.BusinessLandline input{ float: right; width: 67%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: auto; }
+.personnelPartnerDetailsAdd span{ float: left; width: 73%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: 9% !important; }
+.NameEntity.Permanentboxs label{ width: 86%; }
+.CoApplicantGuarantorButton{ width: 100%; float: left; }
+.labelInput.TypeOfLoan.Reference span.TypeOfLoanBusiness input, .labelInput.TypeOfLoan.Reference span.TypeOfLoanPersonal input{ width: auto; }
+
+.navbar.navbar-default.memebar { float: right; width: 100%; min-height: inherit; border: 0;}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{ border: 0; }
+span.caret {  float: right; margin-right: 7px;  margin-top: 5px;}
+.LoginSocial a{ margin-bottom: 10px; }
+.loginApplyNow { width: 88%;background: #2c4055; float: left; color: #fff; margin-bottom: 10px;}
+.loginApplyNow.notificationDiv{ width: 10%; float: right;}
+  .loginApplyNow.notificationDiv ul{ padding: 0px !important;}
+.loginApplyNow ul { padding-top: 5px !important; float: left; width: 100%; min-height: 35px; padding-left: 10px;}
+.loginApplyNow ul li{ border-color: #fff; border: 0; width: 100%; }
+.loginApplyNow ul li a{color: #fff; }
+ul.dropdown-menu li { width: 100%; float: left; }
+ul.dropdown-menu li a { color: #2c4055; font-size: 13px;float: left; width: 100%; float: left;}
+span.dropdown.open { width: 100% ; float: left;}
+a.dropdown-toggle.ng-binding { width: 100%;  float: left; padding-top: 5px;}
+li.mobileSize{ display: block; }
+h1.dekSize{ display: none; }
+h1.mobileSize {   display: block;}
+.Company.businessLoan.dekilesize{ display: none; }
+.Company.businessLoan.mobilesize {    display: block;}
+.textAlign { text-align: center; }
+
+
+.loandetaildivStatus ul li{ width: 100% !important; float: left; border: 0;	 }
+/*.loandetaildiv p{ float: left; width: 48%; font-size: 12px; }*/
+.BusinessLandline.symbol input{ padding-left: 16%; }
+.add2 h3{ font-size: 22px; }
+.add1 { width: 100%; text-align: center; margin-left: 0;}
+.add2 { width: 100%;  float: left; text-align: center; padding-left: 0;}
+.ModalExample .modal-content{ width: 93% }
+.businessCompanyDetails{ font-size: 16px; margin-bottom: 0px; }
+.NameEntity.bankStatement .labelInput  select{ width: 90%; margin: 0 auto; }
+button.btn.btn-primary.ContinueButton { width: 100%; font-size: 15px;  padding: 10px; }
+.loandetaildiv .loantitle span{ float: left; }
+.loandetaildiv .loantitle{padding: 5px 7px; min-height: 80px;}
+.pagination-sm > li > a { font-size: 11px; }
+.loandetaildiv .loantitle .listcircle{ float: left; }
+
+.loandetaildiv .loantitle{padding: 5px 5px; width: 100%;    text-align: left;    margin-bottom: 10px;}
+.loandetaildiv p{ float: left; }
+  .nav-tabs > li button{ margin: 5px auto; height: 33px;}
+
+}
+
+@media only screen and (min-width:360px) and (max-width:479px){
+.TitledashboardStepper,.liner,span.dashboardTitle{display:none}
+.Company ul,.loandetaildiv .txt-right{text-align:left}
+.navbar-toggle{margin-top:-53px;margin-right:0}
+.loginApplyNow ul{padding-top:10px}
+.ourProcess p{font-size:17px}
+.myAccountTitle h1,.ourProcess h1{font-size:25px}
+.applyIcons{background-size:91%;margin-left:50px}
+.Secure h1::after{left:47%}
+.forAssistance{margin-bottom:20px}
+.Newsletter input[type=submit]{width:50%}
+.applyIcons img{padding-top:42px;padding-left:42px;width:95px}
+.applyButton{margin:20px 0}
+.myAccount-ele-wrapper{padding:8px;margin-bottom:20px}
+.myAccount-ele-wrapper h3{font-size:18px}
+button.md-raised.md-primary{width:100%;left:44%;top:33px}
+.board-inner .nav-tabs>li a,.board-inner span.round-tabs{width:50px;height:50px;line-height:50px}
+.myAccountTitle h1::after{left:43%;top:34px}
+.padding40{padding:0 0 20px;float:left;width:100%}
+.Application span.round-tabs{line-height:42px}
+.labelInput label{font-size:13px}
+.errMsg{top:72px;left:0;font-size:10px}
+.navbar-default .navbar-collapse,.navbar-default .navbar-form{float:left;width:100%;text-align:left}
+.navbar-nav{background:#2c4055;float: left; margin-left: 0; margin-right: 0; padding: 15px 0; width: 100%;}
+.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:focus,.navbar-default .navbar-nav>.active>a:hover{background-color:transparent;color:#fff!important}
+.navbar-default .navbar-nav>li>a{color:#fff!important}
+.navbar-default .navbar-nav>li>a:hover{color:#6c8aaf!important}
+.lightyellowbgLeft{width:100%}
+.lightyellowbgLeft button.md-raised.md-primary{margin-top:35px;width:85%}
+.lightyellowbgOR,.lightyellowbgRight{width:100%;margin-top:11px}
+.text-center.lightyellowbgOR::after{left:50%}
+.completeloansocial a{width:30%;margin-bottom:10px;float:left}
+.applyIcons.Disbursal{background-size:55%}
+.applyIcons.Disbursal img{padding-top:27px;padding-left:43px;width:107px}
+#productspage .workingCapitalImages{border:0}
+#productspage .workingCapitalTitle{margin-top:10px}
+.workingCapitalTable ul li{width:100%}
+.navbar.navbar-default.memebar{float:right;width:100%}
+#review ul.nav.nav-tabs{float:left;width:30%}
+#review .tab-content{float:right;width:70%;height:412px;overflow-y:scroll}
+#review ul.nav.nav-tabs li a{padding:9px 5px 9px 4px!important;font-size:13px;line-height:inherit;text-align:center;width:100%}
+#loginfrom .btn-default{width:100%!important}
+span.proceedRsLeft{ width: 40%; padding-left: 5px; }
+span.sliderProducts input{ width: 85% }
+span.proceedRsRight span{ font-size: 14px; }
+span.TypeOfLoanBusiness{ width: 100%;  float: left; }
+span.TypeOfLoanPersonal { width: 100%;  float: left; }
+.BusinessLandline input{ float: right; width: 67%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: auto; }
+.personnelPartnerDetailsAdd span{ float: left; width: 73%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: 9% !important; }
+.NameEntity.Permanentboxs label{ width: 87%; }
+.CoApplicantGuarantorButton{
+    width: 62%;
+    float: none;
+    margin: auto;
+    text-align: center;
+}
+.labelInput.TypeOfLoan.Reference span.TypeOfLoanBusiness input, .labelInput.TypeOfLoan.Reference span.TypeOfLoanPersonal input{ width: auto; }
+
+.navbar.navbar-default.memebar { float: right; width: 100%; min-height: inherit; border: 0;}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{ border: 0; }
+span.caret {  float: right; margin-right: 7px;  margin-top: 5px;}
+.LoginSocial a{ margin-bottom: 10px; }
+.loginApplyNow { background: #2c4055; float: left; color: #fff; margin-bottom: 10px;}
+.loginApplyNow ul { padding-top: 5px !important; float: left; width: 100%; min-height: 35px; padding-left: 10px;}
+.loginApplyNow ul li{ border-color: #fff; border: 0; width: 100%; }
+.loginApplyNow ul li a{color: #fff; }
+ul.dropdown-menu li { width: 100%; float: left; }
+ul.dropdown-menu li a { color: #2c4055; font-size: 13px;float: left; width: 100%; float: left;}
+span.dropdown.open { width: 100%; float: left;}
+a.dropdown-toggle.ng-binding { width: 100%;  float: left; padding-top: 5px;}
+li.mobileSize{ display: block; }
+h1.dekSize{ display: none; }
+h1.mobileSize {   display: block;}
+.Company.businessLoan.dekilesize{ display: none; }
+.Company.businessLoan.mobilesize {    display: block;}
+.textAlign ul { text-align: center; }
+
+.applyIcons{background-size:100%;margin-left:0;background-image:inherit;border:2px solid #2c4055;width:120px;height:120px;border-radius:100%;position:relative}
+.applyIcons.Disbursal:after,.applyIcons:after{content:" ";position:absolute;width:0;height:0}
+.applyIcons:after{border-top:10px solid transparent;border-left:27px solid #2c4055;border-bottom:10px solid transparent;top:49px;right:-27px}
+.applyIcons.Disbursal:after{border-left:12px solid transparent;border-right:12px solid transparent;border-top:25px solid #2c4055;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;right:-12px}
+.Secure h1::after{left:42%}
+.applyIcons img{left:0;padding-left:0;width:auto;text-align:center;margin:auto;display:inline-block;float:none;padding-top:21px}
+.applyIcons.Disbursal{ background-image: initial; }
+.applyIcons.Disbursal img { padding-top: 23px; padding-left: 40px;  width: 102px;  margin-left: -15px;}
+.textAlign {    text-align: center;}
+.add2 h3{ font-size: 22px; }
+.add1 { width: 100%; text-align: center; margin-left: 0;}
+.add2 { width: 100%;  float: left; text-align: center; padding-left: 0;}
+
+/*.loandetaildiv .loantitle{padding: 5px 5px; width: 100%;    text-align: left;    margin-bottom: 10px; float: left;     font-size: 13px;}*/
+.loandetaildiv .loantitle span{ font-size: 13px; float: left;  margin-left: 46px;}
+/*.loandetaildiv p { float: left; width: 60%;  text-align: left;}*/
+.loandetaildiv .padding5 { padding: 7px 7px; float: left; width: 100%;}
+
+
+
+
+}
+
+@media only screen and (min-width:480px) and (max-width:509px){
+.applyIcons,.applyIcons.Disbursal{background-image:inherit}
+.logo a{font-size:34px}
+.navbar.navbar-default.memebar{width:67%}
+.navbar-toggle{margin-top:22px;margin-right:0}
+.loginApplyNow ul{padding-top:10px}
+.ourProcess p{font-size:17px}
+.myAccountTitle h1,.ourProcess h1{font-size:25px}
+.applyIcons{background-size:100%;margin-left:14px;border:2px solid #2c4055;border-radius:100%;width:120px;height:120px}
+.Secure h1::after{left:47%}
+.forAssistance{margin-bottom:20px}
+.Newsletter input[type=submit]{width:50%}
+.applyIcons img{padding-top:33px;padding-left:0;width:53px;text-align:center;margin:auto;display:inline-block;float:none}
+.TitledashboardStepper,.liner,span.dashboardTitle{display:none}
+.applyButton{margin:20px 0}
+.myAccount-ele-wrapper{padding:8px;margin-bottom:20px}
+.myAccount-ele-wrapper h3{font-size:18px}
+button.md-raised.md-primary{width:100%;left:44%;top:33px}
+.board-inner .nav-tabs>li a,.board-inner span.round-tabs{width:60px;height:60px;line-height:60px}
+.myAccountTitle h1::after{left:43%;top:34px}
+.padding40{padding:0 0 20px;float:left;width:100%; text-align: center;}
+.Application span.round-tabs{line-height:51PX}
+.labelInput label{font-size:13px}
+.errMsg{top:72px;left:0;font-size:10px}
+.navbar-default .navbar-collapse,.navbar-default .navbar-form{float:left;width:100%;text-align:left;border:0}
+.navbar-nav{float:left;background:#2c4055;width:98%;padding:15px;margin-right:0!important;padding-right:0!important}
+.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:focus,.navbar-default .navbar-nav>.active>a:hover{background-color:transparent;color:#fff!important}
+.navbar-default .navbar-nav>li>a{color:#fff!important}
+.navbar-default .navbar-nav>li>a:hover{color:#6c8aaf!important}
+.loandetaildiv .txt-right{text-align:left}
+.lightyellowbgLeft{width:100%}
+.lightyellowbgLeft button.md-raised.md-primary{margin-top:35px;width:85%}
+.lightyellowbgOR,.lightyellowbgRight{width:100%;margin-top:11px}
+.text-center.lightyellowbgOR::after{left:50%}
+.completeloansocial a{width:auto;margin-bottom:10px;float:left}
+.applyIcons.Disbursal{background-size:55%}
+.applyIcons.Disbursal img{padding-top:33px;padding-left:0;width:53px;text-align:center;margin:auto;display:inline-block;float:none}
+#productspage .workingCapitalImages{border:0}
+#productspage .workingCapitalTitle{margin-top:10px}
+.workingCapitalTable ul li{width:100%}
+.memebar .navbar-nav{margin:0!important}
+#review ul.nav.nav-tabs{float:left;width:30%}
+#review .tab-content{float:right;width:70%;height:412px;overflow-y:scroll}
+#review ul.nav.nav-tabs li a{padding:9px 5px 9px 4px!important;font-size:13px;line-height:inherit;text-align:center;width:100%}
+.extra-padding .col-lg-3{padding:0}
+span.proceedRsLeft{ width: 40%; padding-left: 5px; }
+span.sliderProducts input{ width: 85% }
+span.proceedRsRight span{ font-size: 14px; }
+span.TypeOfLoanBusiness{ width: 100%;  float: left; }
+span.TypeOfLoanPersonal { width: 100%;  float: left; }
+.BusinessLandline input{ float: right; width: 67%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: auto; }
+.personnelPartnerDetailsAdd span{ float: left; width: 73%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: 9% !important; }
+.NameEntity.Permanentboxs label{ width: 87%; }
+.CoApplicantGuarantorButton{ width: 100%; float: left; }
+.labelInput.TypeOfLoan.Reference span.TypeOfLoanBusiness input, .labelInput.TypeOfLoan.Reference span.TypeOfLoanPersonal input{ width: auto; }
+.textAlign {
+    text-align: center;
+}
+.add2 h3{ font-size: 22px; }
+.add1 { width: 100%; text-align: center; margin-left: 0;}
+.add2 { width: 100%;  float: left; text-align: center; padding-left: 0;}
+
+
+.navbar.navbar-default.memebar { float: right; width:295px; min-height: inherit; border: 0;}
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{ border: 0; }
+span.caret {  float: right; margin-right: 7px;  margin-top: 5px;}
+.LoginSocial a{ margin-bottom: 10px; }
+.loginApplyNow { width: 88%;background: #2c4055; float: left; color: #fff; margin-bottom: 10px; margin-top: 10px;}
+.loginApplyNow ul { padding-top: 5px !important; float: left; width: 100%; min-height: 35px; padding-left: 10px;}
+.loginApplyNow ul li{ border-color: #fff; border: 0; width: 100%; }
+.loginApplyNow ul li a{color: #fff; }
+ul.dropdown-menu li { width: 100%; float: left; }
+ul.dropdown-menu li a { color: #2c4055; font-size: 13px;float: left; width: 100%; float: left;}
+span.dropdown.open { width: 100%; float: left;}
+a.dropdown-toggle.ng-binding { width: 100%;  float: left; padding-top: 5px;}
+li.mobileSize{ display: block; }
+h1.dekSize{ display: none; }
+h1.mobileSize {   display: block;}
+.Company.businessLoan.dekilesize{ display: none; }
+.Company.businessLoan.mobilesize {    display: block;}
+.textAlign { text-align: center; }
+.workingCapital p{ min-height: 60px; }
+
+.applyIcons{background-size:100%;margin-left:0;background-image:inherit;border:2px solid #2c4055;width:120px;height:120px;border-radius:100%;position:relative}
+.applyIcons.Disbursal:after,.applyIcons:after{content:" ";position:absolute;width:0;height:0}
+.applyIcons:after{border-top:10px solid transparent;border-left:27px solid #2c4055;border-bottom:10px solid transparent;top:49px;right:-27px}
+.applyIcons.Disbursal:after{border-left:12px solid transparent;border-right:12px solid transparent;border-top:25px solid #2c4055;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;right:-12px}
+.Secure h1::after{left:42%}
+.applyIcons img{left:0;padding-left:0;width:auto;text-align:center;margin:auto;display:inline-block;float:none;padding-top:21px}
+.applyIcons.Disbursal{ background-image: initial; }
+.applyIcons.Disbursal img { padding-top: 23px; padding-left: 40px;  width: 102px;  margin-left: -15px;}
+
+/*.loandetaildiv .loantitle{padding: 5px 5px; width: 100%;    text-align: left;    margin-bottom: 10px; float: left;     font-size: 13px;}*/
+.loandetaildiv .loantitle span{ font-size: 13px;}
+/*.loandetaildiv p { float: left; width: 69%;  text-align: left;}*/
+.loandetaildiv .padding5 { padding: 7px 7px;}
+
+
+}
+
+@media only screen and (min-width:510px) and (max-width:639px){
+.TitledashboardStepper,.liner,span.dashboardTitle{display:none}
+.logo a{font-size:34px}
+.navbar.navbar-default.memebar{width:295px;float:right}
+/*.navbar-header{float:right}*/
+.navbar-toggle{margin-top:20px;margin-right:0}
+.loginApplyNow ul{padding-top:10px}
+.ourProcess p{font-size:17px}
+.myAccountTitle h1,.ourProcess h1{font-size:25px}
+.applyIcons{background-size:100%;margin-left:88px}
+.Secure h1::after{left:47%}
+.forAssistance{margin-bottom:20px}
+.Newsletter input[type=submit]{width:50%}
+.applyIcons img{padding-top:42px;padding-left:42px;width:95px}
+.applyButton{margin:20px 0}
+.myAccount-ele-wrapper{padding:8px;margin-bottom:20px}
+.myAccount-ele-wrapper h3{font-size:18px}
+button.md-raised.md-primary{width:100%;left:44%;top:33px}
+.board-inner .nav-tabs>li a,.board-inner span.round-tabs{width:60px;height:60px;line-height:60px}
+.myAccountTitle h1::after{left:43%;top:34px}
+.padding40{padding:0 0 20px;float:left;width:100%}
+.Application span.round-tabs{line-height:51PX}
+.labelInput label{font-size:13px}
+.errMsg{top:72px;left:0;font-size:10px}
+.navbar-default .navbar-collapse,.navbar-default .navbar-form{float:left;width:100%;text-align:left;border:0}
+.navbar-nav{float:left;background:#2c4055;width:100%;padding:15px;margin-right:0!important;padding-right:0!important}
+.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:focus,.navbar-default .navbar-nav>.active>a:hover{background-color:transparent;color:#fff!important}
+.navbar-default .navbar-nav>li>a{color:#fff!important}
+.navbar-default .navbar-nav>li>a:hover{color:#6c8aaf!important}
+.loandetaildiv .txt-right{text-align:left}
+.lightyellowbgLeft{width:100%}
+.lightyellowbgLeft button.md-raised.md-primary{margin-top:35px;width:85%}
+.lightyellowbgOR,.lightyellowbgRight{width:100%;margin-top:11px}
+.text-center.lightyellowbgOR::after{left:50%}
+.completeloansocial a{width:44%;margin-bottom:10px;float:left}
+.applyIcons.Disbursal{background-size:55%}
+.applyIcons.Disbursal img{padding-top:27px;padding-left:43px;width:107px}
+#productspage .workingCapitalImages{border:0}
+#productspage .workingCapitalTitle{margin-top:10px}
+.workingCapitalTable ul li{width:100%}
+.memebar .navbar-nav{margin:0!important}
+#review ul.nav.nav-tabs{float:left;width:30%}
+#review .tab-content{float:right;width:70%;height:412px;overflow-y:scroll}
+#review ul.nav.nav-tabs li a{padding:9px 5px 9px 4px!important;font-size:13px;line-height:inherit;text-align:center;width:100%}
+span.proceedRsLeft{ width: 40%; padding-left: 5px; }
+span.sliderProducts input{ width: 85% }
+span.proceedRsRight span{ font-size: 14px; }
+span.TypeOfLoanBusiness{ width: 100%;  float: left; }
+span.TypeOfLoanPersonal { width: 100%;  float: left; }
+.BusinessLandline input{ float: right; width: 87%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: auto; }
+.personnelPartnerDetailsAdd span{ float: left; width: 73%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: 9% !important; }
+.NameEntity.Permanentboxs label{ width: 87%; }
+.CoApplicantGuarantorButton{
+    width: 62%;
+    float: none;
+    margin: auto;
+    text-align: center;
+}
+.labelInput.TypeOfLoan.Reference span.TypeOfLoanBusiness input, .labelInput.TypeOfLoan.Reference span.TypeOfLoanPersonal input{ width: auto; }
+.ModalExample .modal-dialog{ width: 100%; }
+.modalExamplepersonalDetails .modal-dialog{ width: 100%;   }
+li.mobileSize{ display: block; }
+h1.dekSize{ display: none; }
+h1.mobileSize {   display: block;}
+.Company.businessLoan.dekilesize{ display: none; }
+.Company.businessLoan.mobilesize {    display: block;}
+.textAlign { text-align: center; }
+.workingCapital p{ min-height: 60px; }
+.applyButton a{ width: 100%; margin-left: 10px;    margin-bottom: 13px; }
+.ModalExample .modal-content{ width: 96%; }
+.butBank button.btn.btn-primary { margin-top:0px; }
+.NameEntity.bankStatement .labelInput  select{ width: 95%; margin: auto; margin-bottom: 10px; }
+.loandetaildiv .padding5 {
+    padding: 15px 13px;
+    float: left;
+}
+.loandetaildiv p{font-size: 13px;}
+.completeloansocial a{ margin: 0 3px; width: auto; }
+.BusinessLandline.symbol input{ padding-left: 6%; }
+
+  .NameEntity.Permanentboxs input.Permanentbox{ width: auto; }
+  .personnelPartnerDetailsAdd span{ float: left; width: 73%; }
+  .NameEntity.Permanentboxs input.Permanentbox{ width: 9% !important; }
+  .NameEntity.Permanentboxs label{ width: 87%; }
+  .CoApplicantGuarantorButton{ width: 100%; float: left; }
+  .labelInput.TypeOfLoan.Reference span.TypeOfLoanBusiness input, .labelInput.TypeOfLoan.Reference span.TypeOfLoanPersonal input{ width: auto; }
+  .textAlign {
+    text-align: center;
+  }
+  .add2 h3{ font-size: 22px; }
+  .add1 { width: 100%; text-align: center; margin-left: 0;}
+  .add2 { width: 100%;  float: left; text-align: center; padding-left: 0;}
+
+
+  .navbar.navbar-default.memebar { float: right; width:295px; min-height: inherit; border: 0;}
+  .navbar-default .navbar-collapse, .navbar-default .navbar-form{ border: 0; }
+  span.caret {  float: right; margin-right: 7px;  margin-top: 5px;}
+  .LoginSocial a{ margin-bottom: 10px; }
+  .loginApplyNow { width: 88%;background: #2c4055; float: left; color: #fff; margin-bottom: 10px; margin-top: 10px;}
+  .loginApplyNow ul { padding-top: 5px !important; float: left; width: 100%; min-height: 35px; padding-left: 10px;}
+  .loginApplyNow ul li{ border-color: #fff; border: 0; width: 100%; }
+  .loginApplyNow ul li a{color: #fff; }
+  ul.dropdown-menu li { width: 100%; float: left; }
+  ul.dropdown-menu li a { color: #2c4055; font-size: 13px;float: left; width: 100%; float: left;}
+  span.dropdown.open { width: 100%; float: left;}
+  a.dropdown-toggle.ng-binding { width: 100%;  float: left; padding-top: 5px;}
+  li.mobileSize{ display: block; }
+  h1.dekSize{ display: none; }
+  h1.mobileSize {   display: block;}
+  .Company.businessLoan.dekilesize{ display: none; }
+  .Company.businessLoan.mobilesize {    display: block;}
+  .textAlign { text-align: center; }
+  .workingCapital p{ min-height: 60px; }
+
+
+.applyIcons{background-size:100%;margin-left:0;background-image:inherit;border:2px solid #2c4055;width:120px;height:120px;border-radius:100%;position:relative}
+.applyIcons.Disbursal:after,.applyIcons:after{content:" ";position:absolute;width:0;height:0}
+.applyIcons:after{border-top:10px solid transparent;border-left:27px solid #2c4055;border-bottom:10px solid transparent;top:49px;right:-27px}
+.applyIcons.Disbursal:after{border-left:12px solid transparent;border-right:12px solid transparent;border-top:25px solid #2c4055;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;right:-12px}
+.Secure h1::after{left:42%}
+.applyIcons img{left:0;padding-left:0;width:auto;text-align:center;margin:auto;display:inline-block;float:none;padding-top:21px}
+.applyIcons.Disbursal{ background-image: initial; }
+.applyIcons.Disbursal img { padding-top: 23px; padding-left: 40px;  width: 102px;  margin-left: -15px;}
+.textAlign {    text-align: center;}
+.board-inner.fix-to-top{ width: 96% }
+
+/*.loandetaildiv .loantitle{padding: 5px 5px; width: 100%;    text-align: left;    margin-bottom: 10px; float: left;     font-size: 13px;}*/
+.loandetaildiv .loantitle span{ font-size: 13px;}
+/*.loandetaildiv p { float: left; width: 75%;  text-align: left;}*/
+.loandetaildiv .padding5 { padding: 7px 7px; width: 100%;}
+
+}
+
+@media only screen and (min-width:640px) and (max-width:767px){
+.TitledashboardStepper,.liner,span.dashboardTitle{display:none}
+.logo a{font-size:34px}
+.navbar.navbar-default.memebar{width:295px;float:right}
+/*.navbar-header{float:right}*/
+.navbar-toggle{margin-top:20px;margin-right:0}
+.loginApplyNow ul{padding-top:10px}
+.ourProcess p{font-size:17px}
+.myAccountTitle h1,.ourProcess h1{font-size:25px}
+.applyIcons{background-size:100%}
+.Secure h1::after{left:47%}
+.forAssistance{margin-bottom:20px}
+.Newsletter input[type=submit]{width:50%}
+.applyIcons img{padding-top:42px;padding-left:42px;width:95px}
+.applyButton{margin:20px 0}
+.myAccount-ele-wrapper{padding:8px;margin-bottom:20px}
+.myAccount-ele-wrapper h3{font-size:18px}
+button.md-raised.md-primary{width:100%;left:44%;top:33px}
+.board-inner .nav-tabs>li a,.board-inner span.round-tabs{width:60px;height:60px;line-height:60px}
+.myAccountTitle h1::after{left:43%;top:34px}
+.padding40{padding:0 0 20px;float:left;width:100%}
+.Application span.round-tabs{line-height:51PX}
+.labelInput label{font-size:13px}
+.errMsg{top:72px;left:0;font-size:10px}
+.navbar-default .navbar-collapse,.navbar-default .navbar-form{float:left;width:100%;text-align:left;border:0}
+.navbar-nav{float:left;background:#2c4055;width:100%;padding:15px;margin-right:0!important;padding-right:0!important}
+.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:focus,.navbar-default .navbar-nav>.active>a:hover{background-color:transparent;color:#fff!important}
+.navbar-default .navbar-nav>li>a{color:#fff!important}.navbar-default .navbar-nav>li>a:hover{color:#6c8aaf!important}
+.loandetaildiv .txt-right{text-align:left}
+.lightyellowbgLeft{width:100%}
+.lightyellowbgLeft button.md-raised.md-primary{margin-top:35px;width:85%}
+.lightyellowbgOR,.lightyellowbgRight{width:100%;margin-top:11px}
+.text-center.lightyellowbgOR::after{left:50%}
+.completeloansocial a{width:44%;margin-bottom:10px;float:left}
+.applyIcons.Disbursal{background-size:55%}
+.applyIcons.Disbursal img{padding-top:27px;padding-left:43px;width:107px}
+#productspage .workingCapitalImages{border:0}
+#productspage .workingCapitalTitle{margin-top:10px}
+.workingCapitalTable ul li{width:100%}
+.memebar .navbar-nav{margin:0!important}
+.applyIcons{margin-left:61px}
+#review ul.nav.nav-tabs{float:left;width:15%}
+#review .tab-content{float:right;width:85%;height:412px;overflow-y:scroll}
+#review ul.nav.nav-tabs li a{padding:9px 5px 9px 4px!important;font-size:13px;line-height:inherit;text-align:center;width:100%}
+span.proceedRsLeft{ width: 40%; padding-left: 5px; }
+span.sliderProducts input{ width: 85% }
+span.proceedRsRight span{ font-size: 14px; }
+span.TypeOfLoanBusiness{ width: 100%;  float: left; }
+span.TypeOfLoanPersonal { width: 100%;  float: left; }
+.BusinessLandline input{ float: right; width: 67%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: auto; }
+.personnelPartnerDetailsAdd span{ float: left; width: 73%; }
+.NameEntity.Permanentboxs input.Permanentbox{ width: 9% !important; }
+.NameEntity.Permanentboxs label{ width: 87%; }
+.CoApplicantGuarantorButton{
+    width: 40%;
+    float: none;
+    margin: auto;
+    text-align: center;
+}
+.labelInput.TypeOfLoan.Reference span.TypeOfLoanBusiness input, .labelInput.TypeOfLoan.Reference span.TypeOfLoanPersonal input{ width: auto; }
+.ModalExample .modal-dialog{ width: 100%; }
+.modalExamplepersonalDetails .modal-dialog{ width: 100%;   }
+li.mobileSize{ display: block; }
+h1.dekSize{ display: none; }
+h1.mobileSize {   display: block;}
+.Company.businessLoan.dekilesize{ display: none; }
+.Company.businessLoan.mobilesize {    display: block;}
+.textAlign { text-align: center; }
+.workingCapital{ min-height: 167px }
+span.TypeOfLoanBusiness input[type="radio"] , span.TypeOfLoanPersonal input[type="radio"]{ width: auto; }
+.board-inner.fix-to-top {
+    width: 96%;
+}
+
+
+  .NameEntity.Permanentboxs input.Permanentbox{ width: auto; }
+  .personnelPartnerDetailsAdd span{ float: left; width: 73%; }
+  .NameEntity.Permanentboxs input.Permanentbox{ width: 9% !important; }
+  .NameEntity.Permanentboxs label{ width: 87%; }
+  .CoApplicantGuarantorButton{ width: 100%; float: left; }
+  .labelInput.TypeOfLoan.Reference span.TypeOfLoanBusiness input, .labelInput.TypeOfLoan.Reference span.TypeOfLoanPersonal input{ width: auto; }
+  .textAlign {
+    text-align: center;
+  }
+  .add2 h3{ font-size: 22px; }
+  .add1 { width: 100%; text-align: center; margin-left: 0;}
+  .add2 { width: 100%;  float: left; text-align: center; padding-left: 0;}
+
+
+  .navbar.navbar-default.memebar { float: right; width:295px; min-height: inherit; border: 0;}
+  .navbar-default .navbar-collapse, .navbar-default .navbar-form{ border: 0; }
+  span.caret {  float: right; margin-right: 7px;  margin-top: 5px;}
+  .LoginSocial a{ margin-bottom: 10px; }
+  .loginApplyNow { width: 88%;background: #2c4055; float: left; color: #fff; margin-bottom: 10px; margin-top: 10px;}
+  .loginApplyNow ul { padding-top: 5px !important; float: left; width: 100%; min-height: 35px; padding-left: 10px;}
+  .loginApplyNow ul li{ border-color: #fff; border: 0; width: 100%; }
+  .loginApplyNow ul li a{color: #fff; }
+  ul.dropdown-menu li { width: 100%; float: left; }
+  ul.dropdown-menu li a { color: #2c4055; font-size: 13px;float: left; width: 100%; float: left;}
+  span.dropdown.open { width: 100%; float: left;}
+  a.dropdown-toggle.ng-binding { width: 100%;  float: left; padding-top: 5px;}
+  li.mobileSize{ display: block; }
+  h1.dekSize{ display: none; }
+  h1.mobileSize {   display: block;}
+  .Company.businessLoan.dekilesize{ display: none; }
+  .Company.businessLoan.mobilesize {    display: block;}
+  .textAlign { text-align: center; }
+  .workingCapital p{ min-height: 60px; }
+
+.applyIcons{background-size:100%;margin-left:0;background-image:inherit;border:2px solid #2c4055;width:120px;height:120px;border-radius:100%;position:relative}
+.applyIcons.Disbursal:after,.applyIcons:after{content:" ";position:absolute;width:0;height:0}
+.applyIcons:after{border-top:10px solid transparent;border-left:27px solid #2c4055;border-bottom:10px solid transparent;top:49px;right:-27px}
+.applyIcons.Disbursal:after{border-left:12px solid transparent;border-right:12px solid transparent;border-top:25px solid #2c4055;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;right:-12px}
+.Secure h1::after{left:42%}
+.applyIcons img{left:0;padding-left:0;width:auto;text-align:center;margin:auto;display:inline-block;float:none;padding-top:21px}
+.applyIcons.Disbursal{ background-image: initial; }
+.applyIcons.Disbursal img { padding-top: 23px; padding-left: 40px;  width: 102px;  margin-left: -15px;}
+/*.loandetaildiv .loantitle{padding: 5px 5px; width: 100%;    text-align: left;    margin-bottom: 10px; float: left;     font-size: 13px;}*/
+.loandetaildiv .loantitle span{ font-size: 13px;  margin-left: 46px;}
+/*.loandetaildiv p { float: left; width: 60%;  text-align: left;}*/
+.loandetaildiv .padding5 { padding: 7px 7px; float: left; width: 100%;}
+
+
+
+}
+
+@media only screen and (min-width:768px) and (max-width:799px){
+#review ul.nav.nav-tabs li a,.applyIcons img{text-align:center}
+button.md-raised.md-primary{width:100%}
+.myAccount-ele-wrapper{margin-bottom:20px}
+.navbar.navbar-default.memebar{width:83%}
+.navbar-default .navbar-nav a{font-size:14px;padding:10px 5px}
+.applyIcons{margin-left:12px;background-size:74%;height:103px}
+.navbar-default .navbar-collapse,.navbar-default .navbar-form{float:left}
+.logo a{font-size:28px}
+.loginApplyNow ul{padding-top:12px}
+.navbar-nav{/* padding-top:3px */}
+.applyIcons img{padding-top:25px;float:left;padding-left:0;width:50px;margin-left:26px}
+.applyIcons.Disbursal{background-size:42%}
+.applyIcons.Disbursal img{padding-top:21px;padding-left:0;width:55px;margin-left:30px}
+.ModalExample .modal-dialog{ width: 100%; }
+.modalExamplepersonalDetails .modal-dialog{ width: 100%;   }
+.CoApplicantGuarantorButton{ width: 30% !important }
+.workingCapital{ min-height: 167px }
+
+.applyIcons{background-size:100%;margin-left:0;background-image:inherit;border:2px solid #2c4055;width:120px;height:120px;border-radius:100%;position:relative}
+.applyIcons.Disbursal:after,.applyIcons:after{content:" ";position:absolute;width:0;height:0}
+.applyIcons:after{border-top:10px solid transparent;border-left:27px solid #2c4055;border-bottom:10px solid transparent;top:49px;right:-27px}
+.applyIcons.Disbursal:after{border-left:12px solid transparent;border-right:12px solid transparent;border-top:25px solid #2c4055;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;right:-12px}
+.Secure h1::after{left:42%}
+.applyIcons img{left:0;padding-left:0;width:auto;text-align:center;margin:auto;display:inline-block;float:none;padding-top:21px}
+.applyIcons.Disbursal{ background-image: initial; }
+.applyIcons.Disbursal img { padding-top: 23px; padding-left: 40px;  width: 102px;  margin-left: -15px;}
+span.TypeOfLoanBusiness input[type="radio"] , span.TypeOfLoanPersonal input[type="radio"]{ width: auto; }
+.board-inner.fix-to-top {width: 93%;}
+
+  .loandetaildiv .padding5 p{ width: auto; margin-right: 30px; min-width: 150px; float: left;}
+  .loandetaildiv .txt-right.col-lg-3{ text-align: left;}
+  .lightyellowbgLeft {
+    width: 45%;
+  }
+  .lightyellowbgRight {
+    width: 45%;
+  }
+  .lightyellowbgOR {
+    width: 10%;
+  }
+  .text-center.lightyellowbgOR::after{ left: 31px;}
+
+}
+
+@media only screen and (min-width:800px)and (max-width:1020px){
+button.md-raised.md-primary{width:100%}
+.myAccount-ele-wrapper{margin-bottom:20px}
+.applyIcons{margin-left:61px}
+.navbar.navbar-default.memebar{width:auto; float: right;}
+.navbar-default .navbar-nav a{font-size:14px;padding:9px 16px}
+.Secure h1::after{left:44%}
+#review ul.nav.nav-tabs li a{text-align:center}
+.logo a{font-size:28px}
+.loginApplyNow ul{padding-top:12px}
+.navbar-nav{/* padding-top:3px */}
+.ModalExample .modal-dialog{ width: 100%; }
+.modalExamplepersonalDetails .modal-dialog{ width: 100%;   }
+.CoApplicantGuarantorButton{ width: 30% !important }
+.workingCapital{ min-height: 167px }
+span.TypeOfLoanBusiness input[type="radio"] , span.TypeOfLoanPersonal input[type="radio"]{ width: auto; }
+.board-inner.fix-to-top{ width:96%; }
+
+.applyIcons{background-size:100%;margin-left:0;background-image:inherit;border:2px solid #2c4055;width:120px;height:120px;border-radius:100%;position:relative}
+.applyIcons.Disbursal:after,.applyIcons:after{content:" ";position:absolute;width:0;height:0}
+.applyIcons:after{border-top:10px solid transparent;border-left:27px solid #2c4055;border-bottom:10px solid transparent;top:49px;right:-27px}
+.applyIcons.Disbursal:after{border-left:12px solid transparent;border-right:12px solid transparent;border-top:25px solid #2c4055;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;right:-12px}
+.Secure h1::after{left:42%}
+.applyIcons img{left:0;padding-left:0;width:auto;text-align:center;margin:auto;display:inline-block;float:none;padding-top:21px}
+.applyIcons.Disbursal{ background-image: initial; }
+.applyIcons.Disbursal img { padding-top: 23px; padding-left: 40px;  width: 102px;  margin-left: -15px;}
+/*.loandetaildiv .loantitle{padding: 5px 5px; width: 100%;    text-align: left;    margin-bottom: 10px; float: left;     font-size: 13px;}*/
+.loandetaildiv .loantitle span{ font-size: 15px; }
+/*.loandetaildiv p { float: left; width: 60%;  text-align: left;}*/
+.loandetaildiv .padding5 { padding: 7px 7px; float: left; width: 100%;}
+
+  .loandetaildiv .padding5 p{ width: auto; margin-right: 30px; min-width: 150px; float: left;}
+  .loandetaildiv .txt-right.col-lg-3{ text-align: left;}
+  .lightyellowbgLeft {
+    width: 45%;
+  }
+  .lightyellowbgRight {
+    width: 45%;
+  }
+  .lightyellowbgOR {
+    width: 10%;
+  }
+  .text-center.lightyellowbgOR::after{ left: 31px;}
+
+}
+
+@media only screen and (min-width:992px)and (max-width:1169px){
+
+}
+
+@media only screen and (min-width:1024px)and (max-width:1169px){
+button.md-raised.md-primary{width:100%}
+.myAccount-ele-wrapper{min-height:280px}
+.myAccount-ele-wrapper h3{font-size:18px}
+.lightyellowbgRight{width:35%}
+.lightyellowbgOR{width:25%}
+.applyIcons{margin-left:21px;background-size:80%}
+.applyIcons.Disbursal{background-size:50%}
+.applyIcons img{padding-top:28px;padding-left:29px;width:80px}
+.applyIcons.Disbursal img{padding-top:24px;padding-left:25px;width:87px;margin-left:10px}
+.Secure h1::after{left:44%}
+.ModalExample .modal-dialog{ width: 100%; }
+.modalExamplepersonalDetails .modal-dialog{ width: 100%;   }
+.board-inner.fix-to-top{    width: 94%;}
+.board-inner.loanDetailTopBarFix .container{ width: 914px; }
+}
+
+@media only screen and (min-width:1170px)and (max-width:1279px){
+.applyIcons{margin-left:21px;background-size:80%}
+.applyIcons.Disbursal{background-size:50%}
+.applyIcons img{padding-top:28px;padding-left:29px;width:80px}
+.applyIcons.Disbursal img{padding-top:24px;padding-left:25px;width:87px;margin-left:10px}
+.board > div.board-inner{    width: 91.01%;}
+.board-inner.fix-to-top{    width: 94%;}
+
+}
+
+@media only screen and (min-width:768px)and (max-width:991px){
+.board-inner.loanDetailTopBarFix .container{ width: 688px; }
+
+  /************* Borrower Edit Profile page ****************/
+  .containerUI{width:96%;}
+  .setMargin {
+    margin-left: 25%;
+  }
+}
+
+@media only screen and (min-width:991px)and (max-width:1024px){
+.applyIcons{margin-left:21px;background-size:80%}
+.applyIcons.Disbursal{background-size:50%}
+.applyIcons img{padding-top:28px;padding-left:29px;width:80px}
+.applyIcons.Disbursal img{padding-top:24px;padding-left:25px;width:87px;margin-left:10px}
+.board-inner.loanDetailTopBarFix .container{ width: 940px; }
+}
+
+/*******************************new css***********************/
+@media (max-width: 600px) {
+  .workingCapital p {    min-height: 42px;}
+}
+
+@media (max-width: 621px) {
+  .workingCapital  {    min-height: 172px;}
+}
+
+@media screen and (max-width:1169px){
+
+  #product-list .loandetaildiv{ padding: 0px; border: 0px;}
+  .loandetaildivStatus.borderDiv .padding5{ padding: 5px; min-height: 30px; border-bottom: solid 1px #ccc; border-right: 0px;}
+  .loandetaildivStatus.borderDiv .padding5 p{ width: 35%; float: left; margin-bottom: 0px;}
+  .loandetaildivStatus.borderDiv .padding5 span{ width: 65%; float: left;}
+  .loandetaildivStatus.borderDiv .padding5 span:nth-child(2){ width: 45%;}
+  .loandetaildivStatus.borderDiv .padding5 input{ width: 100%; font-size: 12px; height: 20px; padding: 2px; float: left;}
+  .loandetaildivStatus.borderDiv .col-lg-3.padding5 span:nth-child(3){ width: 45%;}
+  .loandetaildivStatus.borderDiv .col-lg-3.padding5 span:nth-child(4){ padding-top: 2px;}
+  #product-list .col-lg-1 button.continueButton{ margin: 5px 0px; width: 100%;}
+  #product-list button.btn.btn-primary.greenBgcolor{ margin-bottom: 20px;}
+  .topNamescore ul li:first-child{ width: 50%; padding-left: 5px; font-size: 15px;}
+  .topNamescore ul li:nth-child(2){ width: 20%; padding-left: 5px; font-size: 15px;}
+  .topNamescore ul li:nth-child(3){ width: 25%; padding-left: 5px; font-size: 15px; margin-right: 0px;}
+  #accordion .panel.panel-default{ width: 100%; float: left;}
+  #accordion .panel.panel-default .panel-heading{ padding: 5px 5px; width: 100%; float: left;}
+  #accordion .panel.panel-default .panel-heading span.iconsAccordion{ width: 25%;}
+  #accordion .panel.panel-default .panel-heading span.iconsAccordion i{ margin-right: 7px;}
+  #scoreTypes a.pull-right{ margin-left: 0px; padding-top: 2px; font-size: 15px;}
+  #scoreTypes a.pull-right.collapsed i.fa-plus{ display: block;}
+  #scoreTypes a.pull-right.collapsed i.fa-minus{ display: none;}
+  #scoreTypes a.pull-right i.fa-minus{ display: block;}
+  #scoreTypes a.pull-right i.fa-plus{ display: none;}
+  #accordion .panel-title span.nameEditMode{ width: 55%;}
+  #accordion .panel-title input[type="text"]{ width: 50%; float: left; font-size: 12px; padding: 2px; height: 20px;}
+  #accordion .panel-title input[type="number"]{ width: 20%; float: left; margin: 0px; font-size: 12px; padding: 2px; height: 20px;}
+  #accordion .panel-title .totalScoreButtonMargin{ margin-left: 0px; float: right;}
+  #accordion .panel-title .totalScoreMargin{ margin-left: 70px;}
+  .panel-collapse.collapse .borderBottomRemove{ width: 100%; float: left; padding: 5px;}
+  .panel-collapse.collapse .paddingTopadd{ width: 100%; float: left; padding: 5px;}
+  .panel-collapse.collapse .totalScore{ width: 100%; float: left; padding: 5px;}
+  .panel-collapse.collapse .borderBottomRemove{ width: 100%; float: left; padding: 5px;}
+  .panel-collapse.collapse .borderBottomRemove .col-lg-4:nth-child(1){ width: 45%; float: left; padding:0 5px;}
+  .panel-collapse.collapse .borderBottomRemove .col-lg-4:nth-child(2){ width: 25%; float: left; padding:0 5px;}
+  .panel-collapse.collapse .borderBottomRemove .col-lg-2{ width: 20%; float: left; padding:0 5px;}
+  .panel-collapse.collapse .paddingTopadd .col-lg-4:nth-child(1){ padding:0 5px; width: 45%; float: left;}
+  .panel-collapse.collapse .paddingTopadd .col-lg-4:nth-child(2){ padding:0 5px; width: 25%; float: left;}
+  #scoreTypes .panel-collapse.collapse .paddingTopadd .col-lg-4 input{ height: 20px; margin-bottom: 0px;}
+  .panel-collapse.collapse .paddingTopadd .col-lg-2.iconsCollapseBar{ width: 18%; margin-top: -4px; float: left; padding: 0 5px;}
+  .panel-collapse.collapse .paddingTopadd .col-lg-2.iconsCollapseBar i{ margin-right: 5px; font-size: 14px;}
+  .panel-collapse.collapse .paddingTopadd .col-lg-2.pull-right{ padding: 0px;}
+  #scoreTypes #accordion .panel-body button.continueButton{ margin-top: 0px !important; padding: 0 5px;}
+  .panel-collapse.collapse .totalScore .col-lg-4{ padding: 0 11px;}
+  #accordion .panel-collapse.collapse .borderSolid .col-lg-4{ border: 0px;}
+  #accordion .panel-collapse.collapse .borderSolid.totalScore .col-lg-4:last-child{ float: right; padding: 0px;}
+  #accordion .panel-collapse.collapse .panel-body{ padding: 5px;}
+  #scoreTypes .superAdmin .borderLeft{ width: 12%; border: 0px; min-height: 25px; float: left; padding: 0 8px; font-size: 9px;}
+  #scoreTypes .superAdmin .borderLeft:first-child{ width: 28%;}
+  #scoreTypes .superAdmin .borderLeft span{ word-wrap: break-word;}
+  #scoreTypes .superAdmin .borderLeft i{ font-size: 10px; float: left; margin: 5px 1px 0px;}
+  #scoreTypes .superAdmin .borderLeft input{ height: 25px;}
+  .lender_list_div .loantitle{ height: inherit !important;}
+  .lender_list_div .loantitle .listcircle{ float: none !important;}
+  .lender_list_div .col-lg-3.padding5 p{ width: 39% !important; font-size: 13px;}
+  .lender_list_div .col-lg-3.padding5 span.emailLenderList{ width: 60%; float: left; word-wrap: break-word; margin-bottom: 10px;}
+  .lender_list_div .padding5 { padding: 5px 5px; }
+  .lender_list_div button.lenderProductAddMoreButton{ width: 120px; float: none; margin:60px auto 20px; display: block;}
+  #addLenderProduct .modal-body .lenderProductModalSubmitButton{ width: 100%; float: left;}
+  .dataTables .col-lg-2 .pull-right.marginTop{ margin: -5px 0 20px;}
+  .dataTables_wrapper.no-footer .dataTable.no-footer tr th{ padding: 2px 5px; font-size: 11px;}
+  .dataTables_wrapper.no-footer .dataTable.no-footer tr td{ padding: 2px 5px; font-size: 10px; max-width: 110px; word-wrap: break-word;}
+  .wrapper-md{ width: 100%; float: left;}
+  .dataTables_paginate.paging_full_numbers a{ padding: 2px 2px !important;}
+  h1.ProductTitle{ font-size: 24px;}
+  #accordion.panel-group .panel.panel-default .collapse{ float: left; width: 100%;}
+  .nav-tabs>li a, span.round-tabs{ line-height: 20px;}
+  /*.loandetaildivStatus ul{ width: 40%; border: 0px;}*/
+  /*.loandetaildivStatus ul.select2-choices{ width: 90%;}*/
+  .loandetaildivStatus ul.select2-choices li{
+    border: 0 !important;
+    background: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    float: left !important;
+  }
+  .select2-container-multi .select2-search-choice-close {
+    right: 0px !important;
+    top: -2px !important;
+    left: inherit !important;
+  }
+  /*#lenderadmin .select2-container-multi .select2-choices{ min-height: 16px;}*/
+  /*#lenderadmin .select2-container-multi .select2-choices input{ width: 100% !important; font-size: 10px !important; padding: 1px;}*/
+  /*#lenderadmin .AssignLenders ul li.select2-search-field input{ width: 100% !important; font-size: 10px !important; padding: 1px;}*/
+  /*.loandetaildivStatus ul li{ padding: 2px; min-height: 30px; width: 16.5% !important; float: left; word-wrap: break-word; font-size: 10px;}*/
+  /*.loandetaildivStatus ul li p{ width: 100%; font-size: 10px;}*/
+  /*/!*.loandetaildivStatus ul.loandetaildivStatusApplicationStatus{ width: 60%; background: none;}*!/*/
+  /*.loandetaildivStatus ul li:last-child{ text-align: left;}*/
+  /*#lenderadmin .scrtabs-tab-content-clone  .tab-pane .loandetaildiv.marginleftright{ padding: 0px; margin: 0px !important; width: 100%; border: 0px;}*/
+  /*.rejectionIcons .btn-danger, .rejectionIcons .btn-primary {*/
+    /*font-size: 12px;*/
+    /*width: auto;*/
+    /*padding: 2px 10px;*/
+  /*}*/
+  /*.rejectionIcons{ text-align: left;}*/
+  ul.loandetaildivStatusApplicationStatus .rejectionIcons .btn-danger, .rejectionIcons .btn-primary {
+    font-size: 9px;
+    width: auto;
+    padding: 2px 2px;
+    margin-bottom: 5px;
+  }
+  ul.loandetaildivStatusApplicationStatus li i.fa.fa-inr{ float: left; margin-top: 2px; margin-right: 2px;}
+
+  .fullDivWidthLender.changeUiLenderJan {
+    position: relative;
+    width: 100%;
+    float: left;
+    overflow-x: scroll;
+  }
+  .operatorApplicationstab{ width: 1350px;}
+  .loandetaildiv p{ font-size: 13px;}
+  .fullDivWidthLender.changeUiLenderJan .tab-content{ width: 84%;}
+  .fullDivWidthLender.changeUiLenderJan .nav.nav-tabs {
+    width: 15%;
+  }
+
+
+}
+
+@media only screen and (max-width:509px){
+  .dashboard-plus-icon { font-size: 10px !important; position: absolute; bottom:26px !important; right: 6px !important;}
+/*#lenderadmin .loandetaildiv{ padding: 2px;}*/
+/*#lenderadmin .loandetaildiv .loantitle{ padding: 2px; height: 60px;}*/
+/*#lenderadmin .loandetaildiv .loandetaildivStatus{ margin-top: 0px;}*/
+/*#lenderadmin .loandetaildiv .loandetaildivStatus ul{ width: 40%; float: left; border: 0px;}*/
+/*#lenderadmin .loandetaildiv .loandetaildivStatus ul.loandetaildivStatusApplicationStatus{ width: 60%; float: left; background: none;}*/
+/*#lenderadmin .loandetaildiv .loantitle ul li{ padding:0 2px; font-size: 12px; word-wrap: break-word; width: 100%;}*/
+/*#lenderadmin .loandetaildiv .loandetaildivStatus ul li{ width: 100% !important; font-size: 12px;}*/
+/*#lenderadmin .loandetaildiv .loandetaildivStatus ul li p{ font-size: 12px;}*/
+  #review .tab-content{ padding: 0 5px;}
+  #review ul.nav.nav-tabs li{ word-wrap: break-word;}
+  #review .tab-content .loantitlereview ul li{ width: 100%; word-wrap: break-word; min-height: 16px; line-height: 16px; padding: 2px; font-size: 12px;}
+  #review .tab-content .loantitlereview .reviewHeadingTabs{ padding: 5px; font-size: 15px;}
+  #review ul.nav.nav-tabs li a{ line-height: 13px;}
+  #review .nav-tabs > li.active > a:after {
+    border-bottom: 7px solid transparent;
+    border-top: 7px solid transparent;
+    border-left: 5px solid #2c4055;
+  }
+  /*.lenderTableRow ul li{ font-size: 11px; min-width: inherit;}*/
+  .btn{ padding: 3px 5px; font-size: 10px;}
+}
+
+@media only screen and (min-width:510px) and (max-width:767px){
+  .topNamescore ul li:nth-child(3){ width: 17%;}
+  #accordion .panel.panel-default .panel-heading span.iconsAccordion{ width: 15%;}
+  #scoreTypes .superAdmin .borderLeft{ font-size: 12px;}
+  #scoreTypes .superAdmin .borderLeft i { font-size: 15px; float: left; margin: 5px 7px 0 0px; }
+  .lender_list_div .loantitle .listcircle{ float: none !important;}
+  .dataTables .row .col-lg-5 .NameEntity{ width: 48%; float: left;}
+  .dataTables .row .col-lg-5:nth-child(2n) .NameEntity{ width: 48%; float: right;}
+  .dataTables .col-lg-2 .pull-right.marginTop{ width: 100%;}
+  .dataTables_wrapper.no-footer .dataTable.no-footer tr td{ padding: 5px; font-size: 12px;}
+  .dataTables_wrapper.no-footer .dataTable.no-footer tr th{ padding: 5px; font-size: 13px;}
+  .dataTables_paginate.paging_full_numbers a { padding: 5px 10px !important; }
+  #lenderadmin .loandetaildiv .loandetaildivStatus ul li{ font-size: 14px;}
+  #lenderadmin .loandetaildiv .loandetaildivStatus ul li p{ font-size: 14px;}
+  #review ul.nav.nav-tabs{ width: 20%; word-wrap: break-word;}
+  #review .tab-content{ width: 78%; padding: 2px;}
+  #review .tab-content .loantitlereview ul li{ padding: 2px; word-wrap: break-word;}
+}
+
+@media only screen and (min-width:768px) and (max-width:1169px){
+  #product-list .loandetaildiv{ width: 100%; float: left;}
+  #product-list .loandetaildiv .loandetaildivStatus.borderDiv .col-lg-1 { width: 8.33333333%; float: left; border-right: solid 1px #ccc; border-bottom: solid 0px #ccc; }
+  #product-list .loandetaildiv .loandetaildivStatus.borderDiv .col-lg-4.padding5 { width: 33.33333333%; float: left; border-right: solid 1px #ccc; border-bottom: solid 0px #ccc; }
+  #product-list .loandetaildiv .loandetaildivStatus.borderDiv .col-lg-3.padding5 { width: 25%; float: left; border-right: solid 1px #ccc; border-bottom: solid 0px #ccc; }
+  #product-list .loandetaildiv .loandetaildivStatus.borderDiv p{ width: 100%; float: left;}
+  #product-list .loandetaildiv .loandetaildivStatus.borderDiv span{ width: 100%; float: left;}
+  #product-list .loandetaildiv .loandetaildivStatus.borderDiv .col-lg-3.padding5 span{ width: 70%;}
+  #product-list .loandetaildiv .loandetaildivStatus.borderDiv .col-lg-3.padding5 span.iconsProduct{ width: 30% !important;}
+  .navbar.navbar-default.memebar{ width: auto;}
+  .navbar-default .navbar-nav a{ font-size: 12px; /* font-weight: bold; */ padding: 10px;}
+  .topNamescore ul li:nth-child(2){ width: 35%;}
+  .topNamescore ul li:nth-child(3){ width: 15%;}
+  #accordion .panel-title span.nameEditMode{ width: 50.8%;}
+  #accordion .panel.panel-default .panel-heading span.iconsAccordion{ width: 13.5%;}
+  .panel-collapse.collapse .borderBottomRemove .col-lg-4:nth-child(2){ width: 35%;}
+  .panel-collapse.collapse .borderBottomRemove .col-lg-2{ width: 10%;}
+  .panel-collapse.collapse .paddingTopadd .col-lg-4:nth-child(2){ width: 35%;}
+  .panel-collapse.collapse .paddingTopadd .col-lg-2.iconsCollapseBar{ width: 10%;}
+  #scoreTypes .superAdmin .borderLeft{ font-size: 14px;}
+  #scoreTypes .superAdmin .borderLeft i{ font-size: 15px; margin-right: 15px;}
+  .lender_list_div .padding5.col-lg-3{ width: 25%; float: left; text-align: left;}
+  .lender_list_div .col-lg-3.padding5 p{ width: 100% !important;}
+  .dataTables .row .col-lg-5 .NameEntity{ width: 35%; float: left; margin-right: 5%;}
+  .dataTables .col-lg-2 .pull-right.marginTop{ width:auto; margin: 26px 0 0px;}
+  .dataTables_wrapper.no-footer .dataTable.no-footer tr th, .dataTables_wrapper.no-footer .dataTable.no-footer tr td { padding: 5px 10px; font-size: 14px; }
+  .dataTables_paginate.paging_full_numbers a { padding: 4px 10px !important;}
+  #product-list .col-lg-1 button.continueButton{ margin: 12px 0px; padding: 5px 0px;}
+  h1.ProductTitle{ font-size: 28px;}
+  .col-lg-5 p#table_name{ width: 35%;}
+  #lenderadmin .loandetaildiv .loandetaildivStatus ul li{ font-size: 14px;}
+  #lenderadmin .loandetaildiv .loandetaildivStatus ul li p{ font-size: 14px;}
+  #review ul.nav.nav-tabs{ width: 20%; word-wrap: break-word;}
+  #review .tab-content{ width: 78%; padding: 2px;}
+  #review .tab-content .loantitlereview ul li{ padding: 2px; word-wrap: break-word;}
+
+}
+
+@media only screen and (min-width:1020px) and (max-width:1169px){
+  #js-navbar-collapse .navbar-nav{ padding-top: 15px;}
+  /*.arrowBox{right:30px;}*/
+}
+
+
+/*-----------About us--3/3/2017-------------------------*/
+
+ @media screen and (max-width:1199px) {
+ .why-fund-box.margin-left-r {
+ margin: 0px 0px 0px 10px;
+}
+.why-fund-box {
+ width: 317px;
+}
+
+.what-we-do {
+    width: 650px;
+    float: left;
+}
+
+.how-it-rw-con {
+    width: 100%;
+    float: left;
+    margin:-10px 0px 0 0;
+}
+.Team-con-list-rw {
+    /* width: 233px;
+    float: left;
+    margin: 0px 5px;
+    position: relative; */
+}
+.Team-con-list-rw img {
+max-width:100%;
+}
+
+.team-list-botm-txt {
+min-height:165px;
+}
+.team-list-botm-txt td {
+height:165px;
+}
+
+.team-list-botm-txt td table tr td {
+height:auto;
+}
+
+
+
+
+.left-pain-list, .right-pain-list {
+    width: 370px;
+}
+
+
+
+
+.solution-step.redbg {
+    left: 147px;
+}
+
+.solution-step.green-bg {
+right: 14px;
+}
+
+.solution-step.yellow-bg {
+right: 152px;
+}
+
+.solution-step.blue-bg {
+left: 11px;
+}
+
+
+
+
+.rightproduct-de {
+    width: 630px;
+    float: right;
+}
+
+
+
+
+.Process-live {
+    width: 450px;
+}
+
+
+}
+ @media screen and (max-width:991px) {
+	 
+#productspage .workingCapitalImages{
+	 border-right: 0;
+	 margin-bottom: 12px;
+}
+	 
+	 
+    .blue-hdr-table {
+      border: 0;
+    }
+
+    .blue-hdr-table thead {
+      display: none;
+    }
+
+    .blue-hdr-table tr {
+      margin-bottom: 10px;
+      display: block;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .blue-hdr-table td {
+		display: block;
+		text-align: right;
+		font-size: 13px;
+		border: 1px solid #ddd !important;
+		border-bottom: 0 !important;
+		border-top: 0 !important;
+    }
+
+    .blue-hdr-table td:last-child {
+      border-bottom: 0;
+    }
+
+	.blue-hdr-table td:first-child {
+      border-top: 1px solid #ddd !important;
+    }
+
+    .blue-hdr-table td:before {
+      content: attr(data-label);
+      float: left;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+	 
+	 
+	 
+ .why-fund-box {
+ width: 244px;
+}
+.why-fund-box h2 {
+font-size:25px;
+}
+ .why-fund-box.margin-left-r {
+ margin: 0px 0px 0px 9px;
+}
+
+
+
+
+.what-we-do {
+    width: 434px;
+    float: left;
+}
+.help-right {
+margin:0 0 0 0;
+}
+.how-it-rw {
+padding:20px 0;
+}
+
+.how-it-rw-con {
+text-align:center;
+}
+
+.Team-con-list {
+text-align:center;
+}
+.Team-con-list-rw {
+float:none;
+display:inline-block;
+margin-bottom:15px;
+}
+
+.Team-con-list-rw {
+    width: 250px;
+}
+
+.team-list-botm-txt {
+min-height:180px;
+}
+.team-list-botm-txt td {
+height:180px;
+}
+
+.team-list-botm-txt td table tr td {
+height:auto;
+}
+
+
+.how-it-rw-con {
+    width: 100%;
+    float: left;
+    margin: 0 0 20px;
+}
+
+
+
+.left-pain-list, .right-pain-list {
+    width: 334px;
+    margin: 0;
+}
+
+
+
+
+.solution-bg-round {
+width:100%;
+float:left;
+height:auto;
+border:0;
+margin:70px 0 0 0;
+}
+
+.solution-step.redbg, .solution-step.yellow-bg {
+position:relative;
+left:0;
+top:0;
+width:350px;
+min-height:200px;
+}
+
+.solution-step.green-bg, .solution-step.blue-bg {
+float:right;
+position:relative;
+right:0;
+top:0;
+width:350px;
+min-height:200px;
+}
+
+.solution-step-txt {
+width:250px;
+}
+
+.solution-step.yellow-bg .solution-step-icon {
+    float: right;
+}
+.solution-step.yellow-bg .solution-step-txt {
+    padding-top:15px;
+}
+.solution-step.blue-bg .solution-step-icon {
+    float: left;
+}
+
+
+.rightproduct-de {
+    width: 430px;
+    float: right;
+}
+
+
+
+.Process-live {
+    width: 350px;
+}
+
+
+
+
+.hw-it-wrk-mid-bg.how-it-margin {
+    margin: 40px 0px 0;
+    padding: 40px 0px 40px;
+    height: auto;
+}
+
+
+
+}
+
+
+
+ @media screen and (max-width:767px) {
+	 
+	 .product-data label {
+		margin-right: 5%;
+		width: 25%;
+	}
+	 
+	 .product-data span {
+    width: 70%;
+}
+	 
+	 .ftr-menus {
+    margin-bottom: 20px;
+}
+	 
+	 .justify-80{
+		 width:100%;
+	 }
+	 .m-b-50{
+	margin-bottom:0px;
+	}
+	 
+ .why-fund-box {
+ width: 100%;
+ margin: 10px 0;
+ min-height: inherit;
+}
+.why-fund-box.margin-left-r {
+ margin: 10px 0;
+}
+
+
+
+.slide-botm-arrow {
+display:block;
+position: absolute;
+left: 0px;
+bottom: -67px;
+text-align: center;
+width: 100%;
+float: left;
+}
+.left-pain-list, .right-pain-list {
+    width:100%;
+    margin: 0;
+}
+.pain-list-img {
+    float: left;
+}
+
+.left-pain-list .pain-list-txt h3 {
+    padding-left: 15px;
+}
+.left-pain-list .pain-list-txt .pain-list-txt-rw {
+    padding-left: 15px;
+}
+.pain-list-txt {
+    padding: 0;
+}
+.left-pain-list .pain-list-txt {
+    float: none;
+    padding: 0px;
+    width: auto;
+    margin: 0px 0px 0px 116px;
+}
+
+.pain-list-rw.slow-processing {
+padding-top:0;
+}
+
+.pain-list-rw {
+    width: 100%;
+    float: left;
+    padding: 40px 0px 0px;
+}
+
+
+
+
+.solution-step.redbg, .solution-step.yellow-bg {
+position:relative;
+left:0;
+top:0;
+width:100%;
+min-height:200px;
+}
+
+.solution-step.green-bg, .solution-step.blue-bg {
+float:right;
+position:relative;
+right:0;
+top:0;
+width:100%;
+min-height:200px;
+}
+.solution-step-icon {
+float:left;
+}
+
+.solution-step-txt {
+    width: auto;
+    float: none;
+    margin: 0 0 0 100px;
+}
+
+.solution-step.yellow-bg .solution-step-icon {
+    float: left;
+}
+.solution-step-num {
+display:none;
+}
+}
+
+ @media screen and (max-width:479px) {
+	 
+	 .product-data label {
+		margin-right: 5%;
+		width: 40%;
+	}
+	 
+	 .product-data span {
+    width: 55%;
+}
+	 
+	 
+.hw-it-wrk-con {
+margin-top:55px;
+}
+.hw-it-wrk-mid-bg, .hw-it-wrk-con {
+height:auto;
+background:none;
+}
+
+.how-it-rw {
+    padding: 20px 0px 0	;
+}
+.pain-list-img {
+width:100%;
+float:left;
+text-align:center;
+padding:0 0 20px 0;
+}
+
+.pain-list-txt {
+width:100%;
+float:left;
+text-align:center;
+margin:0;
+padding:0;
+}
+
+.left-pain-list .pain-list-txt {
+    float: none;
+    padding: 0px;
+    width: auto;
+    margin: 0px 0px 0px 0;
+}
+
+.pain-list-txt-rw li {
+padding-left:0;
+background:none;
+}
+
+.right-pain-list .pain-list-txt {
+    float: none;
+    padding: 0px;
+    width: auto;
+    margin: 0px 0px 0px 0;
+}
+.solution-step-txt {
+    width:100%;
+    float:left;
+    margin:5px 0 0 0;
+}
+
+.solution-step-icon {
+width:100%;
+}
+
+.solution-step .solution-step-icon .solution-step-rw {
+float:none !important;
+margin:auto;
+}
+ }
+
+/*Smartphone*/
+@media only screen and (max-width :479px) {
+.pain-points-bg, .solution-bg {
+background:none;
+}
+}
+@media (min-width: 1200px){
+     .registrationpage-field{
+        height: 60px;
+    }
+}
+
+
+ 

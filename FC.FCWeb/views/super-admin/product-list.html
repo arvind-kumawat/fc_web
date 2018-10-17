@@ -1,0 +1,61 @@
+<div id="product-list">
+   <div class="container" style="min-height: 500px">
+      <h1 class="ProductTitle">Calculators List</h1>
+      <div class="loandetaildiv" ng-repeat="product in products">
+          <div class="loandetaildivStatus borderDiv">
+
+         <div class="col-lg-1 padding5">
+            <p>No</p>
+            <span>{{$index+1}}</span>
+         </div>
+         <div class="col-lg-4 padding5">
+            <p>Name</p>
+            <span ng-show="product.editMode"> <input type="text" ng-model="product.name" /></span>
+            <span ng-hide="product.editMode"> {{product.name}}</span>
+         </div>
+         <div class="col-lg-3 padding5 ">
+            <p>Calculator Type</p>
+            <span ng-show="product.editMode"><input type="text" ng-model="product.type" /></span>
+           <span ng-hide="product.editMode">{{product.type}}</span>
+         </div>
+         <div class="col-lg-3 padding5">
+            <p>Loan Type</p>
+           <span ng-show="product.editMode" > <input type="text" ng-model="product.loan_type" /> </span>
+           <span ng-hide="product.editMode" > {{product.loan_type}}</span>
+            <span class="iconsProduct">
+           <i ng-hide="product.editMode" class="fa fa-edit" ng-click="product.editMode = !product.editMode" ></i>
+           <i ng-show="product.editMode && product.name!='' && product.type!='' && product.loan_type!=''" class="fa fa-check-square-o"  ng-click="submitProducts(product, $index)" ></i>
+
+           <i class="fa fa-trash" ng-click="openDeleteModal($index, product.id)" ></i>
+           </span>
+         </div>
+         <div class="col-lg-1">
+            <button class="continueButton" ui-sref="superAdmin.score-card({calculatorId:product.id})" ng-disabled="!product.id"><span>GO</span></button>
+         </div>
+      </div>
+
+
+</div>
+ <button type="button" class="btn btn-primary greenBgcolor" ng-click="addProducts()">  <i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
+   </div>
+</div>
+
+<!--Model for delete application-->
+<div id="deleteProduct" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+        <h4 class="modal-title">Are You Sure?</h4>
+
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="deleteProduct(productIndex, calculatorId)">Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--modal end-->

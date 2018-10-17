@@ -1,0 +1,62 @@
+<div id="myAccount" class="chnlPrtrDashBoard">
+  <div class="loanApplication">
+    <div class="container">
+      <h1>My Account</h1>
+      <span>Welcome to Fundscorner</span>
+    </div>
+  </div>
+  <div class="container positionRelative">
+    <div class="dashboardStepper">
+      <section>
+        <div class="board">
+          <div class="board-inner">
+            <ul class="nav nav-tabs" id="myTab">
+              <!--   <div class="liner"></div>-->
+              <li ui-sref-active="active">
+                <a ui-sref="channelPartner.dashboard.home" title="My Dashboard">
+                     <span class="round-tabs one">
+                     <i class="fa fa-home"></i>
+                     </span>
+                </a>
+                <span class="dashboardTitle"> My Dashboard </span>
+              </li>
+              <li ui-sref-active="active">
+                <a ui-sref="channelPartner.dashboard.kreditcartApplications" title="Applications - assigned by Kreditcart">
+                     <span class="round-tabs two">
+                     <i class="fa fa-file-text"></i>
+                     </span>
+                </a>
+                <span  class="dashboardTitle"> Kreditcart Applications </span>
+              </li>
+              <li ui-sref-active="active">
+                <a ui-sref="channelPartner.dashboard.myApplications" title=" My Applications">
+                     <span class="round-tabs two">
+                     <i class="fa fa-file-text"></i>
+                     </span>
+                </a>
+                <span  class="dashboardTitle"> My Applications </span>
+              </li>
+              <li ui-sref-active="active">
+                <a ui-sref="channelPartner.dashboard.loans" title="My Loans">
+                     <span class="round-tabs three">
+                     <i class="fa fa-rupee"></i>
+                     </span> </a>
+                <span  class="dashboardTitle">  Loans </span>
+              </li>
+              <li ui-sref-active="active">
+                <a ui-sref="channelPartner.dashboard.leads" title="My Leads">
+                     <span class="round-tabs five">
+                     <i class="fa fa-question"></i>
+                     </span> </a>
+                <span  class="dashboardTitle">  Leads</span>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content padding40">
+            <div ui-view/>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

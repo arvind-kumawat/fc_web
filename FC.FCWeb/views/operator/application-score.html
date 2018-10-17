@@ -1,0 +1,1005 @@
+<div id="operator">
+  <div class="container">
+    <div class="col-lg-12">
+      <form name="appScore" novalidate>
+        <div class="businessDetailsSection">
+          <div class="businessDetailsTitle">Business Management Score</div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput ContactPadding">
+                    <label>Contact No. Plan Type</label>
+                    <select name="contact" ng-model="score.contact" class="form-control"
+                            ng-options="data.value as data.key for data in contactOptions"
+                            required>
+                      <option value="" disabled>---Please Select---</option>
+                    </select>
+                    <span style="color:red" ng-show="appScore.contact.$dirty && appScore.contact.$invalid">
+                    <span ng-show="appScore.contact.$error.required">Contact is required</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Family Standing</label>
+                    <select name="family_standing" ng-model="score.family_standing" class="form-control"
+                            ng-options="data.value as data.key for data in familyStandingOptions"
+                            required>
+                      <option value="" disabled>---Please Select---</option>
+                    </select>
+                    <span style="color:red"
+                          ng-show="appScore.family_standing.$dirty && appScore.family_standing.$invalid">
+                    <span ng-show="appScore.family_standing.$error.required">Family Standing is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div id="gauge" class="200x160px"></div>
+                <div class="guageLabel">{{guageLabel}}</div>
+                <a class="btn btn-primary calculateScore" ng-click="submitScore(score, 'calculator button');">Calculate
+                  Score</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="businessDetailsSection">
+          <div class="businessDetailsTitle">Financial Score</div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Sales Q4</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="sales_q4" ng-model="score.sales_q4" class="form-control"
+                             placeholder="Sales Q4" required>
+                    </div>
+                    <span style="color:red" ng-show="appScore.sales_q4.$dirty && appScore.sales_q4.$invalid">
+                    <span ng-show="appScore.sales_q4.$error.required">Sales Q4 is required.</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Sales Q3</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="sales3" ng-model="score.sales_q3" class="form-control"
+                             placeholder="Sales Q3" required>
+                    </div>
+                    <span style="color:red" ng-show="appScore.sales3.$dirty && appScore.sales3.$invalid">
+                    <span ng-show="appScore.sales3.$error.required">Sales Q3 is required.</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Sales Q2</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="sales_q2" ng-model="score.sales_q2" class="form-control"
+                             placeholder="Sales Q2" required>
+                    </div>
+                    <span style="color:red" ng-show="appScore.sales_q2.$dirty && appScore.sales_q2.$invalid">
+                    <span ng-show="appScore.sales_q2.$error.required">Sales Q2 is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Sales Q1</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="sales_q1" ng-model="score.sales_q1" class="form-control"
+                             placeholder="Sales Q1" required>
+                    </div>
+                  <span style="color:red" ng-show="appScore.sales_q1.$dirty && appScore.sales_q1.$invalid">
+                  <span ng-show="appScore.sales_q1.$error.required">Sales Q1 is required</span>
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Payments Q4</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="payments_q4" ng-model="score.payments_q4" class="form-control"
+                             placeholder="Payments Q4" required>
+                    </div>
+                    <span style="color:red" ng-show="appScore.payments_q4.$dirty && appScore.payments_q4.$invalid">
+                    <span ng-show="appScore.payments_q4.$error.required">Payments Q4 is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Payments Q3</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="payments_q3" ng-model="score.payments_q3" class="form-control"
+                             placeholder="Payments Q3" required>
+                    </div>
+                    <span style="color:red" ng-show="appScore.payments_q3.$dirty && appScore.payments_q3.$invalid">
+                    <span ng-show="appScore.payments_q3.$error.required">Payments Q3 is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Payments Q2</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="payments_q2" ng-model="score.payments_q2" class="form-control"
+                             placeholder="Payments Q2" required>
+                    </div>
+                    <span style="color:red" ng-show="appScore.payments_q2.$dirty && appScore.payments_q2.$invalid">
+                    <span ng-show="appScore.payments_q2.$error.required">Payments Q2 is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Payments Q1</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="payments_q1" ng-model="score.payments_q1" class="form-control"
+                             placeholder="Payments Q1" required>
+                    </div>
+                    <span style="color:red" ng-show="appScore.payments_q1.$dirty && appScore.payments_q1.$invalid">
+                    <span ng-show="appScore.payments_q1.$error.required">Payments Q1 is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Average Inventory Value</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="average_inventory_value" ng-model="score.average_inventory_value"
+                             class="form-control" placeholder="Average Inventory Value" required>
+                    </div>
+                    <span style="color:red"
+                          ng-show="appScore.average_inventory_value.$dirty && appScore.average_inventory_value.$invalid">
+                    <span
+                      ng-show="appScore.average_inventory_value.$error.required">Average Inventory Value is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Consignment/ORB</label>
+                    <select name="consignement_or_orb" ng-model="score.consignement_or_orb" class="form-control"
+                            ng-options="data.value as data.key for data in consignementororbOptions"
+                            required>
+                      <option value="" disabled>---Please Select---</option>
+                    </select>
+                    <span style="color:red"
+                          ng-show="appScore.consignement_or_orb.$dirty && appScore.consignement_or_orb.$invalid">
+                    <span ng-show="appScore.consignement_or_orb.$error.required">Consignment/ORB is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Receivable Days</label>
+                    <input type="number" name="receivable_days" ng-model="score.receivable_days" class="form-control"
+                           placeholder="Receivable Days" required>
+                    <span style="color:red"
+                          ng-show="appScore.receivable_days.$dirty && appScore.receivable_days.$invalid">
+                    <span ng-show="appScore.receivable_days.$error.required">Receivable Days are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Financial Ratings</label>
+                    <input type="number" name="financial_ratings" ng-model="score.financial_ratings"
+                           class="form-control" placeholder="Financial Ratings" required>
+                    <span style="color:red"
+                          ng-show="appScore.financial_ratings.$dirty && appScore.financial_ratings.$invalid">
+                    <span ng-show="appScore.financial_ratings.$error.required">Financial Ratings are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="businessDetailsSection">
+          <div class="businessDetailsTitle">CIBIL</div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Score</label>
+                    <input type="number" name="cibil_score" ng-model="score.cibil_score" class="form-control"
+                           placeholder="Score" required>
+                    <span style="color:red" ng-show="appScore.cibil_score.$dirty && appScore.cibil_score.$invalid">
+                    <span ng-show="appScore.cibil_score.$error.required">Score is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Asset Classification</label>
+                    <select name="asset_classfication" ng-model="score.asset_classfication" class="form-control"
+                            ng-options="data.value as data.key for data in assetClassficationOptions"
+                            required>
+                      <option value="" disabled>---Please Select---</option>
+                    </select>
+                    <span style="color:red"
+                          ng-show="appScore.asset_classfication.$dirty && appScore.asset_classfication.$invalid">
+                    <span ng-show="appScore.asset_classfication.$error.required">Asset Classfication is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Loan Usage</label>
+                    <input type="number" name="loan_usage" ng-model="score.loan_usage" class="form-control"
+                           placeholder="Loan Usage" required>
+                    <span style="color:red" ng-show="appScore.loan_usage.$dirty && appScore.loan_usage.$invalid">
+                    <span ng-show="appScore.loan_usage.$error.required">Loan Usage is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Limit</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="Limit" ng-model="score.limit" class="form-control"
+                             placeholder="Limit" required>
+                    </div>
+                    <span style="color:red" ng-show="appScore.Limit.$dirty && appScore.Limit.$invalid">
+                    <span ng-show="appScore.Limit.$error.required">Limit is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Credit Card Usage</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="credit_card_usage" ng-model="score.credit_card_usage"
+                             class="form-control" placeholder="Credit Card Usage" required>
+                    </div>
+                    <span style="color:red"
+                          ng-show="appScore.credit_card_usage.$dirty && appScore.credit_card_usage.$invalid">
+                    <span ng-show="appScore.credit_card_usage.$error.required">Credit Card Usage is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Credit Card Limits</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="credit_card_limits" ng-model="score.credit_card_limits"
+                             class="form-control" placeholder="Credit Card Limits" required>
+                    </div>
+                    <span style="color:red"
+                          ng-show="appScore.credit_card_limits.$dirty && appScore.credit_card_limits.$invalid">
+                    <span ng-show="appScore.credit_card_limits.$error.required">Credit Card Limits are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Amount Overdue</label>
+                    <input type="number" name="amount_overdue" ng-model="score.amount_overdue" class="form-control"
+                           placeholder="Amount Overdue" required>
+                    <span style="color:red"
+                          ng-show="appScore.amount_overdue.$dirty && appScore.amount_overdue.$invalid">
+                    <span ng-show="appScore.amount_overdue.$error.required">Amount Overdue is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Total Liabilities</label>
+
+                    <input type="text" format name="total_liabilities" ng-model="score.total_liabilities"
+                           class="form-control" placeholder="Total Liabilities" required>
+                    <span style="color:red"
+                          ng-show="appScore.total_liabilities.$dirty && appScore.total_liabilities.$invalid">
+                    <span ng-show="appScore.total_liabilities.$error.required">Total Liabilities are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Number of Running Loans</label>
+                    <input type="text" format name="running_loans" ng-model="score.running_loans" class="form-control"
+                           placeholder="Number of Running Loans" required>
+                    <span style="color:red" ng-show="appScore.running_loans.$dirty && appScore.running_loans.$invalid">
+                    <span ng-show="appScore.running_loans.$error.required">Number of Running Loans are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Last Loan Drawn</label>
+                    <input type="number" name="last_loan_drawn" ng-model="score.last_loan_drawn" class="form-control"
+                           placeholder="Last Loan Drawn (Months Ago)" required>
+                    <span style="color:red"
+                          ng-show="appScore.last_loan_drawn.$dirty && appScore.last_loan_drawn.$invalid">
+                    <span ng-show="appScore.last_loan_drawn.$error.required">Last Loan Drawn is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Loans Paid off Successfully</label>
+                    <input type="number" name="loan_paid" ng-model="score.loan_paid" class="form-control"
+                           placeholder="No. of Loans Paid off Successfully" required>
+                    <span style="color:red" ng-show="appScore.loan_paid.$dirty && appScore.loan_paid.$invalid">
+                    <span ng-show="appScore.loan_paid.$error.required">Loans Paid off Successfully is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="businessDetailsSection">
+          <div class="businessDetailsTitle">Banking Info</div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of Outward Cheque Return</label>
+                    <input type="number" name="outward_cheque_return" ng-model="score.outward_cheque_return"
+                           class="form-control" placeholder="No. of Outward Cheque Return" required>
+                    <span style="color:red"
+                          ng-show="appScore.outward_cheque_return.$dirty && appScore.outward_cheque_return.$invalid">
+                    <span ng-show="appScore.outward_cheque_return.$error.required">No. of Outward Cheque Return is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of cheque deposits</label>
+                    <input type="number" name="cheques_deposits_count" ng-model="score.cheques_deposits_count"
+                           class="form-control" placeholder="No. of cheques deposits" required>
+                    <span style="color:red"
+                          ng-show="appScore.cheques_deposits_count.$dirty && appScore.cheques_deposits_count.$invalid">
+                    <span
+                      ng-show="appScore.cheques_deposits_count.$error.required">No. of cheques deposits are required </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Outward Cheque Return %</label>
+                    <input type="number" ng-keyup="chequeReturn(score.outward_cheque_return_percent)"
+                           name="outward_cheque_return_percent" ng-model="score.outward_cheque_return_percent"
+                           class="form-control" placeholder="Outward Cheque Return %" required>
+                    <span style="color:red" ng-show="score.outward_cheque_return_percent != '' && chequeError!='' ">{{chequeError}}</span>
+                    <span style="color:red"
+                          ng-show="appScore.outward_cheque_return_percent.$dirty && appScore.outward_cheque_return_percent.$invalid">
+                    <span ng-show="appScore.outward_cheque_return_percent.$error.required">Outward Cheque Return % is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Inward payment Return no. of times</label>
+                    <input type="number" name="inward_payment_return_count" ng-model="score.inward_payment_return_count"
+                           class="form-control" placeholder="Inward payment Return no. of times" required>
+                    <span style="color:red"
+                          ng-show="appScore.inward_payment_return_count.$dirty && appScore.inward_payment_return_count.$invalid">
+                    <span
+                      ng-show="appScore.inward_payment_return_count.$error.required">Inward payment Return no. of times are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of payments issued</label>
+                    <input type="number" name="payment_issued_count" ng-model="score.payment_issued_count"
+                           class="form-control" placeholder="No. of payments issued" required>
+                    <span style="color:red"
+                          ng-show="appScore.payment_issued_count.$dirty && appScore.payment_issued_count.$invalid">
+                    <span
+                      ng-show="appScore.payment_issued_count.$error.required">No. of payments issued is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Inward payment Return %</label>
+                    <input type="number" ng-keyup="paymentReturn(score.inward_payment_return_percent)"
+                           name="inward_payment_return_percent" ng-model="score.inward_payment_return_percent"
+                           class="form-control" placeholder="Inward payment Return %" required>
+                    <span style="color:red" ng-show="score.inward_payment_return_percent != '' && paymentError!='' ">{{paymentError}}</span>
+                    <span style="color:red"
+                          ng-show="appScore.inward_payment_return_percent.$dirty && appScore.inward_payment_return_percent.$invalid">
+                    <span ng-show="appScore.inward_payment_return_percent.$error.required">Inward payment Return % is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of clients giving credits</label>
+                    <input type="number" name="count_of_clients_giving_credits"
+                           ng-model="score.count_of_clients_giving_credits" class="form-control"
+                           placeholder="No. of clients giving credits" required>
+                    <span style="color:red"
+                          ng-show="appScore.count_of_clients_giving_credits.$dirty && appScore.count_of_clients_giving_credits.$invalid">
+                    <span
+                      ng-show="appScore.count_of_clients_giving_credits.$error.required">No. of clients giving credits are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of Credits</label>
+                    <input type="number" name="credits_count" ng-model="score.credits_count" class="form-control"
+                           placeholder="No. of Credits" required>
+                    <span style="color:red" ng-show="appScore.credits_count.$dirty && appScore.credits_count.$invalid">
+                    <span ng-show="appScore.credits_count.$error.required">No. of Credits are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Credit Summation</label>
+                    <input type="text" format name="credits_summation" ng-model="score.credits_summation"
+                           class="form-control" placeholder="Credit Summation" required>
+                    <span style="color:red"
+                          ng-show="appScore.credits_summation.$dirty && appScore.credits_summation.$invalid">
+                    <span ng-show="appScore.credits_summation.$error.required">Credit Summation is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of Debits</label>
+                    <input type="number" name="debits_count" ng-model="score.debits_count" class="form-control"
+                           placeholder="No. of Debits" required>
+                    <span style="color:red" ng-show="appScore.debits_count.$dirty && appScore.debits_count.$invalid">
+                    <span ng-show="appScore.debits_count.$error.required">No. of Debits are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Debit Summation</label>
+                    <input type="text" format name="debit_summation" ng-model="score.debit_summation"
+                           class="form-control" placeholder="Debit Summation" required>
+                    <span style="color:red"
+                          ng-show="appScore.debit_summation.$dirty && appScore.debit_summation.$invalid">
+                    <span ng-show="appScore.debit_summation.$error.required">Debit Summation is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Average Balance</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="average_balance" ng-model="score.average_balance"
+                             class="form-control" placeholder="Average Balance" required>
+                    </div>
+                    <span style="color:red"
+                          ng-show="appScore.average_balance.$dirty && appScore.average_balance.$invalid">
+                    <span ng-show="appScore.average_balance.$error.required">Average Balance is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Average Balance%</label>
+                    <input type="number" ng-keyup="balance(score.average_balance_percent)"
+                           name="average_balance_percent" ng-model="score.average_balance_percent" class="form-control"
+                           placeholder="Average Balance%" required>
+                    <span style="color:red" ng-show="score.average_balance_percent != '' && balanceError!='' ">{{balanceError}}</span>
+                    <span style="color:red"
+                          ng-show="appScore.average_balance_percent.$dirty && appScore.average_balance_percent.$invalid">
+                    <span ng-show="appScore.average_balance_percent.$error.required">Average Balance% is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Loan EMIs</label>
+                    <input type="number" name="loan_emi_count" ng-model="score.loan_emi_count" class="form-control"
+                           placeholder="Loan EMIs" required>
+                    <span style="color:red"
+                          ng-show="appScore.loan_emi_count.$dirty && appScore.loan_emi_count.$invalid">
+                    <span ng-show="appScore.loan_emi_count.$error.required">Loan EMIs are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Recurring payments (Rent/Elec/Salary etc.)</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="recurring_payments" ng-model="score.recurring_payments"
+                             class="form-control" placeholder="Recurring payments (Rent/Elec/Salary etc.)" required>
+                    </div>
+                    <span style="color:red"
+                          ng-show="appScore.recurring_payments.$dirty && appScore.recurring_payments.$invalid">
+                    <span
+                      ng-show="appScore.recurring_payments.$error.required">Recurring payments (Rent/Elec/Salary etc.) are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Supplier payments</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="supplier_payments" ng-model="score.supplier_payments"
+                             class="form-control" placeholder="Supplier payments" required>
+                    </div>
+                    <span style="color:red"
+                          ng-show="appScore.supplier_payments.$dirty && appScore.supplier_payments.$invalid">
+                    <span ng-show="appScore.supplier_payments.$error.required">Supplier payments are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Avg. Credit card payment</label>
+
+                    <div class="BusinessLandline symbol">
+                      <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                      <input type="text" format name="avg_credit_card_payments"
+                             ng-model="score.avg_credit_card_payments" class="form-control"
+                             placeholder="Avg. Credit card payment" required>
+                    </div>
+                    <span style="color:red"
+                          ng-show="appScore.avg_credit_card_payments.$dirty && appScore.avg_credit_card_payments.$invalid">
+                    <span
+                      ng-show="appScore.avg_credit_card_payments.$error.required">Avg. Credit card payment is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Avg. Gross Surplus</label>
+                    <input type="number" name="avg_gross_surplus" ng-model="score.avg_gross_surplus"
+                           class="form-control" placeholder="Avg. Gross Surplus" required>
+                    <span style="color:red"
+                          ng-show="appScore.avg_gross_surplus.$dirty && appScore.avg_gross_surplus.$invalid">
+                    <span ng-show="appScore.avg_gross_surplus.$error.required">Avg. Gross Surplus is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Avg. operating Surplus</label>
+                    <input type="number" name="avg_operating_surplus" ng-model="score.avg_operating_surplus"
+                           class="form-control" placeholder="Avg. operating Surplus" required>
+                    <span style="color:red"
+                          ng-show="appScore.avg_operating_surplus.$dirty && appScore.avg_operating_surplus.$invalid">
+                    <span
+                      ng-show="appScore.avg_operating_surplus.$error.required">Avg. operating Surplus is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Avg. Gross Surplus%</label>
+                    <input type="number" ng-keyup="grossSurplus(score.avg_gross_surplus_percent)"
+                           name="avg_gross_surplus_percent" ng-model="score.avg_gross_surplus_percent"
+                           class="form-control" placeholder="Avg. Gross Surplus%" required>
+                    <span style="color:red" ng-show="score.avg_gross_surplus_percent != '' && surplusError!='' ">{{surplusError}}</span>
+                    <span style="color:red"
+                          ng-show="appScore.avg_gross_surplus_percent.$dirty && appScore.avg_gross_surplus_percent.$invalid">
+                    <span
+                      ng-show="appScore.avg_gross_surplus_percent.$error.required">Avg. Gross Surplus% is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Avg. operating Surplus%</label>
+                    <input type="number" ng-keyup="average(score.avg_operating_surplus_percent)"
+                           name="avg_operating_surplus_percent" ng-model="score.avg_operating_surplus_percent"
+                           class="form-control" placeholder="Avg. operating Surplus%" required>
+                    <span style="color:red" ng-show="score.avg_operating_surplus_percent != '' && operatingError!='' ">{{operatingError}}</span>
+                    <span style="color:red"
+                          ng-show="appScore.avg_operating_surplus_percent.$dirty && appScore.avg_operating_surplus_percent.$invalid">
+                    <span ng-show="appScore.avg_operating_surplus_percent.$error.required">Avg. operating Surplus% is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of regular suppliers</label>
+                    <input type="number" name="no_of_regular_suppliers" ng-model="score.no_of_regular_suppliers"
+                           class="form-control" placeholder="No. of regular suppliers" required>
+                    <span style="color:red"
+                          ng-show="appScore.no_of_regular_suppliers.$dirty && appScore.no_of_regular_suppliers.$invalid">
+                    <span
+                      ng-show="appScore.no_of_regular_suppliers.$error.required">No. of regular suppliers are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Overdrawn Average as % of Limit</label>
+                    <input type="number" ng-keyup="overdrawn(score.overdrawn_average_as_percent_of_limit)"
+                           name="overdrawn_average" ng-model="score.overdrawn_average_as_percent_of_limit"
+                           class="form-control" placeholder="Overdrawn Average as % of Limit" required>
+                    <span style="color:red"
+                          ng-show="score.overdrawn_average_as_percent_of_limit != '' && averageError!='' ">{{averageError}}</span>
+                    <span style="color:red"
+                          ng-show="appScore.overdrawn_average.$dirty && appScore.overdrawn_average.$invalid">
+                    <span
+                      ng-show="appScore.overdrawn_average.$error.required">Overdrawn Average as % of Limit is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of regular clients</label>
+                    <input type="number" name="no_of_regular_clients" ng-model="score.no_of_regular_clients"
+                           class="form-control" placeholder="No. of regular clients" required>
+                    <span style="color:red"
+                          ng-show="appScore.no_of_regular_clients.$dirty && appScore.no_of_regular_clients.$invalid">
+                    <span
+                      ng-show="appScore.no_of_regular_clients.$error.required">No. of regular clients are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of offline loans (loans not in CIBIL)</label>
+                    <input type="number" name="no_of_offline_loans" ng-model="score.no_of_offline_loans"
+                           class="form-control" placeholder="No. of offline loans" required>
+                    <span style="color:red"
+                          ng-show="appScore.no_of_offline_loans.$dirty && appScore.no_of_offline_loans.$invalid">
+                    <span
+                      ng-show="appScore.no_of_offline_loans.$error.required">No. of offline loans are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="businessDetailsSection">
+          <div class="businessDetailsTitle">Social Media</div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Firm Online presence</label>
+                    <input type="number" name="firm_online_presence" ng-model="score.firm_online_presence"
+                           class="form-control" placeholder="Firm Online presence" required>
+                    <span style="color:red"
+                          ng-show="appScore.firm_online_presence.$dirty && appScore.firm_online_presence.$invalid">
+                    <span
+                      ng-show="appScore.firm_online_presence.$error.required">Firm Online presence is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Directors/Partners/Proprietor online presence</label>
+                    <input type="number" name="director_online_presence" ng-model="score.director_online_presence"
+                           class="form-control" placeholder="Directors/Partners/Proprietor online presence" required>
+                    <span style="color:red"
+                          ng-show="appScore.director_online_presence.$dirty && appScore.director_online_presence.$invalid">
+                    <span ng-show="appScore.director_online_presence.$error.required">Directors/Partners/Proprietor online presence is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Profile Available on Online Stores</label>
+                    <input type="number" name="profile_available_on_online_stores"
+                           ng-model="score.profile_available_on_online_stores" class="form-control"
+                           placeholder="Profile Available on Online Stores (No. of store)" required>
+                    <span style="color:red"
+                          ng-show="appScore.profile_available_on_online_stores.$dirty && appScore.profile_available_on_online_stores.$invalid">
+                    <span ng-show="appScore.profile_available_on_online_stores.$error.required">Profile Available on Online Stores is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Ratings on Online Stores</label>
+                    <input type="number" ng-keyup="onlineStore(score.ratings_on_online_stores)"
+                           name="ratings_on_online_stores" ng-model="score.ratings_on_online_stores"
+                           class="form-control" placeholder="Ratings on Online Stores in %" required>
+                    <span style="color:red" ng-show="score.ratings_on_online_stores != '' && ratingError!=''">{{ratingError}}</span>
+                    <span style="color:red"
+                          ng-show="appScore.ratings_on_online_stores.$dirty && appScore.ratings_on_online_stores.$invalid">
+                    <span
+                      ng-show="appScore.ratings_on_online_stores.$error.required">Ratings on Online Stores is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>No. of posts</label>
+                    <input type="number" name="posts_count" ng-model="score.posts_count" class="form-control"
+                           placeholder="No. of post in last 3 mopnths" required>
+                    <span style="color:red" ng-show="appScore.posts_count.$dirty && appScore.posts_count.$invalid">
+                    <span ng-show="appScore.posts_count.$error.required">No. of posts are required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Matching Name & Address</label>
+                    <select name="name_address_matched" ng-model="score.name_address_matched" class="form-control"
+                            ng-options="data.value as data.key for data in matchingOptions"
+                            required>
+                      <option value="" disabled>---Please Select---</option>
+                    </select>
+                    <span style="color:red"
+                          ng-show="appScore.name_address_matched.$dirty && appScore.name_address_matched.$invalid">
+                    <span
+                      ng-show="appScore.name_address_matched.$error.required">Matching Name & Address is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Matching DOB</label>
+                    <select name="dob_matched" ng-model="score.dob_matched" class="form-control"
+                            ng-options="data.value as data.key for data in matchingOptions"
+                            required>
+                      <option value="" disabled>---Please Select---</option>
+                    </select>
+                    <span style="color:red" ng-show="appScore.dob_matched.$dirty && appScore.dob_matched.$invalid">
+                    <span ng-show="appScore.dob_matched.$error.required">Matching DOB is required</span>
+                    </span>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Active Since</label>
+                    <input type="number" name="active_since" ng-model="score.active_since" class="form-control"
+                           placeholder="Active Since in years" required>
+                    <span style="color:red" ng-show="appScore.active_since.$dirty && appScore.active_since.$invalid">
+                    <span ng-show="appScore.active_since.$error.required">Active Since required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Network strength</label>
+                    <input type="number" name="network_strength" ng-model="score.network_strength" class="form-control"
+                           placeholder="Network strength" required>
+                    <span style="color:red"
+                          ng-show="appScore.network_strength.$dirty && appScore.network_strength.$invalid">
+                    <span ng-show="appScore.network_strength.$error.required">Network strength is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Followers strength (avg likes)</label>
+                    <input type="number" name="followers_strength" ng-model="score.followers_strength"
+                           class="form-control" placeholder="Followers strength (avg likes)" required>
+                    <span style="color:red"
+                          ng-show="appScore.followers_strength.$dirty && appScore.followers_strength.$invalid">
+                    <span
+                      ng-show="appScore.followers_strength.$error.required">Followers strength (avg likes) is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Linkedin/Twitter Profile</label>
+                    <select name="linkedin_and_twitter_profile" ng-model="score.linkedin_and_twitter_profile"
+                            class="form-control"
+                            ng-options="data.value as data.key for data in linkedinAndTwitterProfileOptions"
+                            required>
+                      <option value="" disabled>---Please Select---</option>
+                    </select>
+                    <span style="color:red"
+                          ng-show="appScore.linkedin_and_twitter_profile.$dirty && appScore.linkedin_and_twitter_profile.$invalid">
+                    <span ng-show="appScore.linkedin_and_twitter_profile.$error.required">Linkedin/Twitter Profile is required</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 centerButtonContinue">
+          <button type="submit" ng-disabled="appScore.$invalid" ng-click="submitScore(score)"
+                  class="btn btn-primary ContinueButton"> Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

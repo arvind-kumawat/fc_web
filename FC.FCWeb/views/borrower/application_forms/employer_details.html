@@ -1,0 +1,218 @@
+<!--  employer details section -->
+<div class="tab-pane fade in" id="employer-details">
+  <div class="">
+    <div class="businessCompanyDetails"> Employer Details</div>
+    <!-- Employer Details -->
+    <div class="col-lg-12">
+      <form name="employDetails" novalidate>
+        <div class="businessDetailsSection">
+          <div class="businessDetailsTitle">Employer Details</div>
+          <div class="col-lg-12">
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput capitalize">
+                  <label>Employer Business Name<span class="spanRequiredStar">*</span></label>
+                  <input type="text" name="employeeName" ng-model="employerDetails.employer_business_name"
+                         class="form-control" placeholder="Name of Owner" required>
+                  <span style="color:red"
+                        ng-show="employDetails.employeeName.$dirty && employDetails.employeeName.$invalid">
+                    <span
+                      ng-show="employDetails.employeeName.$error.required">Employer Business Name is required.</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Constitution of the Company<span class="spanRequiredStar">*</span></label>
+                  <select ng-model="employerDetails.constitution" name="econstitution" class="form-control" required
+                          ng-options="data.value as data.key for data in constitutionEmployerOptions">
+                    <option value="" disabled>---Please Select---</option>
+                  </select>
+                  <span style="color:red"
+                        ng-show="employDetails.econstitution.$dirty && employDetails.econstitution.$invalid">
+                    <span
+                      ng-show="employDetails.econstitution.$error.required">Constitution of the Company is required.</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <!--</div>-->
+          <!--<div class="col-lg-12">-->
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Business Type<span class="spanRequiredStar">*</span></label>
+                  <select ng-model="employerDetails.business_type" name="type" class="form-control" required
+                          ng-options="data.value as data.key for data in employerBusinessTypeOptions">
+                    <option value="" disabled>---Please Select---</option>
+                  </select>
+                  <span style="color:red" ng-show="employDetails.type.$dirty && employDetails.type.$invalid">
+                    <span ng-show="employDetails.type.$error.required">Business Type is required.</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Industry<span class="spanRequiredStar">*</span></label>
+                  <select ng-model="employerDetails.industry" name="empIndustry" class="form-control" required
+                          ng-options="data.value as data.key for data in employerIndustryOptions">
+                    <option value="" disabled>---Please Select---</option>
+                  </select>
+                  <span style="color:red"
+                        ng-show="employDetails.tyempIndustrype.$dirty && employDetails.empIndustry.$invalid">
+                    <span ng-show="employDetails.empIndustry.$error.required">Industry is required.</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <!--</div>-->
+          <!--<div class="col-lg-12">-->
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Employer Sub-Industry<span class="spanRequiredStar">*</span></label>
+                  <select ng-model="employerDetails.sub_industry" name="subIndustry" class="form-control" required
+                          ng-options="data.value as data.key for data in employerSubIndustryOptions">
+                    <option value="" disabled>---Please Select---</option>
+                  </select>
+                  <span style="color:red"
+                        ng-show="employDetails.subIndustry.$dirty && employDetails.subIndustry.$invalid">
+                    <span ng-show="employDetails.subIndustry.$error.required">Sub-Industry is required.</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>No. of Years with Current Employer<span class="spanRequiredStar">*</span></label>
+                  <select ng-model="employerDetails.current_employer_year" name="current" class="form-control" required
+                          ng-options="data.value as data.key for data in currentEmployerYearOptions">
+                    <option value="" disabled>---Please Select---</option>
+                  </select>
+                  <span style="color:red" ng-show="employDetails.current.$dirty && employDetails.current.$invalid">
+                    <span ng-show="employDetails.current.$error.required">No. of Years with Current Employer is required.</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          <!--</div>-->
+          <!--<div class="col-lg-12">-->
+            <div class="col-lg-4">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Your Official Email ID<span class="spanRequiredStar">*</span></label>
+                  <input type="email" ng-model="employerDetails.official_email"
+                         ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" name="officialEmail"
+                         class="form-control" placeholder="Your Official Email ID" required>
+                  <span style="color:red"
+                        ng-show="employDetails.officialEmail.$dirty && employDetails.officialEmail.$invalid">
+                    <span
+                      ng-show="employDetails.officialEmail.$error.required">Your Official Email ID is required.</span>
+                    <span ng-show="employDetails.officialEmail.$error.pattern">Invalid Email ID .</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="businessDetailsSection">
+          <div class="businessDetailsTitle">Employer Address</div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="col-lg-4">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Address Line 1<span class="spanRequiredStar">*</span></label>
+                    <input type="text" ng-model="employerDetails.address_lin1" name="empAdd1" class="form-control"
+                           placeholder="Address Line 1" required>
+                    <span style="color:red" ng-show="employDetails.empAdd1.$dirty && employDetails.empAdd1.$invalid">
+                      <span ng-show="employDetails.empAdd1.$error.required">Address Line 1 is required.</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Address Line 2</label>
+                    <input type="text" ng-model="employerDetails.address_lin2" name="empAdd2" class="form-control" placeholder="Address Line 2">
+                 </div>
+                </div>
+              </div>
+            <!--</div>-->
+            <!--<div class="col-lg-12">-->
+              <div class="col-lg-4">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>PinCode<span class="spanRequiredStar">*</span></label>
+                    <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="pincodeEmp"
+                           ng-model="employerDetails.pin" class="form-control" placeholder="PinCode"
+                           ng-change="getDataFromPin(employerDetails.pin, 'employerDetails')" required>
+                    <span style="color:red"
+                          ng-show="employDetails.pincodeEmp.$dirty && employDetails.pincodeEmp.$invalid">
+                      <span ng-show="employDetails.pincodeEmp.$error.required && !employerDetails.pinCodeError">Pincode is required.</span>
+                      <span ng-show="employDetails.pincodeEmp.$error.pattern">This field required 6 numbers</span>
+                    </span>
+                  </div>
+                  <div class="errMsg" ng-if="employerDetails.pinCodeError">
+                    <div>{{employerDetails.pinCodeError}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>City<span class="spanRequiredStar">*</span></label>
+                    <input type="text" name="empCity" ng-model="employerDetails.city" ng-readonly="true"
+                           placeholder="City" class="form-control" required>
+                    <span style="color:red" ng-show="employDetails.empCity.$dirty && employDetails.empCity.$invalid">
+                      <span ng-show="employDetails.empCity.$error.required">City is required.</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            <!--</div>-->
+            <!--<div class="col-lg-12">-->
+              <div class="col-lg-4">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>State<span class="spanRequiredStar">*</span></label>
+                    <input type="text" name="empState" placeholder="State" ng-model="employerDetails.state"
+                           ng-readonly="true" class="form-control" required>
+                    <span style="color:red" ng-show="employDetails.empState.$dirty && employDetails.empState.$invalid">
+                      <span ng-show="employDetails.empState.$error.required">State is required.</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Employer Phone Number<span class="spanRequiredStar">*</span></label>
+                    <input type="text" maxlength="10" name="empPhone" ng-model="employerDetails.phone"
+                           ng-pattern="/[7-9]{1}\d{9}/" placeholder="Employer Phone Number" class="form-control"
+                           required>
+                    <span style="color:red" ng-show="employDetails.empPhone.$dirty && employDetails.empPhone.$invalid">
+                      <span ng-show="employDetails.empPhone.$error.required">Phone Number is required.</span>
+                      <span ng-show="employDetails.empPhone.$error.pattern">Invalid Phone Number.</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 centerButtonContinue">
+            <button type="submit" ng-disabled="employDetails.$invalid" ng-click="submitEmployerDetails(employerDetails)"
+                    class="btn btn-primary ContinueButton">Continue
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,210 @@
+.formUI{
+  background-color: white;
+  border:1px solid #333;
+  border-radius: 5px;
+  margin-top: -40px;
+  margin-bottom:10px;
+  padding: 40px;
+  box-shadow: 0 0 5px #333;
+}
+
+.inputBox:disabled {
+  background: white!important;
+  border:1px solid white !important;
+  box-shadow:none;
+}
+
+.padding{
+  padding: 5px;
+}
+
+.btnBackground, .btnBackground:active, .btnBackground:hover .btnBackground:focus{
+  background-color: #17375e!important;
+  border-color: #17375e!important;
+}
+
+.buttonStyle:disabled .iconBackground{
+  color:#ccc ;
+}
+
+.iconBackground{
+  color:#17375e ;
+}
+
+.marginPanel{
+  margin:5px;
+}
+
+.buttonStyle{
+  background: none;
+  border: none;
+}
+
+
+/***************** Header Notification Icon CSS *******************/
+
+.notificationIcon {
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 11px;
+  background-color: white;
+  margin-top: 23px;
+  float: right;
+  color: black;
+  width: 20px;
+  text-align: center;
+  height: 20px;
+}
+
+.arrowBox {
+  background: #e5e5e5;
+  border: 1px solid #ccc;
+  width:500px;
+  float: left;
+  min-height: 375px; box-shadow: 0 0 5px #ccc;
+}
+
+.arrowBox:after, .arrowBox:before {
+  bottom: 100%;
+  left: 90%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.arrowBox:after {
+  border-color: rgba(244, 244, 244, 0);
+  border-bottom-color: #e5e5e5;
+  border-width: 15px;
+  margin-left: -15px;
+}
+.arrowBox:before {
+  border-color: rgba(229, 229, 229, 0);
+  border-bottom-color: #ccc;
+  border-width: 16px;
+  margin-left: -16px;
+}
+
+.notifySettings{
+  color: darkgray;
+  float: left;
+}
+
+.notificationHeading {
+  text-align: center;
+  padding: 10px;
+  font-size: 15px;
+  color: #675c5c;
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #e5e5e5;
+  font-weight: 700;
+}
+
+.notifyRemove{
+  float: right;
+  color: darkgray;
+}
+
+.notificationList{
+  padding:0px 5px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.notificationList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0px 0px; width: 100%; float:left;
+}
+
+.notificationList ul li{
+  padding: 2px;
+  margin-bottom: 10px;
+}
+
+.notificationContent{
+  background-color: #f1f1f1;
+  box-shadow: 0 2px 3px #ccc;
+  padding:15px 15px; position: relative;
+}
+
+.notificationContent a{
+  color:#818181;
+}
+.notificationContent i.fa.fa-times{ position: absolute; top: 5px; right: 5px; z-index: 99; cursor: pointer;}
+.notificationContent h1{
+  padding: 0 25px 0 0px;
+  margin:0;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.4px; font-weight: 600; color: #828282;
+}
+
+.notificationContent p{
+  margin-top: 5px;
+  margin-bottom: 0; color: #828282; font-weight: 600;
+}
+.notificationContent a+p{ text-align: right; width: 100%;}
+
+.notificationFooter{
+  margin-top:10px;
+  padding-top: 10px;
+  margin-left:45px;
+}
+
+.notificationFooter a{
+  background-color: #f4f4f4;
+  border-top: 1px solid #e5e5e5;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding:12px 90px;
+  float: left;
+  color:#737373;
+  font-size: 16px;
+}
+
+.notificationFooter a:hover{
+  background-color: #fcfcfc;
+}
+.notificationDiv .dropdown-menu{ right: -38px !important; width: 500px; left: inherit;}
+.notificationDiv .dropdown-menu li{ padding: 0px;}
+
+.loginApplyNow ul.dropdown-menu ul span{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  height: 280px;
+  text-align: center; width: 90px; float: none; margin: auto;
+}
+
+.loginApplyNow.notificationDiv > ul > li{
+  border: solid 1px #000; border-radius: 100%; position: relative;
+  padding: 2px 5px;
+  margin-top: -2px;
+}
+.loginApplyNow.notificationDiv > ul > li > a > i{ font-size: 16px;}
+.loginApplyNow.notificationDiv > ul > li span.countUseenNotifications{
+    width: 22px;
+    height: 20px;
+    border-radius: 20px;
+  position: absolute;
+  top: -13px;
+  right: -10px;
+  background: #fa3e3e;
+  color: #fff;
+  text-align: center;
+  line-height: 20px;
+  padding: 0 5px;
+  font-size: 10px;
+}
+.loginApplyNow.notificationDiv ul.dropdown-menu{ margin-top: 20px;}
+.textAreaWidth100Pc{
+  width: 100%;
+}

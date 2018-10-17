@@ -1,0 +1,50 @@
+<div role="tabpanel" class="tab-pane" id="references" ng-show="references">
+  <div class="loantitlereview">
+    <ul>
+      <li><strong>Do you sell Through :</strong>
+        <span ng-show="references.own_website">Own website </span>
+        <span ng-show="references.ecommerce">Ecommerce </span>
+        <span ng-show="references.swipe_machines">Swipe Machines </span>
+        <span ng-show="references.other_sell_option">Other sell option</span>
+      </li>
+      <li ng-show="references.own_website"><strong>Own Website URL : </strong>{{references.own_website_url}}</li>
+      <li ng-show="references.other_sell_option"><strong>Other sell option : </strong>{{references.other_sell_option_value}}</li>
+    </ul>
+
+    <div>
+      <h4 class="reviewHeadingTabs">Reference 1</h4>
+      <ul>
+        <li  ng-if="loanDetails.typeOfLoan == 'Personal'"><strong>Name : </strong>{{references.first_reference_name}} </li>
+        <li  ng-if="loanDetails.typeOfLoan == 'Business'"><strong>Name of entity : </strong>{{references.first_reference_name}} </li>
+        <li><strong>Concerned Person Name :</strong> {{references.first_reference_concernName}}</li>
+        <li><strong>Designation : </strong>{{references.first_reference_designation}}</li>
+      </ul>
+      <ul>
+        <li><strong>Address:</strong> {{references.first_reference_address}}</li>
+        <li><strong>Mobile: </strong>{{references.first_reference_mobile}}</li>
+        <li><strong>Relationship: </strong>{{references.first_reference_relation}}</li>
+      </ul>
+      <ul>
+        <li><strong>How long do they know you (In Months) : </strong>{{references.first_reference_relationship_months}}</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="reviewHeadingTabs"> Reference 2</h4>
+      <ul>
+        <li ng-if="loanDetails.typeOfLoan == 'Personal'"><strong>Name :</strong>{{references.second_reference_name}} </li>
+        <li ng-if="loanDetails.typeOfLoan == 'Business'"><strong>Name of entity :</strong>{{references.second_reference_name}} </li>
+        <li><strong>Concerned Person Name :</strong>{{references.second_reference_concernName}}</li>
+        <li><strong>Designation : </strong>{{references.second_reference_designation}}</li>
+      </ul>
+      <ul>
+        <li><strong>Address:</strong> {{references.second_reference_address}}</li>
+        <li><strong>Mobile: </strong>{{references.second_reference_mobile}}</li>
+        <li><strong>Relationship: </strong>{{references.second_reference_relation}}</li>
+      </ul>
+      <ul>
+        <li><strong>How long do they know you (In Months) : </strong>{{references.second_reference_relationship_months}}</li>
+      </ul>
+    </div>
+  </div>
+</div>

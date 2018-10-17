@@ -1,0 +1,164 @@
+<div id="scoreTypes">
+  <div class="container">
+    <div class="topNamescore">
+      <ul>
+        <li>Name</li>
+        <li>Score</li>
+        <li>Actions</li>
+      </ul>
+    </div>
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default" ng-repeat="scoreType in scoreTypes">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <input ng-show="scoreType.editMode" type="text" placeholder="Name" ng-model="scoreType.name">
+            <span ng-hide="scoreType.editMode" class="nameEditMode">{{scoreType.name}}</span>
+            <input ng-show="scoreType.editMode" type="number" placeholder="Score" class="score"
+                   ng-model="scoreType.score">
+            <span ng-hide="scoreType.editMode" class="scoreEditMode">{{scoreType.score}}</span>
+                 <span class="iconsAccordion">
+                   <i ng-hide="scoreType.editMode" class="fa fa-edit"
+                      ng-click="scoreType.editMode = !scoreType.editMode">
+                   </i>
+                   <i ng-show="scoreType.editMode && scoreType.name!='' && scoreType.score!=''"
+                      class="fa fa-check-square-o" ng-click="submitScoreTypes(scoreType, $index)">
+                   </i>
+                   <i class="fa fa-trash" ng-click="openDeleteModalForScoretype($index, scoreType.id)">
+                   </i>
+                   <a data-toggle="collapse" data-parent="#accordion" data-target="#collapse{{$index}}"
+                      class="pull-right collapsed" ng-click="resetAccordianData($index)">
+                     <i class="fa fa-plus" aria-hidden="true"></i>
+                     <i class="fa fa-minus" aria-hidden="true"></i>
+                   </a>
+                 </span>
+          </h4>
+        </div>
+        <div id="collapse{{$index}}" class="panel-collapse collapse">
+          <div class="panel-body">
+            <div class="col-lg-12 collapseBar borderSolid borderBottomRemove">
+              <div class="col-lg-4">
+                <label>Name</label>
+              </div>
+              <div class="col-lg-4">
+                <label>Score</label>
+              </div>
+              <div class="col-lg-2 iconsCollapseBar">
+                <label>Action</label>
+              </div>
+            </div>
+
+            <div class="col-lg-12 collapseBar borderSolid paddingTopadd" ng-repeat="sub_main_score in scoreType.sub_main_scores">
+              <div class="col-lg-4 ">
+                <input ng-show="sub_main_score.editMode" type="text" name="" value="" placeholder="Name"
+                       ng-model="sub_main_score.name">
+                <span ng-hide="sub_main_score.editMode">{{sub_main_score.name}}</span>
+              </div>
+              <div class="col-lg-4">
+                <input ng-show="sub_main_score.editMode" type="number" name="" value="" placeholder="Score"
+                       ng-model="sub_main_score.score">
+                <span ng-hide="sub_main_score.editMode">{{sub_main_score.score}}</span>
+              </div>
+              <div class="col-lg-2 iconsCollapseBar">
+                <i ng-hide="sub_main_score.editMode" class="fa fa-edit"
+                   ng-click="sub_main_score.editMode = !sub_main_score.editMode">
+                </i>
+                <i ng-show="sub_main_score.editMode && sub_main_score.name!='' && sub_main_score.score!=''"
+                   class="fa fa-check-square-o"
+                   ng-click="submitScoreSubTypes(sub_main_score, $index, $parent.$index, scoreType.id)">
+                </i>
+                <i class="fa fa-trash"
+                   ng-click="openDeleteModalForScoreSubtype($index, sub_main_score.id, $parent.$index)">
+                </i>
+
+              </div>
+              <div class="col-lg-2 pull-right">
+                <button class="continueButton " ui-sref="superAdmin.scores({subTypeId:sub_main_score.id})"
+                        ng-disabled="!sub_main_score.id"><span>GO</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-lg-12 collapseBar borderSolid totalScore">
+              <div class="col-lg-4">
+                <label>Total Score</label>
+              </div>
+              <div class="col-lg-4">
+                <label>{{totalSubMainScore}}</label>
+              </div>
+              <div class="col-lg-4">
+                <button type="button" class="btn btn-primary greenBgcolor" ng-click="addScoreSubTypes($index)"><i
+                  class="fa fa-plus" aria-hidden="true"></i> Add New
+                </button>
+              </div>
+            </div>
+            <span style="color:red" ng-show="showSubMainScoreWarning">Total score should be equal to 100.</span>
+
+            <!--<button type="button" class="btn btn-primary greenBgcolor" ng-click="addScoreSubTypes($index)"><i
+              class="fa fa-plus" aria-hidden="true"></i> Add New
+            </button>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <span class="nameEditMode totalScoreFont">Total Score</span>
+            <span class="scoreEditMode totalScoreFont totalScoreMargin">{{totalMainScore}}</span>
+            <button type="button" class="btn btn-success totalScoreButtonMargin" ng-click="addScoreTypes()"><i
+              class="fa fa-plus" aria-hidden="true"></i>Add New
+            </button>
+          </h4>
+        </div>
+      </div>
+      <span style="color:red" ng-show="showMainScoreWarning">Total score should be equal to 100.</span>
+      <!--<button type="button" class="btn btn-primary greenBgcolor marginBottom" ng-click="addScoreTypes()"><i
+        class="fa fa-plus" aria-hidden="true"></i>Add New
+      </button>-->
+    </div>
+  </div>
+</div>
+
+
+<!--Model for delete application-->
+<div id="deleteScoreType" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Are You Sure?</h4>
+
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="deleteScoretype(scoreTypeIndex, scoreTypeId)">Yes
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--modal end-->
+
+
+<!--Model for delete application-->
+<div id="deleteScoreSubType" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Are You Sure?</h4>
+
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default"
+                ng-click="deleteScoreSubtype(scoreSubTypeIndex, scoreSubTypeId, scoreSubTypeParentIndex)">Yes
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--modal end-->

@@ -1,0 +1,415 @@
+<!-- business details section -->
+<div class="tab-pane fade in" id="business-details">
+    <div class="">
+        <!--<div class="businessCompanyDetails"> Business Details</div>-->
+        <form name="details" novalidate autocomplete="off">
+            <div class="businessDetailsSection">
+                <div class="businessDetailsTitle"> Business Details</div>
+                <!--<div class="col-lg-12" ng-show="HasExistingBusiness">
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Choose the Business Entity<span class="spanRequiredStar">*</span></label>
+                                <select ng-required="HasExistingBusiness" ng-model="SelectedBusinessId" name="Constitution" class="form-control"
+                                        ng-options=" data.BusinessId as data.CompanyName for data in ExistingBusiness" ng-change="UpdateBusinessDetail(SelectedBusinessId)">
+                                    <option value="">---New Entity---</option>
+                                </select>
+                                <span class="color-red" ng-show="(details.Constitution.$dirty && details.Constitution.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.Constitution.$error.required">Name of the Entity is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="col-lg-12">
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput capitalize">
+                                <label>Name of the Business Entity<span class="spanRequiredStar">*</span></label>
+                                <input type="text" name="entity" ng-model="businessDetails.CompanyName" class="form-control" ng-blur="validateBusinessPan(businessDetails)" required>
+                                <span class="error-msg" ng-show="(details.entity.$dirty && details.entity.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.entity.$error.required">Name of the Business Entity is required.</span>
+                                    <!--<span ng-show="details.entity.$error.pattern">Enter either Alphanumeric or Letters only</span>-->
+                                </span>
+                                <!--<span style="color:red">
+                                    <span ng-show="!details.entity.$error.required && businessDetails.IsPanVerified == true && !businessDetails.ValidCompanyName && businessDetails.PanStatus != PANSTATUS.INITIAL">Company name is not matching with details got from PAN number</span>
+                                </span>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>I am a<span class="spanRequiredStar">*</span></label>
+                                <select style="font-size: 14px;" name="product" ng-model="loanAccount.FKProductId" ng-change="productChanged(loanAccount.FKProductId)" class="form-control">
+                                    <option value="" disabled>---Please Select---</option>
+                                    <option ng-repeat="productname in ProductGroups" ng-if="productname.ProductList.length == 1" value="{{productname.ProductList[0].ID}}"> {{productname.ProductGroupName}} </option>
+                                    <optgroup ng-repeat="productname in ProductGroups" label="{{productname.ProductGroupName}}" ng-if="productname.ProductList.length > 1">
+                                        <option ng-repeat="products in productname.ProductList" value="{{products.ID}}">{{products.Product_Desc}}</option>
+                                    </optgroup>
+                                </select>
+                                <span class="error-msg" ng-show="(details.product.$dirty && details.product.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.product.$error.required">Please select Type of business</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Business Operating As<span class="spanRequiredStar">*</span></label>
+                                <select style="font-size: 14px;" ng-model="businessDetails.FKBusinessConstitutionId" name="Constitution" class="form-control"
+                                        ng-options=" data.BusinessConstitutionId as data.BusinessConstitutionName for data in businessConstitutions"
+                                        required>
+                                    <option value="" disabled>---Please Select---</option>
+                                </select>
+                                <span class="error-msg" ng-show="(details.Constitution.$dirty && details.Constitution.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.Constitution.$error.required">Business Operating As is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Business Operating Since<span class="spanRequiredStar">*</span> </label>
+                                <!--<p class="input-group">
+                                    <input type="text" name="businessOperating" class="form-control" ng-model="businessDetails.DOIncorporation" ng-required="true" jquerydatepicker maxdateset="0" mindateset="-50yr" dateformatset="dd/mm/yy" />
+
+                                </p>-->
+                                <div class="col-lg-5 no-padding">
+                                    <select style="font-size: 14px;" name="month" ng-model="businessDetails.DOIncorporationMonth" class="form-control" ng-options="month.id as month.Month for month in monthsDropDownOptions" required>
+                                        <option value="" disabled>Month</option>
+                                    </select>
+                                    <span class="error-msg" ng-show="(details.month.$dirty && details.month.$invalid)||ShowBusinessDtlError">
+                                        <span ng-show="details.month.$error.required">Required</span>
+
+                                    </span>
+                                </div>
+                                <div class="col-lg-offset-1 col-lg-6 no-padding">
+                                    <select style="font-size: 14px;" name="year" ng-model="businessDetails.DOIncorporationYear" class="form-control" ng-options="page for page in range('year')" required>
+                                        <option value="" disabled>Year</option>
+                                    </select>
+                                    <span class="error-msg" ng-show="(details.year.$dirty && details.year.$invalid)||ShowBusinessDtlError">
+                                        <span ng-show="details.year.$error.required">Required</span>
+
+                                    </span>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Business Category <span class="spanRequiredStar" ng-show="product.PreciseName == 'OSL' || product.PreciseName =='PRL' || product.PreciseName == 'RPL'">*</span></label>
+
+                                <select style="font-size: 14px;" ng-model="businessDetails.FKCategoryId" name="industry" class="form-control" ng-options="data.CategoryId as data.Name for data in FCCatgories" ng-required="product.PreciseName == 'OSL' || product.PreciseName =='PRL' || product.PreciseName == 'RPL'">
+                                    <option value="" disabled>---Please Select---</option>
+                                </select>
+
+                                <span class="error-msg" ng-show="(details.industry.$dirty && details.industry.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.industry.$error.required">Business Category is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <label class="pan-label">Business PAN<span class="spanRequiredStar">*</span></label>
+                            <div class="BusinessLandline symbol">
+                                <input type="text" name="businessPan" maxlength="10" ng-blur="ChangeCaseForBusinessPAN(businessDetails);validateBusinessPan(businessDetails)" ng-model="businessDetails.PANCardNo" ng-pattern="/^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/" class="form-control business-pan-input" ng-required="businessDetails.FKBusinessConstitutionId !=2">
+                                <i class="fa fa-check-circle fa-color-success pan-varification-caret" ng-if="businessDetails.PanStatus == PANSTATUS.VERIFIED"></i>
+                                <!--<i class="fa fa-spin fa-spinner" ng-if="businessDetails.PanStatus == PANSTATUS.LOADING"></i>
+                                <i class="fa fa-ban fa-color-error" ng-if="businessDetails.PanStatus == PANSTATUS.WRONG"></i>-->
+
+                            </div>
+                            <div class="labelInput">
+                                <span class="error-msg" ng-show="(details.businessPan.$touched) && ShowBusinessDtlError">
+                                    <!--<span ng-show="businessDetails.PanStatus == PANSTATUS.WRONG">Entered PAN number is wrong</span>
+                                    <span ng-show="businessDetails.PanStatus == PANSTATUS.INVALID">Entered PAN number is not valid</span>-->
+                                    <span ng-show="details.businessPan.$error.required && details.businessPan.$invalid &&  details.businessPan.$dirty && (ShowBusinessDtlError)">Business PAN is required.</span>
+                                    <span ng-show="details.businessPan.$error.pattern && details.businessPan.$invalid &&  details.businessPan.$dirty && (details.businessPan.$touched||ShowBusinessDtlError)">Enter a Valid PAN(AAAAA0000A)</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Business VAT/Tin #/Service Tax No</label>
+                                <input type="text" maxlength="11" name="businessVat" ng-model="businessDetails.VAT_Tin" class="form-control">
+                                <span style="color:red" ng-show="(details.businessVat.$dirty && details.businessVat.$invalid && details.businessVat.$touched) ||ShowBusinessDtlError">
+                                    <span ng-show="details.businessVat.$error.required && (ShowBusinessDtlError)">Business VAT/Tin #/Service Tax No is required.</span>
+                                    <span ng-show="details.businessVat.$error.pattern && (details.businessVat.$touched||ShowBusinessDtlError)">Please enter valid VAT/Tin</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>GST Number</label>
+                                <input type="text" name="GSTNumber" ng-model="businessDetails.GSTNumber" ng-pattern="/\d{2}[A-Za-z]{5}\d{4}[A-Za-z]{1}\d([Z|z]{1})[A-Za-z\d]{1}/" ng-change="ChangeCaseForBusinessGST(businessDetails)" class="form-control business-pan-input">
+                            </div>
+
+                            <div class="labelInput">
+                                <span class="error-msg" ng-show="(details.GSTNumber.$touched)||ShowBusinessDtlError">
+                                    <!--<span ng-show="businessDetails.PanStatus == PANSTATUS.WRONG">Entered PAN number is wrong</span>
+                                    <span ng-show="businessDetails.PanStatus == PANSTATUS.INVALID">Entered PAN number is not valid</span>-->
+
+                                    <span ng-show="details.GSTNumber.$error.pattern && details.GSTNumber.$invalid &&  details.GSTNumber.$dirty && (details.GSTNumber.$touched||ShowBusinessDtlError)">Enter a Valid GST(11AAAAA0000A1A1)</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" ng-show="businessDetails.FKBusinessConstitutionId==2">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <!--<label ng-show="businessDetails.constitution=='public limited' || businessDetails.constitution == 'pvt limited'">No. of Directors<span class="spanRequiredStar">*</span></label>-->
+                                <label>No. of Partners/Directors</label>
+                                <div style="color:black; background-color:#c7c7c7" class="form-control">1</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3" ng-hide="businessDetails.FKBusinessConstitutionId==2">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <!--<label ng-show="businessDetails.constitution=='public limited' || businessDetails.constitution == 'pvt limited'">No. of Directors<span class="spanRequiredStar">*</span></label>-->
+                                <label>No. of Partners/Directors<span class="spanRequiredStar" ng-hide="businessDetails.FKBusinessConstitutionId==2">*</span></label>
+                                <select type="text" name="noPartners" ng-model="businessDetails.NoOfPartner" class="form-control" ng-required="businessDetails.FKBusinessConstitutionId!=2">
+                                    <option value="" disabled>---Please Select---</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">5</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+
+                                <span class="error-msg" ng-show="businessDetails.partners_count != '' && noPartnersError!=''">{{noPartnersError}}</span>
+                                <span class="error-msg" ng-show="(details.noPartners.$dirty && details.noPartners.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.noPartners.$error.required">No. of partners/directors are required.</span>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-6">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Address<span class="spanRequiredStar">*</span></label>
+                                <input type="text" pattern=".{7,}" name="businessAddress1" ng-model="businessDetails.OffAddressLine1" class="form-control" required>
+                                <span class="error-msg" ng-show="(details.businessAddress1.$dirty && details.businessAddress1.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.businessAddress1.$error.required">Business Address is required.</span>
+                                    <span ng-show="details.businessAddress1.$error.pattern && (details.businessAddress1.$touched||ShowBusinessDtlError)">Min 7 letter only is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 no-border-right">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>PinCode<span class="spanRequiredStar">*</span></label>
+                                <input type="text" ng-pattern="/[0-9]{6}/" numbers-only maxlength="6" name="pincode" ng-model="businessDetails.OffPostalCode" class="form-control" ng-change="getDataFromPin(businessDetails.OffPostalCode)" required>
+                                <span class="error-msg" ng-show="details.pincode.$invalid && (details.pincode.$touched || ShowBusinessDtlError) || ShowBusinessDtlError">
+
+                                    <span ng-show="details.pincode.$error.required">PinCode is required.</span>
+                                    <span ng-show="details.pincode.$error.pattern">This field allowed only 6 numbers</span>
+                                </span>
+                            </div>
+                            <div class="error-msg" ng-if="businessDetails.pinCodeError">
+                                <div>{{businessDetails.pinCodeError}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>City<span class="spanRequiredStar">*</span></label>
+                                <input type="text" ng-pattern="/[A-Za-z]{3,}/" name="businessCity" ng-model="businessDetails.OffCity" class="form-control" required>
+                                <span class="error-msg" ng-show="(details.businessCity.$dirty && details.businessCity.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.businessCity.$error.required">City is required.</span>
+                                    <span ng-show=" details.businessCity.$error.pattern && (details.businessCity.$touched||ShowBusinessDtlError)">Min 3 letter only is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>State<span class="spanRequiredStar">*</span></label>
+                                <input type="text" ng-pattern="/[A-Za-z]{3,}/" name="businessState" ng-model="businessDetails.OffState" class="form-control" required>
+                                <span class="error-msg" ng-show="details.businessState.$dirty && details.businessState.$invalid && (details.businessState.$touched || ShowBusinessDtlError) || ShowBusinessDtlError">
+                                    <span ng-show="details.businessState.$error.required">State is required.</span>
+                                    <span ng-show="details.businessState.$error.pattern && (details.businessState.$touched||ShowBusinessDtlError)">Min 3 letter only is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Landline No.</label>
+                                <input type="text" class="form-control" ng-pattern="/^[0-9]*$/" minlength="9" name="bizLandline" ng-model="businessDetails.WorkPhone">
+                                <!--<span class="eg">Eg: Use area code (11) instead of (011) for Delhi</span>-->
+                                <span class="error-msg" ng-show="(details.bizLandline.$dirty && details.bizLandline.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.bizLandline.$error.pattern && (details.bizLandline.$touched||ShowBusinessDtlError)">Invalid Contact No.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Mobile No.<span class="spanRequiredStar">*</span></label>
+
+
+                                <input type="text" numbers-only maxlength="10" name="bizContact" ng-model="businessDetails.Business_Contact_Mobile" ng-pattern="/[7-9]{1}\d{9}/" class="form-control" required>
+
+                                <span class="error-msg" ng-show="details.bizContact.$dirty && details.bizContact.$invalid && (details.bizContact.$touched || ShowBusinessDtlError) || ShowBusinessDtlError">
+                                    <span ng-show="details.bizContact.$error.required && (details.bizContact.$touched||ShowBusinessDtlError)">Mobile No. is required.</span>
+                                    <span ng-show="details.bizContact.$error.pattern && (details.bizContact.$touched||ShowBusinessDtlError)">Invalid Mobile No.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Email ID (Primary)<span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                <input type="email" name="email" ng-model="businessDetails.EmailId" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" class="form-control" ng-required="isBorrower">
+                            </div>
+                            <span class="error-msg" ng-show="details.email.$dirty && details.email.$invalid || ShowBusinessDtlError">
+                                <span ng-show="details.email.$error.required && (details.email.$touched||ShowBusinessDtlError)">Email is required.</span>
+                                <span ng-show="details.email.$error.pattern && (details.email.$touched||ShowBusinessDtlError)">Invalid Email</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Ownership status of business office<span class="spanRequiredStar">*</span></label>
+                                <select style="font-size: 14px;" name="ownership" ng-model="businessDetails.FkOwnerShipId" class="form-control" required>
+                                    <option value="" disabled>---Please Select---</option>
+                                    <optgroup ng-repeat="businessOwnership in businessOwnerships" label="{{businessOwnership.Name}}">
+                                        <option ng-repeat="data in businessOwnership.OwnerShips" value="{{data.OwnerShipId}}">{{data.Name}}</option>
+                                    </optgroup>
+                                </select>
+                                <span class="error-msg" ng-show="details.ownership.$dirty && details.ownership.$invalid || ShowBusinessDtlError">
+                                    <span ng-show="details.ownership.$error.required && (details.ownership.$touched||ShowBusinessDtlError)">Ownership status is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Annual Turnover<span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                <div class="BusinessLandline symbol">
+                                    <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                    <select style="font-size: 14px;padding-left: 20px;" type="text" ng-model="businessDetails.DeclaredTurnover" name="annualTurnover" class="form-control" ng-required="isBorrower">
+                                        <option value="" disabled>---Please Select---</option>
+                                        <option value="<25L">&lt;25L </option>
+                                        <option value="25L-50L">25L-50L</option>
+                                        <option value="50L-1Cr">50L-1Cr</option>
+                                        <option value="1Cr-2Cr">1Cr-2Cr </option>
+                                        <option value="2Cr-3Cr">2Cr-3Cr</option>
+                                        <option value="3Cr-4Cr">3Cr-4Cr</option>
+                                        <option value="4Cr-5Cr">4Cr-5Cr </option>
+                                        <option value=">5Cr">&gt;5Cr</option>
+                                    </select>
+                                </div>
+                                <span class="error-msg" ng-show="(details.annualTurnover.$dirty && details.annualTurnover.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.annualTurnover.$error.required">Annual Turnover is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Loan Amount Required<span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                <div class="BusinessLandline symbol">
+                                    <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                    <input style="padding-left: 20px !important;" type="text" ng-required="isBorrower" name="loanamount" ng-change="slide(loanAccount.Amount)" ng-model="loanAccount.Amount" class="form-control" format="currency">
+                                </div>
+                                <span class="error-msg" ng-show="loanAccount.Amount > product.MaxAmount || loanAccount.Amount < product.MinAmount"> Amount should in range i.e. {{product.MinAmount  | amount}}-{{product.MaxAmount  | amount}} </span>
+                                <span class="color-red" ng-show="(details.loanamount.$dirty && details.loanamount.$invalid)||ShowBusinessDtlError">
+                                    <span ng-show="details.industry.$error.required">Loan Amount is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="labelInput">
+                            <label>Loan Amount Required</label>
+                            <div class="col-sm-12 no-padding">
+                                <div class="silder custom-slider-div">
+                                    <slider id="amountSlider" name="loanamount" ng-change="slide(loanAccount.Amount)" ng-model="loanAccount.Amount" min="product.MinAmount" max="product.MaxAmount" step="10000" style="padding-left:7px;"></slider>
+                                </div>
+                                <span style="font-weight: bold;"><sub><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{loanAmountString}}</sub></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Do you have a Bank OD/CC Limit? <span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                <select ng-model="businessDetails.HasODLimit" name="oclimits" class="form-control" ng-required="isBorrower">
+                                    <option value="" disabled>---Please Select---</option>
+                                    <option value='true'>Yes</option>
+                                    <option value='false'>No</option>
+                                </select>
+                                <span class="error-msg" ng-show="details.oclimits.$dirty && details.oclimits.$invalid || ShowBusinessDtlError">
+                                    <span ng-show="details.oclimits.$error.required">Bank OD/CC Limit is required.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-3">
+                        <div class="NameEntity">
+                            <div class="labelInput">
+                                <label>Total Number of employees<span class="spanRequiredStar" ng-show="isBorrower">*</span></label>
+                                <input type="text" numbers-only maxlength="11" ng-pattern="/^[0-9]*$/" name="noofemployee" ng-model="businessDetails.NoOfEmployee" class="form-control" ng-required="isBorrower">
+                                <span class="error-msg" ng-show="details.noofemployee.$dirty && details.noofemployee.$invalid || ShowBusinessDtlError">
+                                    <span ng-show="details.noofemployee.$error.required && (details.noofemployee.$touched || ShowBusinessDtlError)">Total Number of employees required.</span>
+                                    <span ng-show="details.noofemployee.$error.pattern && details.noofemployee.$touched">Please enter number only.</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 centerButtonContinue">
+                    <button type="submit" ng-click="submitBusinessDetails(loanAccount,businessDetails,details.$invalid || noDirector)" class="btn btn-primary ContinueButton">Continue</button>
+                    <button type="button" ng-click="cancel()"
+                            class="btn btn-primary cancel-button">
+                        Cancel
+                    </button>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</div>

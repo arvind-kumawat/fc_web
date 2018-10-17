@@ -1,0 +1,334 @@
+﻿<div class="backgroundImage-loginPage ng-scope">
+            <div class="container">
+                <div class="col-md-9 col-md-offset-3">
+                    <div class="col-sm-10 register-card">
+                        <div class="row">
+                            <div align="center" style="padding:20px">
+                                <img src="/images/logo - Copy.png" alt="Fundscorner" />
+                            </div>
+                        </div>
+                        <div id="loginfrom">
+                           
+                            <form name="validateRegister" ng-submit="userSignup(Newuser)" class="margin-right-10" novalidate="">
+                                <div class="col-lg-12 registrationpage-field">
+
+
+                                    <div class="material-input-div col-sm-6">
+                                        <i class="fa fa-user prefix" aria-hidden="true" style="font-size: 24px;margin-top: 6px;"></i>
+                                        <input type="text" name="firstName" minlength="3" ng-model="Newuser.FirstName" alphabets-only="" class="form-control inputText input-registration" required="">
+                                        <label class="floating-label" >First Name</label>
+                                        <span style="height: 2px;" class="error-msg" ng-show="validateRegister.$submitted || (validateRegister.firstName.$dirty &amp;&amp; validateRegister.firstName.$invalid &amp;&amp; validateRegister.firstName.$touched)">
+                                            <span ng-show="validateRegister.firstName.$error.required &amp;&amp; (validateRegister.firstName.$touched||validateRegister.$submitted )" class="ng-hide">Enter Your First Name</span>
+                                            <span ng-show="validateRegister.firstName.$error.minlength &amp;&amp; validateRegister.firstName.$touched" class="ng-hide">Enter at least 3 characters</span>
+                                        </span>
+
+                                    </div>
+                                    <div class=" material-input-div col-sm-6">
+                                        <i class="fa fa-user prefix" aria-hidden="true" style="font-size: 24px;margin-top: 6px;"></i>
+                                        <input type="text" name="lastName" minlength="3" ng-model="Newuser.LastName" alphabets-only="" class="form-control inputText input-registration" required="">
+                                        <label class="floating-label" >Last Name</label>
+                                        <span class="error-msg" ng-show="validateRegister.$submitted || (validateRegister.lastName.$dirty &amp;&amp; validateRegister.lastName.$invalid &amp;&amp; validateRegister.lastName.$touched)">
+                                            <span ng-show="validateRegister.lastName.$error.required &amp;&amp; (validateRegister.lastName.$touched||validateRegister.$submitted )" class="ng-hide">Enter Your Last Name</span>
+                                            <span ng-show="validateRegister.lastName.$error.minlength &amp;&amp; validateRegister.lastName.$touched" class="ng-hide">Enter at least 3 characters</span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 registrationpage-field">
+
+
+                                    <div class="material-input-div col-sm-6">
+                                        <i class="fa fa-envelope prefix" aria-hidden="true" style="font-size: 20px;margin-top: 6px;"></i>
+                                        <input type="text" name="emailAddress" ng-model="Newuser.EmailId" class="form-control inputText input-registration" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" required="">
+                                        <label class="floating-label"> Email</label>
+                                        <span class="error-msg" ng-show="validateRegister.$submitted || (validateRegister.emailAddress.$dirty &amp;&amp; validateRegister.emailAddress.$invalid &amp;&amp; validateRegister.emailAddress.$touched)">
+                                            <span ng-show="validateRegister.emailAddress.$error.required &amp;&amp; (validateRegister.emailAddress.$touched||validateRegister.$submitted )">Enter Email Address</span>
+                                            <span ng-show="validateRegister.emailAddress.$error.pattern &amp;&amp; validateRegister.emailAddress.$touched" class="ng-hide">Invalid Email Address</span>
+                                        </span>
+                                        <span class="error-msg" ng-show="isEmailExists">Email is already registered.</span>
+                                    </div>
+                                    <div class="material-input-div col-sm-6">
+                                        <i class="fa fa-mobile prefix" aria-hidden="true" style="font-size: 24px;margin-top: 6px;"></i>
+                                        <input type="text" name="mobileNumber" numbers-only="" ng-pattern="/[7-9]{1}\d{9}/" validnumbername="Mobile Number" ng-model="Newuser.MobilePhone" maxlength="10" class="form-control inputText input-registration" required="">
+                                        <label class="floating-label">Mobile Number</label>
+                                        <span class="error-msg" ng-show="validateRegister.$submitted || (validateRegister.mobileNumber.$dirty &amp;&amp; validateRegister.mobileNumber.$invalid &amp;&amp; validateRegister.mobileNumber.$touched)">
+                                            <span ng-show="validateRegister.mobileNumber.$error.required &amp;&amp; (validateRegister.mobileNumber.$touched||validateRegister.$submitted )" class="ng-hide">Enter Mobile Number</span>
+                                            <span ng-show="validateRegister.mobileNumber.$error.pattern &amp;&amp; validateRegister.mobileNumber.$touched">Invalid Mobile Number</span>
+                                        </span>
+                                        <span class="error-msg" ng-show="isMobileExistsForRegistration">Mobile number is already registered</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 registrationpage-field">
+
+
+                                    <div class="material-input-div col-sm-6">
+
+                                        <div class="flexContainer">
+                                            <i class="fa fa-lock prefix" aria-hidden="true" style="font-size: 24px;margin-top: 6px;"></i>
+                                            <input type="{{passwordtype}}" name="password" minlength="6" ng-model="Newuser.Password" class="form-control inputText input-registration" required="">
+                                            <label class="floating-label">Password</label>
+                                            <span class="password-visible-span">
+                                                <i class="eye-caret-password-field fa fa-eye pull-right" ng-class="visiblePassword?&#39;fa fa-eye-slash pull-right &#39;:&#39;fa fa-eye pull-right&#39;" aria-hidden="true" ng-click="makePasswordVisible()"></i>
+                                            </span>
+                                        </div>
+                                        <!--<span class="error-msg" ng-show="validateRegister.$submitted || (validateRegister.password.$dirty &amp;&amp; validateRegister.password.$invalid &amp;&amp; validateRegister.password.$touched)">
+                        <span ng-show="validateRegister.password.$error.required &amp;&amp; (validateRegister.password.$touched||validateRegister.$submitted )" class="ng-hide">Enter Password</span>
+                        <span ng-show="validateRegister.password.$error.minlength &amp;&amp; validateRegister.password.$touched" class="ng-hide">Enter at least 6 characters</span>
+                    </span>-->
+                                    </div>
+                                    <div class="material-input-div margin-bottom-10per col-sm-6">
+                                        <i class="fa fa-lock prefix" aria-hidden="true" style="font-size: 24px;margin-top: 6px;"></i>
+                                        <input type="password" name="cnfPassword" minlength="6" ng-model="Newuser.ConfPassword" class="form-control inputText input-registration" required="">
+                                        <label class="floating-label">Confirm Password</label>
+                                        <div class="error-msg">
+                                            <!--<span ng-show="validateRegister.$submitted || (validateRegister.cnfPassword.$dirty &amp;&amp; validateRegister.cnfPassword.$invalid &amp;&amp; validateRegister.cnfPassword.$touched)">
+                    <span ng-show="validateRegister.cnfPassword.$error.required &amp;&amp; (validateRegister.cnfPassword.$touched||validateRegister.$submitted )" class="ng-hide">Enter Password</span>
+                    <span ng-show="validateRegister.cnfPassword.$error.minlength &amp;&amp; validateRegister.cnfPassword.$touched" class="ng-hide">Enter at least 6 characters</span>
+                </span>-->
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="margin-bottom-5per" style="height: 2px;">
+                                    <span class="error-msg ">
+                                        <span ng-show="Newuser.Password != Newuser.ConfPassword &amp;&amp; validateRegister.cnfPassword.$touched" class="ng-hide">Password Does not match</span>
+                                    </span>
+                                </div>
+                                <div class="col-sm-12" style="margin-left: 43px; margin-top: -31px; margin-bottom:23px; height:60px;" ng-init="randomnum()">
+                                  
+                                    <div class="flexContainer">
+                                        <i class="fa fa-calculator prefix" aria-hidden="true" style="font-size: 16px; margin-left:-29px;padding-top:26px;"></i>
+                                        <span style="padding-top:26px;">{{randam1}} <i class="fa fa-plus" aria-hidden="true"></i> {{randam2}}&nbsp;<i class="fa fa-refresh" aria-hidden="true" ng-click="randomnum()"></i> </span>
+                                        <div>
+                                            <input name="captcha" type="number" ng-model="total1" required class="form-control inputText" />
+                                            <!--<label class="floating-label" style="margin-left: 11px;">Captcha</label>-->
+                                            <span style="margin-left: 30px;" class="error-msg" ng-show="validateRegister.$submitted &amp;&amp; validateRegister.captcha.$error.required">Required</span>
+                                            <span style="margin-left: 30px;" class="error-msg" ng-show="total1 != (randam1+randam2) && total1">Wrong</span>
+
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+
+                                <!--<div class="authorize" align="center">
+                                    <input name="dnd_accepted" ng-model="Newuser.dnd_accepted" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required"> 
+                                    <span>I authorize FundsCorner &amp; its representatives to contact me including call or SMS .</span>
+                                    <span class="fa-color-error " ng-show="validateRegister.$submitted &amp;&amp; validateRegister.dnd_accepted.$error.required">Required</span>
+                                </div>-->
+                                <div class="col-sm-12" style="height: 15px;">
+                                    <span class="error-msg" style="float:left;" ng-show="validateRegister.$submitted &amp;&amp; validateRegister.term_accepted.$error.required">&nbsp;Required</span>
+                                </div>
+
+                                <div class="authorize">
+                      
+                                    <input  ng-model="Newuser.term_accepted" name="term_accepted" type="checkbox" required="" class="form-control" style="margin-left:23px;"> 
+                                    <span class="registration-agreement-span">
+                                        I have read and agree to the contents of <a style="color: #2c4055;" ng-click="OpenTermOfUse()">Terms of Use</a> and
+                                        <a style="color: #2c4055;" ng-click="OpenPrivacyPolicy()">Privacy Policy</a> of FundsCorner and authorize FundsCorner to contact me.
+                                    </span>
+                                 
+                                </div>
+                               
+                                <div class="col-sm-12 col-md-offset-1">
+                                    <div class="col-sm-5">
+                                        <button style="width: 186px;" type="submit" class="btn btn-default reg-bt">Register<i ng-show="registrationInProgress" class="fa fa-hourglass-half ng-hide" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div id="socialbuttons">
+
+                                            <a class="facbook-button btn btn-default reg-bt" href="" ng-click="authExternalProvider('Facebook')">
+                                                <i class="fa fa-facebook-f"></i>&nbsp;&nbsp;
+                                                <span>
+                                                    Register With Facebook
+                                                </span>
+                                            </a>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                         
+                                <span class="already-member" style="font-family: inherit;">Already a Member? <a style="color: #2c4055;" ng-click="switchToLogin()">Login</a></span>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--Model for OTP Verification-->
+    <div id="verifyOTPModelRegistration" class="modal fade" role="dialog" ng-controller="AuthCtrl">
+        <div class="modal-dialog">
+
+            <div class="modal-content" style="width: 88%;">
+                <div class="col-lg-12">
+                    <button type="button" class="close" ng-click="closeOtpPopUp()" data-dismiss="modal"> <span>&times; </span></button>
+                </div>
+
+                <!--<div class="modal-header otpHeader">
+
+                    <h4 class="modal-title">
+                        Sit back & relax
+                        verify your mobile number
+                    </h4>
+
+                </div>-->
+                <div class="modal-body font-raleway-sans-serif" id="otpfrom" style="margin-top:24px">
+                    <!--<p class="chatIcons"><i class="fa fa-commenting-o" aria-hidden="true"></i></p>-->
+                    <p class="VerifyMobile">
+                        <span class="ver_titl">Verify your Mobile</span>
+                        <span class="ver_det">A One Time password (OTP) has been sent to {{Newuser.MobilePhone}}.</span>
+                    </p>
+                    <!--<p class="VerifyMobileOTP"> (Enter the OTP below)</p>-->
+                    <form class="form-group" id="verificationOtp" name="verification" nonvalidate>
+                        <div class="MobileOTP" style="margin-top: 20px;">
+                            <input type="number" name="otp" placeholder="Enter OTP Here" ng-model="otp" class="form-control endeavor-text" required>
+                            <span ng-show="(verification.otp.$dirty && verification.otp.$invalid) || showOtpInvalidMessage">
+                            </span>
+                        </div>
+                        <div class="resendOtp">
+                            <a style="color: #2c4055;" ng-hide="showOtpSuccesMessage" ng-click="sendOtpNewUser(Newuser.MobilePhone)">Resend OTP</a>
+                            <span style="color: #2c4055;" ng-show="showOtpSuccesMessage">OTP successfully Sent</span>
+                        </div>
+                        <div class="resendOtp" ng-show="showOtpFailMessage">
+                            <span style="color:red;">Enter Correct OTP</span>
+                        </div>
+
+                        <div class="col-sm-12" style="padding:10px">
+                            <button style="width: 68px;" type="button" class="btn btn-default" ng-click="VerifyOTPRegistration(otp,verification.$invalid )">Submit</button>
+
+                        </div>
+     
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+        <!--<div class="backgroundImage-loginPage ng-scope">
+            <div class="container">
+                <div class="col-md-8 col-md-offset-3">
+                    <div class="col-sm-10 register-card">
+                        <div class="row" align="center" style="padding:20px">
+                            <img src="/images/logo - Copy.png" alt="Fundscorner" />
+                        </div>
+                        <div id="loginfrom">
+                           
+                            <form name="validateRegister" ng-submit="userSignup(Newuser)" class="margin-right-10" novalidate="">
+
+                                <div class="col-sm-6 no-padding">
+                                    <label>First Name</label>
+                                    <input type="text" name="firstName" minlength="3" ng-model="Newuser.FirstName" alphabets-only="" class="form-control" required="">
+                                    <span  class="color-red mar-left-10" ng-show="validateRegister.$submitted || (validateRegister.firstName.$dirty &amp;&amp; validateRegister.firstName.$invalid &amp;&amp; validateRegister.firstName.$touched)">
+                                        <span ng-show="validateRegister.firstName.$error.required &amp;&amp; (validateRegister.firstName.$touched||validateRegister.$submitted )">Enter Your First Name</span>
+                                        <span ng-show="validateRegister.firstName.$error.minlength &amp;&amp; validateRegister.firstName.$touched" class="ng-hide">Enter at least 3 characters</span>
+                                    </span>
+                                </div>
+                                <div class="col-sm-6 padding-right-10px reg-last-name">
+                                    <label>Last Name</label>
+                                    <input type="text" name="lastName" minlength="3" ng-model="Newuser.LastName" alphabets-only="" class="form-control" required="">
+                                    <span class="color-red mar-left-10" ng-show="validateRegister.$submitted || (validateRegister.lastName.$dirty &amp;&amp; validateRegister.lastName.$invalid &amp;&amp; validateRegister.lastName.$touched)">
+                                        <span ng-show="validateRegister.lastName.$error.required &amp;&amp; (validateRegister.lastName.$touched||validateRegister.$submitted )">Enter Your Last Name</span>
+                                        <span ng-show="validateRegister.lastName.$error.minlength &amp;&amp; validateRegister.lastName.$touched" class="ng-hide">Enter at least 3 characters</span>
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <label>Email</label>
+                                    <input type="text" name="emailAddress" ng-model="Newuser.EmailId" class="form-control" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" required="">
+                                    <span  class="color-red mar-left-10 " ng-show="validateRegister.$submitted || (validateRegister.emailAddress.$dirty &amp;&amp; validateRegister.emailAddress.$invalid &amp;&amp; validateRegister.emailAddress.$touched)">
+                                        <span ng-show="validateRegister.emailAddress.$error.required &amp;&amp; (validateRegister.emailAddress.$touched||validateRegister.$submitted )" >Enter Email Address</span>
+                                        <span ng-show="validateRegister.emailAddress.$error.pattern &amp;&amp; validateRegister.emailAddress.$touched" >Invalid Email Address</span>
+                                    </span>
+                                    <span style="color:red" ng-show="isEmailExists">This Email Id is already registered. Please use different email.</span>
+                                </div>
+                                <div>
+                                    <label>Mobile Number<sub>(10 digits)</sub></label>
+                                    <input type="text" name="mobileNumber" numbers-only="" ng-pattern="/[7-9]{1}\d{9}/" validnumbername="Mobile Number" ng-model="Newuser.MobilePhone" maxlength="10" class="form-control" required="">
+                                    <span  class="color-red mar-left-10" ng-show="validateRegister.$submitted || (validateRegister.mobileNumber.$dirty &amp;&amp; validateRegister.mobileNumber.$invalid &amp;&amp; validateRegister.mobileNumber.$touched)">
+                                        <span ng-show="validateRegister.mobileNumber.$error.required &amp;&amp; (validateRegister.mobileNumber.$touched||validateRegister.$submitted )" >Enter Mobile Number</span>
+                                        <span ng-show="validateRegister.mobileNumber.$error.pattern &amp;&amp; validateRegister.mobileNumber.$touched">Invalid Mobile Number</span>
+                                    </span>
+                                    <span  class="color-red mar-left-10 " ng-show="isMobileExistsForRegistration">This mobile number is already registered. Please use different one.</span>
+                                </div>
+                                <div>
+                                    <label>Password</label>
+                                    <div class="flexContainer">
+                                        <input type="{{passwordtype}}" name="password" minlength="6" ng-model="Newuser.Password" class="form-control" required="">
+                                        <span class="password-visible-span">
+                                            <i class="eye-caret-password-field fa fa-eye pull-right" ng-class="visiblePassword?&#39;fa fa-eye-slash pull-right &#39;:&#39;fa fa-eye pull-right&#39;" aria-hidden="true" ng-click="makePasswordVisible()"></i>
+                                        </span>
+                                    </div>
+                                    <span  class="color-red mar-left-10 " ng-show="validateRegister.$submitted || (validateRegister.password.$dirty &amp;&amp; validateRegister.password.$invalid &amp;&amp; validateRegister.password.$touched)">
+                                        <span ng-show="validateRegister.password.$error.required &amp;&amp; (validateRegister.password.$touched||validateRegister.$submitted )" >Enter Password</span>
+                                        <span ng-show="validateRegister.password.$error.minlength &amp;&amp; validateRegister.password.$touched" >Enter at least 6 characters</span>
+                                    </span>
+                                </div>
+                                <div>
+                                    <label>Confirm Password</label>
+                                    <input type="password" name="cnfPassword" minlength="6" ng-model="Newuser.ConfPassword" class="form-control" required="">
+                                    <span class="color-red mar-left-10" ng-show="validateRegister.$submitted || (validateRegister.cnfPassword.$dirty &amp;&amp; validateRegister.cnfPassword.$invalid &amp;&amp; validateRegister.cnfPassword.$touched)">
+                                        <span ng-show="validateRegister.cnfPassword.$error.required &amp;&amp; (validateRegister.cnfPassword.$touched||validateRegister.$submitted )" >Enter Password</span>
+                                        <span ng-show="validateRegister.cnfPassword.$error.minlength &amp;&amp; validateRegister.cnfPassword.$touched" >Enter at least 6 characters</span>
+                                    </span>
+                                </div>
+                                <div>
+                                    <span  class="color-red">
+                                        <span ng-show="Newuser.Password != Newuser.ConfPassword &amp;&amp; validateRegister.cnfPassword.$touched">Password Does not match</span>
+                                    </span>
+                                </div>
+                                <div class="col-sm-4" ng-init="randomnum()">
+                                    <label>{{randam1}} <i class="fa fa-plus" aria-hidden="true"></i> {{randam2}}&nbsp; <i ng-click="randomnum()" class="fa fa-refresh" aria-hidden="true"></i></label>
+                                    <input name="captcha" type="number" ng-model="total1" required />
+                                    <span class="fa-color-error" ng-show="validateRegister.$submitted &amp;&amp; validateRegister.captcha.$error.required">Enter Captcha</span>
+                                    <span class="fa-color-error" ng-show="wrongCaptcha">Wrong</span>
+
+                                </div>
+
+                                <div class="authorize">
+                                    <input name="dnd_accepted" ng-model="Newuser.dnd_accepted" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required"> I authorize FundsCorner &amp; its representatives to contact me including call or SMS .
+                                    <span  class="color-red mar-left-10 ng-hide" ng-show="validateRegister.$submitted &amp;&amp; validateRegister.dnd_accepted.$error.required">Required</span>
+                                </div>
+
+                                <div class="authorize">
+                                    <input ng-model="Newuser.term_accepted" name="term_accepted" type="checkbox" required="" class="ng-pristine ng-untouched ng-invalid ng-invalid-required"> I have read and agree to the contents of <a  ng-click="OpenTermOfUse()">Terms of Use</a> and
+                                    <a  ng-click="OpenPrivacyPolicy()">Privacy Policy</a> of FundsCorner.
+                                    <span  class="color-red " ng-show="validateRegister.$submitted &amp;&amp; validateRegister.term_accepted.$error.required">&nbsp;Required</span>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-default reg-bt">Register<i ng-show="registrationInProgress" class="fa fa-hourglass-half " aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div id="socialbuttons" class="">
+                                            <div class="facebook-reg">
+                                                <a class="facbook-button btn" href="http://104.211.247.250:81/redirect/facebook/login">
+                                                    <i class="fa fa-facebook-f"></i>&nbsp;&nbsp;
+                                                    <span>
+                                                        Regiter With Facebook
+                                                    </span>
+                                                </a>
+                                     
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                   
+                                </div>
+                                <span class="already-member">Already a Member? <a ng-click="switchToLogin()">Login</a></span>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+  

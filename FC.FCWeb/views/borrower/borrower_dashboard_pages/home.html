@@ -1,0 +1,83 @@
+<div>
+  <div class="myAccountTitle">
+    <h1>Dear, {{loggedInUser.displayName}} </h1>
+    <span>What would you like to do today?</span>
+  </div>
+  <div class="col-lg-12">
+    <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+        <div class="notificationHeading custom-notification-heading">
+            <h3>FundsCorner Notifications</h3>
+        </div>
+        <div class="myAccount-ele-wrapper notificationList custom-notification-list" ng-init="getNotifications()" >
+            <section class="custom-notification-section">
+                <ul>
+                    <li ng-repeat="notification in notifications">
+                        <div class="notificationContent custom-notification-content">
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <a ui-sref="borrower.dashboard.applications">
+                                        <h1>{{notification.NotificationDetail}}</h1>
+                                        <!--<p>{{notification.description}}</p>-->
+                                    </a>
+
+                                    <p>{{notification.CreatedDate | date:'dd-MM-yyyy hh:mm a'}}</p>
+                                </div>
+                                <div class="col-lg-1">
+                                    <a class="notifyRemove" ng-click="HideNotification(notification.NotificationId)"><i class="fa fa-times margin-right-20px" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li align="center" ng-show="notifications.length==0">No more notification to Display</li>
+                </ul>
+            </section>
+            <footer class="notificationFooter">
+                <!--<a href="#">Previously Read (+)</a>-->
+            </footer>
+
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+        <div class="notificationHeading custom-aplyloan-panel-heading">
+            <h3><i class="fa fa-file-text"></i></h3>
+        </div>
+        <div class="myAccount-ele-wrapper custom-aplyloan-panel-content">
+
+
+            <h3 class="mar-top-32">Apply for New Loan</h3>
+            <p>
+                Get your loan approved in as less as 10 mins.
+            </p>
+            <div class="layout-sm-column layout-row mar-top-20">
+
+                <button class="md-raised md-primary" ui-sref="borrower.application.business_details( productId= ''; Id= '')"><span>Apply Now</span></button>
+
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+      <div class="myAccount-ele-wrapper">
+        <div class="homecricle">
+          <i class="fa fa-rupee"></i>
+        </div>
+        <h3>My Loans</h3>
+        <p>Check the status of your approved loan(s)</p>
+        <div class="layout-sm-column layout-row">
+          <button class="md-raised md-primary"  ui-sref="borrower.dashboard.loans"><span>Check Now</span></button>
+        </div>
+      </div>
+    </div>-->
+    <!--<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="myAccount-ele-wrapper">
+        <div class="homecricle">
+          <i class="fa fa-users"></i>
+        </div>
+        <h3>Refer Friends</h3>
+        <p>Liked Kreditcart experience? Invite your friends to be a part of Kreditcart. </p>
+        <div class="layout-sm-column layout-row">
+          <button class="md-raised md-primary"  ui-sref="borrower.dashboard.refers"><span >Check Now</span></button>
+        </div>
+      </div>
+    </div>-->
+  </div>
+</div>

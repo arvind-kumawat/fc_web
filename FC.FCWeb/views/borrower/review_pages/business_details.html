@@ -1,0 +1,42 @@
+<div role="tabpanel" class="tab-pane" id="businessDetail" ng-show="businessDetails">
+  <div class="loantitlereview">
+    <ul>
+      <li><strong>Name of the Entity :</strong> {{businessDetails.entity_name}}</li>
+      <li><strong>Business Constitution : </strong>{{businessDetails.constitution}}</li>
+      <li><strong>Business Operating Since :</strong> {{businessDetails.operating_since}}</li>
+    </ul>
+    <ul>
+      <li><strong>Industry :</strong> {{businessDetails.industry}} </li>
+      <li><strong>Nature of Business :</strong> {{businessDetails.nature}}</li>
+      <li><strong>Business PAN :</strong> {{businessDetails.pan}}</li>
+    </ul>
+    <ul>
+      <li><strong>Business VAT/Tin #/Service Tax No: </strong>{{businessDetails.tin}}</li>
+      <li><strong>No. of Partners/Directors:</strong> {{businessDetails.partners_count}}</li>
+      <li><strong>Business Address: </strong>{{businessDetails.address_lin1}}  {{businessDetails.address_lin2}}</li>
+    </ul>
+    <ul>
+      <li><strong>PinCode :</strong> {{businessDetails.pin}}</li>
+      <li><strong>Business City :</strong>{{businessDetails.city}}</li>
+      <li><strong>Business State :</strong> {{businessDetails.state}}</li>
+    </ul>
+    <ul>
+      <li><strong>Business Landline No:</strong> {{businessDetails.business_landline_number}}</li>
+      <li><strong>Ownership status of business office :</strong>{{businessDetails.business_premises_for_office}}</li>
+      <li><strong>Ownership status of warehouse :</strong> {{businessDetails.business_premises_for_warehouse}}</li>
+    </ul>
+    <ul>
+      <li><strong>Business office at this address since (in months): </strong>{{businessDetails.no_of_months_on_office_property}}</li>
+      <li><strong>Warehouse at this address since (in months) :</strong>{{businessDetails.no_of_months_on_warehouse_property}}</li>
+      <li><strong>Date of Incorporation : </strong>{{businessDetails.incorporation_date | date:'dd-MM-yyyy'}}</li>
+    </ul>
+    <ul>
+      <li><strong>Average Inventory Value :</strong> {{businessDetails.inventoryValue}}</li>
+      <li><strong>No. of Employees :</strong>{{businessDetails.employees_count}}</li>
+      <li><strong>Email ID (Official) : </strong>{{businessDetails.email}}</li>
+    </ul>
+    <ul>
+      <li><strong>Business Contact No. :</strong> {{businessDetails.business_contact_number}}</li>
+    </ul>
+  </div>
+</div>

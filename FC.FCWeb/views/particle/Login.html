@@ -1,0 +1,219 @@
+﻿
+        <div class="backgroundImage-loginPage ng-scope">
+            <div class="container">
+
+                <div class="col-md-9 col-md-offset-3">
+                    <div class="login-card col-sm-8">
+                        <div class="row" style="margin-top: -10px;margin-bottom: 24px;">
+
+                            <div align="center" style="padding:20px">
+                                <img src="/images/logo - Copy.png" alt="Fundscorner" />
+                            </div>
+
+                        </div>
+
+                        <div id="loginfrom" style="margin-top:10px">
+                            <form name="validateLogin" ng-submit="VerifyAccount(localUser,validateLogin.$invalid)" class="margin-right-10 " novalidate="">
+                                <div class="material-input-div" ng-hide="loginMobileExist">
+                                    <i class="fa fa-mobile prefix" aria-hidden="true" style="font-size: 24px;margin-top: 11px;"></i>
+                                    <input type="text" ng-keyup="isMobileExists = true" ng-blur="CheckMobileValidation()" my-enter="MobileValidationOnLogin(localUser.MobilePhone,'fromLogin')" ng-pattern="/[7-9]{1}\d{9}/" numbers-only="" maxlength="10" name="EnterMobileNumber" ng-model="localUser.MobilePhone" class="form-control inputText">
+                                    <label class="floating-label">Mobile Number</label>
+                                    <!--<span  style="color:red;    float: right;" ng-show="(validateLogin.EnterMobileNumber.$dirty &amp;&amp; validateLogin.EnterMobileNumber.$invalid &amp;&amp; $touched.$error.pattern) || showInvalidMessage" >
+                                        <span ng-show="validateLogin.EnterMobileNumber.$error.required &amp;&amp; (validateLogin.EnterMobileNumber.$touched || showInvalidMessage)" class="ng-hide">Enter Mobile Number</span>
+                                        <span ng-show="ShowPhoneValidation &amp;&amp; validateLogin.EnterMobileNumber.$error.pattern" class="ng-hide">Enter Correct Mobile Number</span>
+                                    </span>-->
+                                   
+                                    <span class="error-msg" ng-show="validateLogin.EnterMobileNumber.$error.pattern">Enter Correct Mobile Number</span>
+                                </div>
+                                <div class="material-input-div" ng-if="loginMobileExist">
+                                    <i class="fa fa-mobile prefix" aria-hidden="true" style="font-size: 24px;margin-top: 11px;"></i>
+                                    <input readonly ng-keyup="isMobileExists = true" ng-blur="CheckMobileValidation()" my-enter="MobileValidationOnLogin(localUser.MobilePhone,'fromLogin')" ng-pattern="/[7-9]{1}\d{9}/" numbers-only="" maxlength="10" name="EnterMobileNumber" ng-model="localUser.MobilePhone" class="form-control inputText" required>
+                                 
+                                    <span class="error-msg" ng-show="validateLogin.EnterMobileNumber.$error.pattern">Enter Correct Mobile Number</span>
+          
+                                </div>
+                                <div class="row" style="margin-left:2%;" ng-hide="loginMobileExist">
+                                    <span class="error-msg" style="float:left !important">
+                                        <span ng-show="showMobileInvalidMessage">Invalid Mobile</span>
+                                    </span>
+                                </div>
+                             
+
+                                <div class="col-sm-6" ng-hide="loginMobileExist">
+                                    <a ng-click="MobileValidationOnLogin(localUser.MobilePhone,'fromLogin')" class="btn btn-default reg-bt" id="loginButton" style="">
+                                        Login with Mobile
+                                    </a>
+                                </div>
+                                <div class="col-sm-6" ng-hide="loginMobileExist">
+                                    <div id="socialbuttons">
+                                        <a class="facbook-button btn btn-default reg-bt" href="" ng-click="authExternalProvider('Facebook')">
+
+                                            <i class="fa fa-facebook-f"></i>&nbsp;&nbsp;
+                                            <span>
+                                                Login With Facebook
+                                            </span>
+                                        </a>
+
+                                    </div>
+                                </div>
+
+                                <div ng-show="loginMobileExist">
+                                    <div class="material-input-div">
+                                        <i class="fa fa-lock prefix" aria-hidden="true" style="font-size: 22px; margin-top: 13px;"></i>
+                                        <input type="password" name="EnterPassword" ng-model="localUser.Password" class="form-control inputText" required="">
+                                        <label class="floating-label">Password</label>
+                                        <!--<span  style="color:red;    float: right;" ng-show="(validateLogin.EnterPassword.$dirty &amp;&amp; validateLogin.EnterPassword.$invalid) || (showInvalidMessage)" >
+                                            <span ng-show="validateLogin.EnterPassword.$error.required &amp;&amp; (validateLogin.EnterPassword.$touched || showInvalidMessage) " class="ng-hide">Enter Password</span>
+                                        </span>-->
+                                    </div>
+                                    <div>
+                                        <p style="text-align: right;margin-right: 8px; font-size:13px;">
+                                            <a ng-click="pinForgot()" style="color: #2c4055;"><span>Forgot Password?</span></a>
+                                        </p>
+                                    </div>
+                                    <div class="row" style="margin-left:2%;">
+                                        <span class="error-msg" style="float:left !important">
+                                            <span ng-show="IsValidated==false || userDoesNotExistError">Invalid Credentials</span>
+                                        </span>
+                                    </div>
+
+
+                                    <div class="col-md-offset-3 col-sm-12">
+                                        <div class="col-lg-6">
+                                            <button style="width: 186px;" type="submit" class="btn btn-default reg-bt" id="loginButton">
+                                                Login&nbsp;&nbsp;<i ng-show="loginInProgress" class="fa fa-hourglass-half" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="already-member">
+                            <span> New to </span> FundsCorner? <a class="underline" style="color: #2c4055;" ng-click="switchToRegister()">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+<!--Model for OTP Verification-->
+<div id="verifyModal" class="modal fade" role="dialog" ng-controller="AuthCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 88%;">
+            <div class="col-lg-12">
+                <button type="button" class="close" ng-click="closeOtpPopUp()" data-dismiss="modal"> <span>&times; </span></button>
+            </div>
+            <div class="modal-body font-raleway-sans-serif" id="otpfrom" style="margin-top:24px">
+                <p class="VerifyMobile">
+                    <span class="ver_titl">Verify your Mobile</span>
+                    <span class="ver_det">A One Time password (OTP) has been sent to {{localUser.MobilePhone}}.</span>
+                </p>
+                <form class="form-group" id="verificationOtp" name="verification" nonvalidate>
+                    <div class="MobileOTP" style="margin-top: 20px;">
+                        <input type="number" name="otp" placeholder="Enter OTP Here" ng-model="otp" class="form-control endeavor-text" required>
+                        <span ng-show="(verification.otp.$dirty && verification.otp.$invalid) || showOtpInvalidMessage">
+                        </span>
+                    </div>
+                    <div class="resendOtp">
+                        <a style="color: #2c4055;" ng-hide="showOtpSuccesMessage" ng-click="sentOtpToPersonDetailUser(localUser.MobilePhone);">Resend OTP</a>
+                        <span style="color: #2c4055;" ng-show="showOtpSuccesMessage">OTP successfully Sent</span>
+                    </div>
+                    <div class="resendOtp" ng-show="showOtpFailMessage">
+                        <span class="error-msg">Enter Correct OTP</span>
+                    </div>
+                    <div class="col-sm-12" style="padding:10px">
+                        <button style="width: 68px;" type="button" class="btn btn-default" ng-click="VerifyOTPAndOpenChangePasswordModel(localUser.MobilePhone,otp,verification.$invalid )">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Model for Password change-->
+<div id="verifyForgetOtpModal" class="modal fade" role="dialog" ng-controller="AuthCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="col-lg-12">
+                <button style="font-size:30px" type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+            </div>
+            <div align="center">
+                <h2>Set Password for your login account</h2>
+            </div>
+            <div class="alert alert-success" ng-show="passwordChanged">
+                PasswordChanged!
+            </div>
+            <div class="modal-body">
+                <form name="verification" id="loginfrom" nonvalidate>
+                    <div class="col-lg-12 fix-input-div">
+                        <i class="fa fa-lock prefix" aria-hidden="true" style="font-size: 24px;margin-top: 6px;"></i>
+                        <input type="password" minlength="6" name="newpass" ng-model="password" class="form-control inputText input-registration" required>
+                        <label class="floating-label">New Password</label>
+                        <span class="error-msg" ng-show="verification.newpass.$dirty && verification.newpass.$invalid">
+                            <span ng-show="verification.newpass.$error.required">Enter New Password</span>
+                            <span ng-show="verification.newpass.$error.minlength">Password should be minimum 8 characters</span>
+                        </span>
+                    </div>
+                    <div class="col-lg-12 fix-input-div">
+                        <i class="fa fa-lock prefix" aria-hidden="true" style="font-size: 24px;margin-top: 6px;"></i>
+                        <input type="password" name="confirmPass" ng-model="confirm_password" class="form-control inputText input-registration" required>
+                        <label class="floating-label">Confirm Password</label>
+                        <span class="error-msg" ng-show="verification.confirmPass.$dirty && verification.confirmPass.$invalid">
+                            <span ng-show="verification.confirmPass.$error.required">Enter Confirm Password</span>
+                        </span>
+                    </div>
+                    <span style="color:red">
+                        <span ng-show="PasswordMatch == false">Password Does not match</span>
+                    </span>
+                    <div class="row" style="margin-left:2%;">
+                        <span class="error-msg" style="float:left !important">
+                            <span ng-show="RoleIdIsNotAvailable">You are not allowed to Change Password. Contact FundsCorner</span>
+                        </span>
+                    </div>
+                    <!--<div>
+                        <label>Enter OTP</label>
+                        <input type="number" name="otp" placeholder="Enter OTP" ng-model="otp" class="form-control" required>
+                        <span style="color:red;" ng-show="verification.otp.$dirty && verification.otp.$invalid">
+                            <span ng-show="verification.otp.$error.required">Enter OTP</span>
+                        </span>
+                    </div>-->
+
+                    <button type="submit" class="btn btn-default" ng-click="VerifyForgetAccount(localUser.MobilePhone,password,confirm_password)" ng-disabled="verification.$invalid">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Model for forgot pin-->
+<div id="forgotModal" class="modal fade" role="dialog" ng-controller="AuthCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content" ng-show="forgetModal" style=" margin-top: -38%;">
+            <div class="col-lg-12">
+                <button style="font-size:30px" type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+            </div>
+            <div class="modal-body" id="forgotfrom" style="margin-top: 27px;">
+                <div class="forgotPass-label">
+                    <label>Enter Registered mobile number to reset password.</label>
+                </div>
+                <form name="forgot" id="loginfrom" nonvalidate>
+                    <div class="material-input-div col-sm-12 fix-input-div" style="margin-bottom:0px">
+                        <i class="fa fa-mobile prefix" aria-hidden="true" style="font-size: 24px;margin-top: 6px;"></i>
+                        <input type="text" name="mobile" ng-pattern="/[7-9]{1}\d{9}/" maxlength="10" ng-model="mobile" class="form-control inputText input-registration" required>
+                        <label class="floating-label">Enter Mobile Number</label>
+                        <span class="error-msg" ng-show="forgot.mobile.$dirty && forgot.mobile.$invalid">
+                            Please enter mobile number
+                        </span>
+                        <span class="error-msg" style="float:left !important">
+                            <span ng-show="showMobileInvalidMessage">Mobile Number is Not Registered</span>
+                        </span>
+                    </div>
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-default" ng-click="IsMobileExist(mobile,'fromForgotPass')">Send OTP</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--model-end-->

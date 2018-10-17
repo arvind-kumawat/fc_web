@@ -1,0 +1,68 @@
+<div role="tabpanel" class="tab-pane" id="partnerDetail" ng-show="partnerDetails">
+  <div class="loantitlereview" ng-repeat="personalDetail in personalDetails" ng-if="personalDetail.detail_for == 'self'">
+    <h4 class="reviewHeadingTabs">Partner 1</h4>
+    <ul>
+      <li><strong>Gender : </strong>{{personalDetail.gender}} </li>
+      <li><strong>Name : </strong>{{personalDetail.name}}</li>
+      <li><strong>DOB : </strong>{{personalDetail.dob | date:'dd-MM-yyyy'}}</li>
+    </ul>
+    <ul>
+      <li><strong>PAN : </strong>{{personalDetail.pan}} </li>
+      <li><strong>Aadhar no. :</strong>{{personalDetail.aadhar_no}}</li>
+      <li><strong>Education Qualification :</strong>{{personalDetail.qualification}}</li>
+    </ul>
+    <ul>
+      <li><strong>Marital Status: </strong>{{personalDetail.marital_status}}</li>
+      <li><strong>Father's Name: </strong>{{personalDetail.father_name}}</li>
+      <li><strong>No. of Dependents: </strong>{{personalDetail.dependents_count}}</li>
+    </ul>
+    <ul>
+      <li><strong>Category : </strong>{{personalDetail.category}}</li>
+      <li><strong>Ownership % : </strong>{{personalDetail.ownership}}</li>
+      <li><strong>Residence Address : </strong>{{personalDetail.address_lin1}} {{personalDetail.address_lin2}}</li>
+    </ul>
+    <ul>
+      <li><strong>PinCode :</strong>{{personalDetail.pin}}</li>
+      <li><strong>City : </strong>{{personalDetail.city}}</li>
+      <li><strong>State :</strong>{{personalDetail.state}}</li>
+    </ul>
+    <ul>
+      <li><strong>Is it owned? : </strong>{{personalDetail.isOwned}}</li>
+      <li><strong>Mobile : </strong>{{personalDetail.residence_mobile_number}}</li>
+      <li><strong>Email ID (Personal) :</strong>{{personalDetail.personal_email}}</li>
+    </ul>
+  </div>
+  <div class="loantitlereview" ng-repeat="partnerDetail in partnerDetails">
+    <h4 class="reviewHeadingTabs"> Partner {{$index+2}}</h4>
+    <ul>
+      <li><strong>Gender :</strong> {{partnerDetail.gender}}</li>
+      <li><strong>Name : </strong>{{partnerDetail.name}}</li>
+      <li><strong>DOB : </strong>{{partnerDetail.dob | date:'dd-MM-yyyy'}}</li>
+    </ul>
+    <ul>
+      <li><strong>PAN : </strong>{{partnerDetail.pan}} </li>
+      <li><strong>Aadhar no. :</strong>{{partnerDetail.aadhar_no}}</li>
+      <li><strong>Education Qualification :</strong>{{partnerDetail.qualification}}</li>
+    </ul>
+    <ul>
+      <li><strong>Marital Status: </strong>{{partnerDetail.marital_status}}</li>
+      <li><strong>Father's Name: </strong>{{partnerDetail.father_name}}</li>
+      <li><strong>No. of Dependents:</strong> {{partnerDetail.dependents_count}}</li>
+    </ul>
+    <ul>
+      <li><strong>Category : </strong>{{partnerDetail.category}}</li>
+      <li><strong>Ownership % :</strong> {{partnerDetail.ownership}}</li>
+      <li><strong>Residence Address : </strong>{{partnerDetail.address_lin1}}, {{partnerDetail.address_lin2}}</li>
+    </ul>
+    <ul>
+      <li><strong>PinCode :</strong>{{partnerDetail.pin}}</li>
+      <li><strong>City : </strong>{{partnerDetail.city}}</li>
+      <li><strong>State :</strong>{{partnerDetail.state}}</li>
+    </ul>
+    <ul>
+      <li><strong>Is it owned? : </strong>{{partnerDetail.isOwned}}</li>
+      <li><strong>Mobile : </strong>{{partnerDetail.residence_mobile_number}}</li>
+      <li><strong>Email ID (Personal) :</strong>{{partnerDetail.personal_email}}</li>
+    </ul>
+  </div>
+</div>

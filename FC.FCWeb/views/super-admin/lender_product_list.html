@@ -1,0 +1,398 @@
+<!--// list of all Lenders -->
+<div class="container lender_list_div">
+  <div class="loandetaildiv" ng-repeat="lenderProduct in lenderProducts">
+    <div class="loantitle">
+      <div class="listcircle ng-binding">{{$index+1}}</div>
+      <strong>Name: </strong>
+      {{lenderProduct.name}}
+    </div>
+    <div class="col-lg-3 padding5">
+      <p>Programme Size</p>
+      {{lenderProduct.programme_size}}
+    </div>
+    <div class="col-lg-2 padding5">
+      <p>ROI(min-max)</p>
+      {{lenderProduct.A.min_roi}} -   {{lenderProduct.A.max_roi}}  (Grade A Value)
+    </div>
+    <div class="col-lg-2 padding5">
+      <p>Tenure(min-max)</p>
+      {{lenderProduct.A.min_tenure}} -   {{lenderProduct.A.max_tenure}}  (Grade A Value)
+    </div>
+    <div class="col-lg-2 padding5">
+      <p>PF(min-max)</p>
+      {{lenderProduct.A.min_pf}} -   {{lenderProduct.A.max_pf}}  (Grade A Value)
+    </div>
+    <div class="col-lg-3 padding5 txt-right">
+      <p>Edit / Delete</p>
+      <button class="continueButton" ng-click="openLenderProductEditModal(lenderProduct,$index)"><span>Edit</span></button>
+      <button class="continueButton" ng-click="openLenderProductDeleteModal(lenderProduct.id,$index)"><span>Delete</span></button>
+    </div>
+  </div>
+  <div class="silder" ng-show="lenderProducts.length == 0">Nothing to display</div>
+  <button type="button" class="btn btn-success lenderProductAddMoreButton" data-toggle="modal" data-target="#addLenderProduct" ng-click="lenderProductModal=''"> + Add Product</button>
+</div>
+<!--Model for delete application-->
+<div id="deleteLenderProduct" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header partnerModal colorChng">
+        <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+        <h4 class="modal-title">Are You Sure?</h4>
+
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="deleteLenderProduct(lenderProductId,lenderProductIndex)">Yes</button>
+        <button type="button" class="btn btn-default"data-dismiss="modal">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--modal end-->
+
+<!--Model for delete application-->
+<div id="addLenderProduct" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content" ng-click="hideSelect2Dropdown()">
+      <div class="modal-header partnerModal colorChng">
+        <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+      </div>
+      <div class="modal-body">
+
+
+        <form name="lenderProductForm" novalidate>
+        <div class="row">
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Name</label>
+                  <input type="text"  ng-model="lenderProductModal.name" name="name" class="form-control" placeholder="Name" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Programme size</label>
+                  <input type="number" ng-model="lenderProductModal.programme_size" name="programme_size" class="form-control" placeholder="programme size" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Min CIBIL required</label>
+                  <input type="number"  ng-model="lenderProductModal.min_cibil" name="name" class="form-control" placeholder="Min CIBIL" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Max CIBIL required</label>
+                  <input type="number" ng-model="lenderProductModal.max_cibil" name="programme_size" class="form-control" placeholder="Max CIBIL" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <div class="col-lg-12">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Eligible entities</label>
+                  <select ui-select2="select2Options" multiple ng-model="lenderProductModal.eligible_entities" data-placeholder="Select Eligible entities" >
+                    <option ng-repeat="entityTypeOption in entityTypeOptions" value="{{entityTypeOption.value}}">{{entityTypeOption.value}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-12 gradeScore">
+            <h3>Grade A (Score 75-100%)</h3>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="col-lg-6">
+                  <div class="NameEntity">
+                    <div class="labelInput">
+                      <label>Min ROI</label>
+                      <input type="number"  ng-model="lenderProductModal.A.min_roi" name="ROI" class="form-control" placeholder="ROI (In % per annum)" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="NameEntity">
+                    <div class="labelInput">
+                      <label>Max ROI</label>
+                      <input type="number"  ng-model="lenderProductModal.A.max_roi" name="ROI" class="form-control" placeholder="ROI (In % per annum)" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="col-lg-6">
+                  <div class="NameEntity">
+                    <div class="labelInput">
+                      <label>Min Tenure</label>
+                      <input type="number" ng-model="lenderProductModal.A.min_tenure" name="Tenure" class="form-control" placeholder="Tenure (In months)" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="NameEntity">
+                    <div class="labelInput">
+                      <label>Max Tenure</label>
+                      <input type="number" ng-model="lenderProductModal.A.max_tenure" name="Tenure" class="form-control" placeholder="Tenure (In months)" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="col-lg-6">
+                  <div class="NameEntity">
+                    <div class="labelInput">
+                      <label>Min PF</label>
+                      <input type="number" ng-model="lenderProductModal.A.min_pf" name="PF" class="form-control" placeholder="PF" required>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                  <div class="NameEntity">
+                    <div class="labelInput">
+                      <label>Max PF</label>
+                      <input type="number" ng-model="lenderProductModal.A.max_pf" name="PF" class="form-control" placeholder="PF" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-12 gradeScore">
+            <h3>Grade B (Score 50-75%)</h3>
+            <div class="row">
+            <div class="col-lg-12">
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Min ROI</label>
+                  <input type="number"  ng-model="lenderProductModal.B.min_roi" name="ROI" class="form-control" placeholder="ROI (In % per annum)" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Max ROI</label>
+                  <input type="number"  ng-model="lenderProductModal.B.max_roi" name="ROI" class="form-control" placeholder="ROI (In % per annum)" required>
+                </div>
+              </div>
+            </div>
+              </div>
+            <div class="col-lg-12">
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Min Tenure</label>
+                  <input type="number" ng-model="lenderProductModal.B.min_tenure" name="Tenure" class="form-control" placeholder="Tenure (In months)" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Max Tenure</label>
+                  <input type="number" ng-model="lenderProductModal.B.max_tenure" name="Tenure" class="form-control" placeholder="Tenure (In months)" required>
+                </div>
+              </div>
+            </div>
+              </div>
+            <div class="col-lg-12">
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Min PF</label>
+                  <input type="number" ng-model="lenderProductModal.B.min_pf" name="PF" class="form-control" placeholder="PF" required>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Max PF</label>
+                  <input type="number" ng-model="lenderProductModal.B.max_pf" name="PF" class="form-control" placeholder="PF" required>
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-12 gradeScore">
+            <h3>Grade C (Score 25-50%)</h3>
+            <div class="row">
+            <div class="col-lg-12">
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Min ROI</label>
+                  <input type="number"  ng-model="lenderProductModal.C.min_roi" name="ROI" class="form-control" placeholder="ROI (In % per annum)" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Max ROI</label>
+                  <input type="number"  ng-model="lenderProductModal.C.max_roi" name="ROI" class="form-control" placeholder="ROI (In % per annum)" required>
+                </div>
+              </div>
+            </div>
+              </div>
+            <div class="col-lg-12">
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Min Tenure</label>
+                  <input type="number" ng-model="lenderProductModal.C.min_tenure" name="Tenure" class="form-control" placeholder="Tenure (In months)" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Max Tenure</label>
+                  <input type="number" ng-model="lenderProductModal.C.max_tenure" name="Tenure" class="form-control" placeholder="Tenure (In months)" required>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="col-lg-12">
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Min PF</label>
+                  <input type="number" ng-model="lenderProductModal.C.min_pf" name="PF" class="form-control" placeholder="PF" required>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-6">
+              <div class="NameEntity">
+                <div class="labelInput">
+                  <label>Max PF</label>
+                  <input type="number" ng-model="lenderProductModal.C.max_pf" name="PF" class="form-control" placeholder="PF" required>
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-12 gradeScore">
+            <h3>Grade D (Score 0-25%)</h3>
+            <div class="row">
+            <div class="col-lg-12">
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Min ROI</label>
+                    <input type="number"  ng-model="lenderProductModal.D.min_roi" name="ROI" class="form-control" placeholder="ROI (In % per annum)" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Max ROI</label>
+                    <input type="number"  ng-model="lenderProductModal.D.max_roi" name="ROI" class="form-control" placeholder="ROI (In % per annum)" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12">
+
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Min Tenure</label>
+                    <input type="number" ng-model="lenderProductModal.D.min_tenure" name="Tenure" class="form-control" placeholder="Tenure (In months)" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Max Tenure</label>
+                    <input type="number" ng-model="lenderProductModal.D.max_tenure" name="Tenure" class="form-control" placeholder="Tenure (In months)" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Min PF</label>
+                    <input type="number" ng-model="lenderProductModal.D.min_pf" name="PF" class="form-control" placeholder="PF" required>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-lg-6">
+                <div class="NameEntity">
+                  <div class="labelInput">
+                    <label>Max PF</label>
+                    <input type="number" ng-model="lenderProductModal.D.max_pf" name="PF" class="form-control" placeholder="PF" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+
+
+
+          <div class="col-lg-12 lenderProductModalSubmitButton">
+          <button type="button" ng-disabled="lenderProductForm.$invalid" class="btn btn-primary" ng-click="addLenderProduct(lenderProductModal)">Submit</button>
+          </div>
+
+        </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--modal end-->
+

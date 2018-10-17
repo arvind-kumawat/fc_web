@@ -1,0 +1,155 @@
+<div id="lenderadmin">
+   <div class="container">
+            <div class="loandetaildiv" ng-repeat="application in applications">
+         <div class="loantitle">
+            <ul>
+               <li><strong>Name : {{application.application.user.fullname}} </strong> </li>
+               <li><strong>Mobile No :  {{application.application.user.phone}}</strong> </li>
+               <li><strong>Email :  {{application.application.user.email}}</strong></li>
+            </ul>
+         </div>
+         <div class="loandetaildivStatus">
+            <ul>
+               <li>
+                  <p>S.No.</p>
+               </li>
+               <li>
+                  <p>Application No.</p>
+               </li>
+              <li>
+                <p>Amount</p>
+              </li>
+               <li>
+                  <p>Application Status</p>
+               </li>
+               <li>
+                  <p>Edit/Approval/Rejection/Review</p>
+               </li>
+            </ul>
+            <ul class="loandetaildivStatusApplicationStatus">
+               <li>{{$index+1}}</li>
+               <li>{{application.application.display_id}}</li>
+               <li>{{application.amount}}</li>
+               <li ng-if="application.lender_status == 'lender-approved'">Approved by you</li>
+               <li ng-if="application.lender_status == 'lender-rejected'">Rejected by you</li>
+               <li ng-if="application.lender_status != 'lender-rejected' && application.lender_status != 'lender-approved'">Approved by Kreditcart</li>
+               <li>
+                  <div>
+                    <a class="btn btn-primary fa fa-edit" tooltip-placement="top" uib-tooltip="Edit details" aria-hidden="true" ng-click="openEditApplicationProcessModal(application, $index)"></a>
+                    <a class="btn btn-success fa fa-thumbs-o-up" tooltip-placement="top" uib-tooltip="Approve application" ng-class="application.lender_status == 'lender-approved' ? 'active' : ''" aria-hidden="true" ng-click="openStatusChangeConfirmationModal(application, 'lender-approved', $index)"></a>
+                     <a class="btn btn-danger fa fa-thumbs-o-down" tooltip-placement="top" uib-tooltip="Reject application" ng-class="application.lender_status == 'lender-rejected' ? 'active' : ''" aria-hidden="true" ng-click="openRejectionReasonModal(application.id, 'lender-rejected', $index)"></a>
+                     <a class="btn btn-primary fa fa-eye" tooltip-placement="top" uib-tooltip="View application" aria-hidden="true" ui-sref="application.review.loan_details({id:{{application.application.id}}})" target="_blank"></a>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </div>
+     <div id="noAppFound" ng-show="applications.length ==0">
+          <span>No applications found</span>
+     </div>
+     <ul uib-pagination total-items="totalApplications" ng-model="currentPage" items-per-page="applicationPerPage"
+         class="pagination-sm" ng-change="getLenderApplications(currentPage)" boundary-links="true"></ul>
+   </div>
+</div>
+
+
+<!--Model for delete application-->
+<div id="editApplicationProcessDetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Edit Loan Details Suggested By Kreditcart</h4>
+      </div>
+      <div class="modal-body lenderSelect">
+
+        <form name="applicationProcessEditor" class="lenderRecommendedForm" novalidate>
+
+          <div class="formRowLenderRe">
+            <div class="formColLenderRe">
+              <label>Amount</label>
+              <input type="number" ng-model="lenderProductDetails.amount" name="amount" id="loanAmount" placeholder="Enter Amount" required/>
+            </div>
+            <div class="formColLenderRe">
+              <label>PF</label>
+              <input type="number" ng-model="lenderProductDetails.PF" name="pf" id="loanPF" placeholder="Enter PF" required/>
+            </div>
+          </div>
+          <div class="formRowLenderRe">
+            <div class="formColLenderRe">
+              <label>ROI</label>
+              <input type="number" ng-model="lenderProductDetails.ROI" name="roi" id="loanROI" placeholder="Enter ROI (In % per annum)" required/>
+            </div>
+            <div class="formColLenderRe">
+              <label>Tenure</label>
+              <input type="number" ng-model="lenderProductDetails.tenure" name="tenure" id="loanTenure" placeholder="Enter Tenure (In Months)" required/>
+            </div>
+          </div>
+          <div class="formRowLenderRe">
+            <div class="formColLenderRe"></div>
+            <div class="formColLenderRe">
+              <input type="submit" id="loanSubmit" ng-click="editApplicationProcess(lenderProductDetails,applicationProcessesId, applicationProcessIndex)" ng-disabled="applicationProcessEditor.$invalid"/>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<!--modal end-->
+
+<!--Model for add rejection reason-->
+<div id="rejectionReasonModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span>&times; </span></button>
+        <h4 class="modal-title">Please give a reason</h4>
+      </div>
+      <div class="modal-body lenderSelect">
+        <form name="rejectionReasonForm" class="lenderRecommendedForm" novalidate>
+          <div class="formRowLenderRe">
+            <textarea class="textAreaWidth100Pc" rows="5" cols="90" name="comments" ng-model="$parent.rejectionReason"  required></textarea>
+          </div>
+
+          <div class="formRowLenderRe">
+            <div class="formColLenderRe"></div>
+            <div class="formColLenderRe">
+              <input type="submit" id="loanSubmit" ng-click="changeLenderStatus(rejectionReasonApplicationProcessId, rejectionReasonStatus, rejectionReasonIndex, rejectionReason)" ng-disabled="rejectionReasonForm.$invalid"/>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--modal end-->
+
+<!--Model for approve application-->
+<div id="statusChangeConfirmationModal" class="modal fade deleteApp" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header partnerModal colorChng">
+        <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+        <h4 class="modal-title">Do you wish to confirm loan approval with these details?</h4>
+        <br>
+          Amount: <span>{{applicationDataForApproval.amount}}</span>
+          PF: <span>{{applicationDataForApproval.PF}}</span>
+          ROI: <span>{{applicationDataForApproval.ROI}}</span>
+          Tenure: <span>{{applicationDataForApproval.tenure}}</span>
+      </div>
+      <div class="modal-body" id="delForm">
+        <button type="button" class="btn btn-default" ng-click="changeLenderStatus(statusChangeApplicationProcessId,statusChangeStatus, statusChangeIndex)">Yes</button>
+        <button type="button" class="btn btn-default closeModalButton"data-dismiss="modal">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--modal end-->
+

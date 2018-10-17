@@ -1,0 +1,89 @@
+<div id="loginPageChannerPartner">
+  <div class="modal-dialog">
+
+<!-- Modal content-->
+<div class="modal-content">
+  <div class="modal-header  applyNowheader">
+    <p class="Submodal-title">Lender registration</p>
+  </div>
+  <div class="modal-body" id="loginfrom">
+    <form name="validateRegister" ng-submit="userSignup(user)" novalidate>
+      <div>
+        <label>Full Name</label>
+        <input type="text" name="fullName" minlength="3" placeholder="Full Name" ng-model="user.fullname" alphabets-only class="form-control"  required>
+             <span style="color:red;margin-left:10px;" ng-show="validateRegister.fullName.$dirty && validateRegister.fullName.$invalid">
+  <span class="errorShowInt" ng-show="validateRegister.fullName.$error.required">Enter Your Full Name</span>
+     <span ng-show="validateRegister.fullName.$error.minlength">Enter at least 3 characters</span>
+  </span>
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="text" name="emailAddress" placeholder="Email Address" ng-model="user.email" class="form-control" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" required>
+              <span class="errorShowInt" style="color:red;margin-left:10px;" ng-show="validateRegister.emailAddress.$dirty && validateRegister.emailAddress.$invalid">
+              <span ng-show="validateRegister.emailAddress.$error.required">Enter Email Address</span>
+            <span ng-show="validateRegister.emailAddress.$error.pattern">Invalid Email Address</span>
+             </span>
+      </div>
+      <div>
+        <label>Mobile Number</label>
+        <input type="text" name="mobileNumber" ng-pattern="/[7-9]{1}\d{9}/" validNumbername="Mobile Number" placeholder="Mobile Number" ng-model="user.phone" maxlength="10" class="form-control" required>
+            <span class="errorShowInt" style="color:red;margin-left:10px;" ng-show="validateRegister.mobileNumber.$dirty && validateRegister.mobileNumber.$invalid">
+          <span ng-show="validateRegister.mobileNumber.$error.required">Enter Mobile Number</span>
+            <span ng-show="validateRegister.mobileNumber.$error.pattern">Invalid Mobile Number</span>
+  </span>
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="password" minlength="8" name="pinPassword" placeholder="Set Password" ng-model="user.password" class="form-control" required>
+        <span class="errorShowInt" style="color:red;margin-left:10px;" ng-show="validateRegister.pinPassword.$dirty && validateRegister.pinPassword.$invalid">
+       <span ng-show="validateRegister.pinPassword.$error.required">Enter Password</span>
+              <span ng-show="validateRegister.pinPassword.$error.minlength">Password should be minimum 8 characters</span>
+       </span>
+      </div>
+      <div class="authorize"> <input ng-model="user.dnd_accepted" type="checkbox" required> I authorize Kreditcart & its representatives to contact me including call or SMS .</div>
+      <div  class="authorize"> <input ng-model="user.term_accepted" type="checkbox" required> I have read and agree to the contents of Terms of Use and Privacy Policy of Kreditcart.</div>
+      <button type="submit" class="btn btn-default" ng-disabled="validateRegister.$invalid" ng-click="lenderSignup(user)">Register</button>
+    </form>
+  </div>
+  <div class="registration-footer text-center">Already a Member? <a ui-sref="lender.login" >Login</a></div>
+
+</div>
+<!-- Modal content-->
+
+</div>
+</div>
+
+
+<!--Model for OTP Verification-->
+<div id="verifyModalForLender" class="modal fade" role="dialog" ng-controller="AuthCtrl">
+  <div class="modal-dialog">
+    <div class="modal-content" ng-show="otpModal">
+      <div class="modal-header otpHeader">
+        <button type="button" class="close" data-dismiss="modal"> <span>&times; </span></button>
+        <h4 class="modal-title">Verify Your Kreditcart Account</h4>
+
+      </div>
+      <div class="modal-body" id="otpfrom">
+        <p class="chatIcons"><i class="fa fa-commenting-o" aria-hidden="true"></i></p>
+        <p class="VerifyMobile">Sit back & Relax! While we Verify your mobile number</p>
+        <p class="VerifyMobileOTP"> (Enter the OTP below)</p>
+        <form name="verification" nonvalidate>
+          <div class="MobileOTP">
+            <input type="number" name="otp" placeholder="Enter OTP" ng-model="otp" class="form-control" required>
+    <span  ng-show="verification.otp.$dirty && verification.otp.$invalid">
+  </span>
+          </div>
+          <div class="resendOtp">
+            <a ng-hide="showOtpSuccesMessage" ng-click="sendOtp()">Resend OTP</a>
+            <span ng-show="showOtpSuccesMessage">OTP successfully Sent</span>
+          </div>
+
+          <button type="button" class="btn btn-default" ng-click="VerifyAccountOfLender(otp)" ng-disabled="verification.$invalid">Submit</button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--Model Content-->

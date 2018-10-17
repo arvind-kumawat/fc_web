@@ -1,0 +1,129 @@
+<div class="loanApplication">
+  <div class="container">
+    <h1>My Profile</h1>
+    <span>Welcome to Channel Partner Profile</span>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 col-lg-offset-2 col-md-offset-2 col-sm-offset-1 formUI">
+      <form class="row padding" name="nameVerification" novalidate>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+          <label class="padding">Name : </label>
+        </div>
+
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+          <input type="text" name="fullName" minlength="3" ng-model="channelPartnerProfile.fullname" ng-init="disabledName=true" ng-disabled="disabledName" alphabets-only class="form-control inputBox" required/>
+            <span style="color:red;margin-left:10px;" ng-show="validateRegister.fullName.$dirty && validateRegister.fullName.$invalid">
+              <span ng-show="validateRegister.fullName.$error.required">Enter Your Full Name</span>
+              <span ng-show="validateRegister.fullName.$error.minlength">Enter at least 3 characters</span>
+            </span>
+        </div>
+
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding">
+          <button type="button" class="buttonStyle" ng-click="disabledName=!disabledName" ng-disabled="nameVerification.$invalid">
+            <i class="fa fa-pencil-square iconBackground" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding">
+          <button type="button" class="buttonStyle" ng-click="updateChannelPartnerName(channelPartnerProfile.fullname)" ng-disabled="nameVerification.$invalid">
+            <i class="fa fa-check-square iconBackground" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </form>
+      <form class="row padding" name="emailVerification" novalidate>
+
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
+          <label class="padding">Email : </label>
+        </div>
+
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+          <input type="text" name="emailAddress" ng-model="channelPartnerProfile.email" ng-init="disabledEmail=true" ng-disabled="disabledEmail" class="form-control inputBox" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" required/>
+            <span style="color:red;margin-left:10px;" ng-show="validateRegister.emailAddress.$dirty && validateRegister.emailAddress.$invalid">
+              <span ng-show="validateRegister.emailAddress.$error.required">Enter Email Address</span>
+              <span ng-show="validateRegister.emailAddress.$error.pattern">Invalid Email Address</span>
+            </span>
+        </div>
+
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding">
+          <button type="button" class="buttonStyle" ng-click="disabledEmail=!disabledEmail" ng-disabled="emailVerification.$invalid">
+            <i class="fa fa-pencil-square iconBackground" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding">
+          <button type="button" class="buttonStyle" ng-click="updateChannelPartnerEmail(channelPartnerProfile.email)" ng-disabled="emailVerification.$invalid">
+            <i class="fa fa-check-square iconBackground" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </form>
+
+      <!--form class="row padding" name="phoneVerification" novalidate>
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <label class="padding">Phone : </label>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-8">
+          <input type="text" numbers-only name="mobileNumber" ng-model="channelPartnerProfile.phone" ng-init="disabledPhone=true" ng-disabled="disabledPhone"  ng-pattern="/[7-9]{1}\d{9}/" validnumbername="Mobile Number" maxlength="10" class="form-control inputBox" required/>
+      <span style="color:red;margin-left:10px;" ng-show="validateRegister.mobileNumber.$dirty && validateRegister.mobileNumber.$invalid">
+        <span ng-show="validateRegister.mobileNumber.$error.required">Enter Mobile Number</span>
+        <span ng-show="validateRegister.mobileNumber.$error.pattern">Invalid Mobile Number</span>
+      </span>
+        </div>
+
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding">
+          <button type="button" class="buttonStyle" ng-click="disabledPhone=!disabledPhone" ng-disabled="phoneVerification.$invalid">
+            <i class="fa fa-pencil-square iconBackground" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 padding">
+          <button type="button" class="buttonStyle" ng-click="disabledPhone=true" ng-disabled="phoneVerification.$invalid">
+            <i class="fa fa-check-square iconBackground" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </form-->
+
+      <form class="row padding">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4">
+          <button ng-click="showPanel=true" class="btn btn-primary btnBackground">Change Password</button>
+        </div>
+
+      </form>
+
+
+      <div class="row">
+        <div class="panel panel-default col-lg-8 col-md-8 col-sm-8 col-xs-12 col-lg-offset-2 col-md-offset-2 col-sm-offset-2" ng-show="showPanel">
+          <div class="panel-body">
+            <form name="passwordCheck" novalidate>
+              <label class="marginPanel">Old Password : </label>
+              <input type="password" minlength="8" ng-model="oldPassword" placeholder="Set Password" name="oldPassword" class="form-control marginPanel" required>
+
+              <label class="marginPanel">New Password : </label>
+              <input type="password" minlength="8" ng-model="newPassword" name="newPassword" placeholder="Set Password" class="form-control marginPanel" required>
+                <span style="color:red;margin-left:10px;" ng-show="validateRegister.newPassword.$dirty && validateRegister.newPassword.$invalid">
+                  <span ng-show="validateRegister.newPassword.$error.required">Enter Password</span>
+                  <span ng-show="validateRegister.newPassword.$error.minlength">Password should be minimum 8 characters</span>
+                </span>
+
+              <label class="marginPanel">Confirm Password : </label>
+              <input type="password" minlength="8" ng-model="confirmPassword" name="confirmPassword" placeholder="Set Password" class="form-control marginPanel" required>
+                <span style="color:red;margin-left:10px;" ng-show="validateRegister.confirmPassword.$dirty && validateRegister.confirmPassword.$invalid">
+                  <span ng-show="validateRegister.confirmPassword.$error.required">Enter Password</span>
+                  <span ng-show="validateRegister.confirmPassword.$error.minlength">Password should be minimum 8 characters</span>
+                </span>
+
+              <button class="btn btn-primary marginPanel btnBackground" ng-disabled="passwordCheck.$invalid || newPassword != confirmPassword" ng-click="updateChannelPartnerPassword(oldPassword, newPassword,confirmPassword)">Save</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

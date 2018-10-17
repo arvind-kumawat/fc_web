@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="col-md-12">
+    <!-- Nav tabs -->
+    <div class="card" id="review">
+      <ul class="nav nav-tabs" role="tablist">
+        <li ui-sref-active="active" ng-show="loanDetails"><a ui-sref="application.review.loan_details({id:loanDetails.id})">
+          Loan Details</a>
+        </li>
+        <li  ui-sref-active="active" ng-show="businessDetails"><a ui-sref="application.review.business_details({id:loanDetails.id})">
+          Business/Company Details</a>
+        </li>
+        <li  ui-sref-active="active" ng-show="personalDetails"><a ui-sref="application.review.personal_details({id:loanDetails.id})">
+          Personal/Co-applicant/Guarantor Details</a>
+        </li>
+        <li  ui-sref-active="active" ng-show="employerDetails"><a ui-sref="application.review.employer_details({id:loanDetails.id})">
+          Employer Details</a>
+        </li>
+        <li  ui-sref-active="active" ng-show="partnerDetails"><a ui-sref="application.review.partner_details({id:loanDetails.id})">
+          Partner Details</a>
+        </li>
+        <li  ui-sref-active="active" ng-show="references"><a ui-sref="application.review.references({id:loanDetails.id})">
+          Reference</a>
+        </li>
+        <li  ui-sref-active="active" ng-show= false><a ui-sref="application.review.loan_details({id:loanDetails.id})">
+          Scores by Operator</a>
+        </li>
+
+        <li  ui-sref-active="active" ng-show="loanDetails.is_completed"><a ui-sref="application.review.documents({id:loanDetails.id})">
+         Documents</a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div ui-view=""></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,576 @@
+﻿<!--  reference details section -->
+<div class="tab-pane fade in" id="references">
+    <div>
+        <!--<div class="businessCompanyDetails"> Sales/Purchase Info</div>-->
+        <div class="col-lg-12">
+            <div ng-form  name="referenceDetails" novalidate>
+                <div>
+                    <div class="businessDetailsSection">
+                        <div class="businessDetailsTitle">Platform sales info</div>
+                        <div class="col-lg-12" ng-hide="OnlineSellers == ''">
+                            <div class=" nameentity ">
+                                <div class=" labelinput">
+                            <label>Choose the Online Platforms</label>
+                            <div class="businessDetailsSection Permanentboxs refrence">
+                                <div class="capitalize " ng-repeat="OnlineSeller in OnlineSellers | orderBy:'Name'">
+                                    <div class="col-lg-2" style="    margin: 3px;" ng-hide="OnlineSeller.Name =='Others'">
+                                        <input class="Permanentbox no-margin" type="checkbox" ng-model="OnlineSeller.Selected" ng-change="UpdateFinancialData(null,OnlineSeller)" style="width:8%;">
+                                        <label style="width:70%;"><img ng-src="{{OnlineSeller.ImgPath}}" style="width:15%;margin-top: -3px;" /> &nbsp;&nbsp;{{OnlineSeller.Name}}</label>
+                                    </div>
+                                   
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="capitalize " ng-repeat="OnlineSeller in OnlineSellers" ng-if="OnlineSeller.Name =='Others'">
+                                    <div class="col-lg-2" style="margin: 3px;">
+                                        <input class="Permanentbox no-margin" type="checkbox" ng-model="OnlineSeller.Selected" ng-change="UpdateFinancialData(null,OnlineSeller)" style="width:8%;">
+                                        <label style="width:70%;"><img ng-src="{{OnlineSeller.ImgPath}}" style="width:15%;" /> &nbsp;&nbsp;{{OnlineSeller.Name}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="clearfix"></div>
+
+                        </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <div class="NameEntity">
+                                    <div class="labelInput capitalize">
+                                        <label>No. of Offline Stores</label>
+                                        <select ng-model="businessDetails.NoOfOfflineStore" name="mode" class="form-control" ng-blur="ManageOfflineStore(businessDetails.NoOfOfflineStore)">
+                                            <option value="" ng-selected="!(businessDetails.NoOfOfflineStore>0)" disabled>---Please Select---</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" ng-show="businessDetails.NoOfOfflineStore>0">
+                                <div class="NameEntity">
+                                    <div class="labelInput capitalize">
+                                        <label>Do you sell using POS/EDC Machines?</label>
+                                        <select ng-disabled="(productPreciseName =='PRL' ||productPreciseName =='PFL' ||productPreciseName =='PPL')" ng-model="businessDetails.HasSwipeMachine" name="mode" class="form-control" ng-blur="PosMachines(businessDetails.HasSwipeMachine)">
+                                            <option value="" disabled ng-selected="(productPreciseName !='PRL' ||productPreciseName !='PFL' ||productPreciseName !='PPL')">---Please Select---</option>
+                                            <option value="true" ng-selected="(productPreciseName =='PRL' ||productPreciseName =='PFL' ||productPreciseName =='PPL')">
+                                                Yes
+                                            </option>
+                                            <option value="false">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="NameEntity">
+                                    <div class="labelInput">
+                                        <label>My Website Address</label>
+                                        <input type="text" name="website" ng-model="businessDetails.WebSiteUrl" ng-blur="ManageWebsite(referenceDetails.website.$valid)"
+                                               ng-pattern="/(https?:\/\/(?:www\.|)[^\s\.]+\.[^\s]{2,}|[^\s]+\.[^\s]{2,})/" class="form-control">
+                                        <!--^((https?|ftp)://www)?([a-z]+[.])?[a-z0-9-]+([.][a-z]{1,4}){1,2}(/.*[?].*)?$-->
+                                        <span style="color:red"
+                                              ng-show="referenceDetails.website.$dirty && referenceDetails.website.$invalid ||referenceDetails.website.$touched">
+                                            <span ng-show="referenceDetails.website.$error.required">PAN No. is required.</span>
+                                            <span ng-show="referenceDetails.website.$error.pattern && referenceDetails.website.$touched">Invalid url.</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="NameEntity">
+                                    <div class="labelInput">
+                                        <label style="margin-top:8%; width:40%;">Live on Platform</label>
+                                        <input class="Permanentbox no-margin ng-valid ng-dirty ng-valid-parse ng-touched" type="checkbox" ng-model="businessDetails.IsLiveOnPlatform" style="width:5%;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div>
+                            <div class="col-lg-12 " style="margin-top: 37px;" ng-hide="!businessDetails.PlatformInfo.length">
+                                <table class="table table-refrence table_res" style="background: #e6e6e6;">
+                                    <thead>
+                                        <tr>
+                                            <th>Platform Name</th>
+                                            <th>Merchant Id</th>
+                                            <th colspan="2" style="width: 21%;">Selling since</th>
+                                            <th>Total Sales in Last 3 Months</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="OnlineSellerPlatform in  businessDetails.PlatformInfo | orderBy:'OnlineSeller.Name'" ng-show="OnlineSellerPlatform.IsStag!=true">
+                                            <td>
+                                                <span class="partnerNameInapnel" ng-show="OnlineSellerPlatform.Organization!=null"> {{OnlineSellerPlatform.Organization.Name}}</span>
+                                                <span class="partnerNameInapnel" ng-hide="OnlineSellerPlatform.Organization!=null"> {{OnlineSellerPlatform.SalesChannel.Name}}</span>
+
+                                            </td>
+                                            <td>
+                                                <input type="text" name="merchantId" class="form-control" ng-model="OnlineSellerPlatform.MerchantId" ng-hide="OnlineSellerPlatform.SalesChannel.Name">
+                                            </td>
+                                            <td>
+                                                <select ng-model="OnlineSellerPlatform.Month" name="mode" class="form-control" style="min-width: 100px;">
+                                                    <option value="">Month</option>
+                                                    <option value="1">Jan</option>
+                                                    <option value="2">Feb</option>
+                                                    <option value="3">Mar</option>
+                                                    <option value="4">Apr</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">Jun</option>
+                                                    <option value="7">Jul</option>
+                                                    <option value="8">Aug</option>
+                                                    <option value="9">Sep</option>
+                                                    <option value="10">Oct</option>
+                                                    <option value="11">Nov</option>
+                                                    <option value="12">Dec</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="qualification1" ng-model="OnlineSellerPlatform.Year" class="form-control"
+                                                        ng-options="data.Value as data.Year for data in Years | orderBy:'-Year'" style="min-width: 100px;">
+                                                    <option value="">Year</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="BusinessLandline symbol">
+                                                    <span class="numberCord ruppeSign"><i class="fa fa-inr" aria-hidden="true"></i></span>
+                                                    <input type="text" name="merchantId" class="form-control" format ng-model="OnlineSellerPlatform.SalesInLastThreeMonth">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    
+                        <!--<div class="col-lg-12">
+                            <div class="col-sm-12">
+                                <div class="NameEntity Permanentboxs">
+                                    <div class="labelInput" ng-repeat="OnlineSeller in OnlineSellers">
+                                        <input class="Permanentbox no-margin" type="checkbox" ng-model="OnlineSeller.Selected" ng-change="UpdateFinancialData(null,OnlineSeller)">
+                                        <label><img ng-src="{{OnlineSeller.ImgPath}}" style="width:15%;" /> &nbsp;&nbsp;{{OnlineSeller.Name}}</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+                    <div class="businessDetailsSection">
+                        <div class="businessDetailsTitle">Declarations</div>
+                        <div class="col-lg-12" ng-show="!isBorrower">
+                            <div class="control-label">
+                                <label>Remarks</label>
+                                <textarea rows="4" cols="12" ng-model="loanAccount.Remarks" class="form-control"></textarea>
+                            </div>                  
+                        </div>
+                        <div class="col-lg-12 checkboxAuthorize ">
+                            <div ng-class="errorForRefrence && referenceDetails.term_accepted.$error.required ? 'customInvalidcheckbox':'customcheckbox'">
+                                <input id="term_accepted" name="term_accepted" type="checkbox" ng-model="loanAccount.Is_AcceptPrivacyPolicy" required>
+                                <label ng-class="errorForRefrence && referenceDetails.term_accepted.$error.required ? 'onInvalid' : '' " for="term_accepted"></label>
+                                <div>
+                                    <span ng-show="isBorrower">I have read </span><span ng-show="!isBorrower">Borrower has read/heard</span> and agree to the contents of <a style="color: #2c4055;" ng-click="OpenTermOfUse()"><strong>Terms of Use</strong>   </a> and
+                                    <a style="color: #2c4055;" ng-click="OpenPrivacyPolicy()"><strong>Privacy Policy</strong> </a> of FundsCorner and authorize FundsCorner to contact me.
+                                </div>
+                            </div>
+                            <div ng-class="errorForRefrence && referenceDetails.authorise.$error.required ? 'customInvalidcheckbox':'customcheckbox'">
+                                <input id="authorise" type="checkbox" required ng-model="loanAccount.Is_Authorised" name="authorise">
+                                <label for="authorise"></label>
+                                <div>
+                                    <span ng-show="isBorrower">I have read </span><span ng-show="!isBorrower">Borrower has</span> authorise FundsCorner and all or any of its lenders to access my credit bureau records &amp; any other information available publicly or to which access has been
+                                    provided by me.
+                                </div>
+                            </div>
+                            <div ng-class="errorForRefrence && referenceDetails.certify.$error.required ? 'customInvalidcheckbox':'customcheckbox'">
+                                <input id="certify" type="checkbox" required ng-model="loanAccount.Is_Certified" name="certify">
+                                <label for="certify"></label>
+                                <div>
+                                    <span ng-show="isBorrower">I have read </span><span ng-show="!isBorrower">Borrower has </span> certify that, <span ng-show="isBorrower">I am </span><span ng-show="!isBorrower">Borrower is </span> an Indian Citizen and entity on whose behalf I am applying is operating its business in India.
+                                </div>
+                            </div>
+                            <div ng-class="errorForRefrence && referenceDetails.declare.$error.required ? 'customInvalidcheckbox':'customcheckbox'">
+                                <input id="declare" type="checkbox" required ng-model="loanAccount.Has_Declared" name="declare">
+                                <label for="declare"></label>
+                                <div><span ng-show="isBorrower">I have read </span><span ng-show="!isBorrower">Borrower </span> do hereby declare &amp;confirm that <span ng-show="isBorrower">I am </span><span ng-show="!isBorrower">Borrower is </span> duly authorized to apply on behalf of the organisation. <span ng-show="isBorrower">I </span><span ng-show="!isBorrower">Borrower </span> undertake to submit copy ofboard resolution/authorization to this effect.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 centerButtonContinue">
+                    <!--<button ng-click="savePlatformDetail()" class="btn btn-primary ContinueButton">Save</button>-->
+                    <button ng-click="submitReferences(referenceDetails.$valid)" class="btn btn-primary ContinueButton" ng-show="loanAccountStatus.Name=='Draft'">Submit Application</button>
+                    <button ng-click="finalSubmitApplication(loanAccount,referenceDetails.$valid )" class="btn btn-primary ContinueButton" ng-show="loanAccountStatus.Name != 'Draft'">Finish</button>
+                    <button type="button" ng-click="cancel()"
+                            class="btn btn-primary cancel-button">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div id="finalSubmit" class="modal custom-modal" role="dialog">
+    <div class="modal-dialog model-refrencedetails-popup">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div>
+                <button type="button" data-dismiss="modal" ng-click="finalSubmitApplication(loanAccount,true)" class="close crossbtn-refrencedetails-popup"> <span>  &times; </span></button>
+            </div>
+         
+            <!--div class="modal-header LoginHeader">
+                <button type="button" data-dismiss="modal" class="close" ng-click="finalSubmitApplication(loanAccount,true)"> <span>  &times; </span></button>
+                <h4 class="modal-title">Upload Documents</h4>
+            </div>-->
+            <div class="col-lg-12 pageLoadOnMobile">
+                <div class="refrence-popup-logo">
+                    <img src="/images/logo - Copy.png" alt="Fundscorner" />
+                </div>
+             
+                <form name="authorisationsDetails" novalidate>
+                    <!--End Banking docs uploads-->
+                    <div class="col-lg-12 centerButtonContinue">
+                        <div class="col-lg-12" style="font-size:120%;align-content:center;">
+                            <p>Your application has been successfully submitted. This is the final step of your application. We just need a few documents to proceed with your loan application. For any queries, please email us on contact@fundscorner.com.</p>
+                            <!--<p>Thank you for applying to FundsCorner!</p>
+                            <p>Your application is currently under review</p>-->
+                        </div>
+                    </div>
+                    <div class="col-lg-12 centerButtonContinue">
+                        <button type="button" ng-click="goToDocuments()" class="btn btn-primary ContinueButton">Upload Documents</button>
+                    </div>
+
+                    <!------------------------------E N D--------K--Y--C-----U P L O A D S-------------------------------------------------------------->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="terms-modal" class="modal fade custom-modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header LoginHeader">
+                <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                <h4 class="modal-title">TERMS OF USE</h4>
+            </div>
+            <div class="modal-body" id="loginfrom">
+                <div class="privacy-policy">
+                    <div class="term-description">
+                        <p>Welcome to fundscorner.com. </p>
+                        <p>Please read the following terms and conditions of use ("<b>Terms</b>") carefully before accessing this website or completing any of the FUNDSCORNER applications and forms ("<b>Forms</b>").</p>
+                        <p>By using this website or completing any of the Forms, you, the user, acknowledge and agree that you are subject to the following Terms of Use and the various disclaimers set forth herein. </p>
+                        <p class="term-description-bold">IF YOU DO NOT AGREE TO THESE TERMS, DO NOT ACCESS THE WWW.FUNDSCORNER.COM WEBSITE OR COMPLETE ANY OF THE FUNDSCORNER FORMS.</p>
+                        <p>RAJKAMAL LEASING & INVESTMENTS PRVIATE LIMITED ("FUNDSCORNER") reserves the right to make revisions to these terms, at any time, with or without notice to you. You agree to be bound by such revisions and should, therefore, periodically visit this page to review the current terms.</p>
+                        <p>You are responsible for compliance with any and all local laws applicable to you. FUNDSCORNER makes no representations or warranties that the materials contained on this website are appropriate for, or accessible from, all locations.</p>
+                        <p>
+                            BY ENTERING THIS WEBSITE YOU ACKNOWLEDGE AND AGREE THAT YOUR USE OF THIS WEBSITE IS AT YOUR OWN RISK AND THAT NONE OF THE PARTIES INVOLVED IN CREATING, PRODUCING, OR DELIVERING THE SITES ARE LIABLE FOR ANY DIRECT, INCIDENTAL, CONSEQUENTIAL, INDIRECT, OR PUNITIVE DAMAGES, OR ANY OTHER LOSSES, COSTS, OR EXPENSES OR ANY KIND (INCLUDING LEGAL FEES, EXPERT FEES, OR OTHER DISBURSEMENTS) WHICH MAY ARISE, DIRECTLY OR INDIRECTLY, THROUGH YOUR ACCESS TO, USE OF, OR BROWSING OF THIS WEBSITE OR THROUGH YOUR DOWNLOADING OF ANY MATERIALS, DATA, TEXT, IMAGES, VIDEO OR AUDIO FROM THE SITES, INCLUDING BUT NOT LIMITED TO ANYTHING CAUSED BY ANY COMPUTER VIRUSES OR BUGS, HUMAN ACTION OR INACTION OR ANY COMPUTER SYSTEM, PHONE LINE, HARDWARE, SOFTWARE OR PROGRAM MALFUNCTIONS, OR ANY OTHER ERRORS, FAILURES OR DELAYS IN COMPUTER TRANSMISSIONS OR NETWORK CONNECTIONS.
+                        </p>
+                    </div>
+                    <div class="term-title">
+                        <h4>1. Eligibility Requirement</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>By using the Website or Service, you represent and warrant that you are at least 18 years old, and are otherwise legally qualified to enter into and form contracts under applicable law. This Agreement is void where prohibited.</p>
+                    </div>
+                    <div class="term-title">
+                        <h4>
+                            2. Loan Services
+                        </h4>
+                    </div>
+                    <div class="term-description">
+                        <p>
+                            RAJKAMAL LEASING INVESTMENTS PRIVATE LIMITED is a financial services provider. To avail our services, you must complete an application form that requests specific information from you, including, but not limited to, your name, address, telephone number, email address, pan card number, banking account information, and employment information. Our collection and use of this information is subject to our Privacy Policy. By using this website or services offered on this website, you also agree to the terms and conditions set forth in the Privacy Policy. If you do not agree to these Terms of Use of the separate Privacy Policy, please do not use this website.
+                        </p>
+                        <p>
+                            By submitting the application form, you understand and agree that you are submitting an inquiry about a loan product to FUNDSCORNER. By submitting the application form, you expressly authorize us to, among other things, verify your pan card information, perform a credit check, and review your information against national databases that track consumer transactions with lending institutions. By submitting the application form you also expressly authorize us to track your transaction history related to financial products or services received for the purpose of evaluating you for credit.
+                        </p>
+                        <p>
+                            Use of this website or online application does not constitute a commitment on behalf of FUNDSCORNER to lend, nor is it an offer for a loan, under any circumstances. FUNDSCORNER does not guarantee acceptance into any particular loan program or specific loan terms of conditions. We do not guarantee that your application for any of our loan services will be approved. We do not guarantee the amount of funds that may be extended to you if you application is approved. Your application, loan amount, loan terms and conditions will be subject to our holistic assessment of your application. FUNDSCORNER shall verify information placed in the application, the application must receive an approval and an acceptable appraisal of the applicant must be obtained. The applicant's ability to repay the loan must be verified and additional documentation will be necessary.
+                        </p>
+                        <p>
+                            FUNDSCORNER may deny you access to all or part of the services without prior notice if you engage in any conduct or activities that FUNDSCORNER determines, in its sole discretion, violate these Terms of Use, the rights of FUNDSCORNER or any third party, or is otherwise inappropriate. FUNDSCORNER is not responsible for any errors or delays in providing the loan matching services caused by errors in any of the application information provided by you or by any technical problems beyond our reasonable control.
+                        </p>
+                    </div>
+                    <div class="term-title">
+                        <h4>3. Consent to Contact</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>
+                            By using this web application, you consent to be contacted by FUNDSCORNER representatives by any means available, including email and telephone, regardless of whether that telephone number is a residential line or a wireless number.
+                        </p>
+                    </div>
+                    <div class="term-title">
+                        <h4>4. Rates, Fees and Charges</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>Any rates, fees or charges associated with the application process may change based on individual circumstances and the completeness and accuracy of the information placed in the electronic application. Until your application is completed and the rate locked by you, the rate is floating and the market may change, with or without notice, by the time your application is completed and the rate locked.</p>
+                    </div>
+                    <div class="term-title">
+                        <h4>5. Prohibited Uses</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>
+                            We impose certain restrictions on your use of the website and the services. You shall not:
+                        </p>
+                        <ol type="a" class="term-detail alphabetic-order">
+                            <li><span>complete and submit an Application through automated, deceptive, fraudulent or other invalid means, including but not limited to, through manual applications, the use of robots or other automated tools, or software; </span></li>
+                            <li><span>except as permitted by agreement, license or law, reproduce, directly or indirectly, any portion of the Website (e.g. images, photographs, text, graphics and code), or the selection, arrangement and organization thereof; </span></li>
+                            <li><span> except as permitted by agreement, license or law, display the website in any form, which now exists or will exist in the future, for any purpose; </span></li>
+                            <li><span>provide false, misleading or inaccurate information on an application or otherwise in connection with your use of the website and services; </span></li>
+                            <li><span>impersonate, or otherwise misrepresent affiliation, connection or association with, any person or entity; </span></li>
+                            <li><span>access content or data not intended for you, or log onto a server or account that you are not authorized to access; </span></li>
+                            <li><span>attempt to probe, scan, or test the vulnerability of the service, the website, or any associated system or network, or breach security or authentication measures without proper authorization; </span></li>
+                            <li><span>interfere or attempt to interfere with the use of the website or service by any other user, host or network; or </span></li>
+                            <li><span>modify, reverse-engineer, decompile, disassemble or otherwise reduce or attempt to reduce to a human-perceivable form any of the source code used by us in providing the website or service. </span></li>
+                        </ol>
+                        <p>Any violation of this section may subject you to civil and/or criminal liability.</p>
+                    </div>
+                    <div class="term-title">
+                        <h4>6. Intellectual Property Rights</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>The website, all content and materials located on the website, and the selection, arrangement and organization thereof, are the intellectual property of FUNDSCORNER. Neither your use of the website and service, nor your entry into this Agreement, grant you any right, title or interest in or to any such content or materials. No portion of this website, including but not limited to, the text, graphics, images, audio or video, may be used, reproduced, distributed, displayed or transmitted in any manner, for any purpose, without FUNDSCORNER's express written permission, except as specifically provided herein. FUNDSCORNER will aggressively enforce its intellectual property rights to the full extent of the law. Any unauthorized use of the name, logo and trademarks may subject you to penalties or damages, including but not limited to those related to violation of trademarks, copyrights, privacy and publicity rights.</p>
+                    </div>
+                    <div class="term-title">
+                        <h4>7. Use of the Website</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>FUNDSCORNER authorizes you to view and download materials on this website only for your private use, provided that you retain and not change or delete any and all copyright and other proprietary notices contained in the original materials.</p>
+                        <p>You may not modify the materials on the website in any way or reproduce or publicly display, perform, distribute, sell, lease, transmit create derivative works from, or otherwise use such materials for any public or commercial purposes. For these purposes, any use of these materials on any other website or networked computer environment for any purpose is prohibited. The materials on the website are copyrighted and any unauthorized use of any materials on the website may violate copyright, trademark and other laws. If you breach any of these terms, your authorization to use thiswebsite automatically terminates and you must immediately destroy any downloaded or printed materials.</p>
+                        <p>You may not upload to, or distribute or otherwise publish through, this website any information or other material that (i) violates or infringes the rights of any persons, including rights in copyrights, patents, trademarks, service marks, trade secrets, or other proprietary rights, (ii) is libelous, threatening, defamatory, obscene, indecent, pornographic, or could give rise to any civil or criminal liability under the laws of India or international law, or (iii) includes any bugs, viruses, worms, trap doors, Trojan horses, hacks, or other harmful code or properties. You agree to indemnify FUNDSCORNER for any damages which result from any of the foregoing actions. FUNDSCORNER may remove any information or other material which is uploaded by you at any time, in its sole and absolute discretion.</p>
+                        <p>Subject to the Privacy Policy, anything that you submit or post to the webstie or to FUNDSCORNER, including ideas, know-how, techniques, questions, comments, and suggestions (collectively, "<b>Submissions</b>") is and will be treated as nonconfidential and nonproprietary. By submitting or posting a Submission to ourwebsite or to FUNDSCORNER, you waive any and all rights you may have in such Submission (except as to matters covered by the Privacy Policy). Shimano shall have the exclusive, royalty-free, worldwide, perpetual, and transferable right to use, copy, reproduce, distribute, display, perform, sell, lease, transmit, or create derivative works from any such Submission by any means and in any form, and to translate, modify, reverse-engineer, disassemble, or decompile any such Submission. All Submissions shall automatically become the sole and exclusive property of FUNDSCORNER, without compensation to you, and shall not be returned to you.</p>
+                    </div>
+                    <div class="term-title">
+                        <h4>8. Disclaimers</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>The materials provided on this website are provided "as-is", "where-is" without any warranties of any kind, whether express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose and non-infringement of intellectual property. FUNDSCORNER's obligations with respect to its products are governed solely by the agreements under which they are provided and nothing on the website should be construed to alter such agreements. In addition, FUNDSCORNER does not warrant the accuracy or completeness of the materials on this website. FUNDSCORNER may make changes and/or updates to the materials on this website, or to the products and prices described at this websites, at any time without notice. The materials on may be out of date and FUNDSCORNER makes no warranties, representations or commitment to update the materials on this websites in terms of their correctness, accuracy, adequacy, usefulness, timeliness, reliability or otherwise. Information published on this websites may refer to products that are not available in your country.</p>
+                        <p>FUNDSCORNER does not represent or warrant that the functions and services available on this website will be uninterrupted or error-free, that any defects will be corrected, or that the website or the server that makes the website available are free of viruses or other harmful components.</p>
+                        <p>FUNDSCORNER disclaims any and all liability for the acts, omissions and conduct of any users or other third parties in connection with or related to your use of the websites. You assume total responsibility for your use of the website and any linked websites. Your sole remedy against FUNDSCORNER for dissatisfaction with this website or any materials contained thereon is to stop using this website or any such materials. This limitation on relief is a part of the bargain between the parties. </p>
+                    </div>
+                    <div class="term-title">
+                        <h4>9. Limitation of Liability</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>In no event will FUNDSCORNER or other third parties mentioned on this website be liable for any direct, special, incidental, indirect or consequential damages whatsoever (including without limitation those resulting from lost profits, lost data or business interruption) arising out of the use, inability to use, or the results of use of this website, any websites linked on this website or the materials or information or services contained on any or all such websites, whether based on warranty, contract, tort or any other legal theory and whether or not FUNDSCORNER has been advised of the possibility of such damages.</p>
+                        <p>If, notwithstanding the other provisions of these Terms, FUNDSCORNER is found to be liable to you for any damage or loss which arises out of or is in any way connected with your use of this website or any materials contained thereon, FUNDSCORNER's liability shall in no event exceed interest & charges paid by the borrower.</p>
+                        <p>You agree that any cause of action arising out of or related to this website, or any content herein, must be commenced within one (1) year after the cause of action accrues. Otherwise, such cause of action is permanently barred.</p>
+                        <p>Applicable law may not allow the limitation or exclusion of liability or incidental or consequential damages, so the above limitation or exclusion may not apply to you.</p>
+                    </div>
+                    <div class="term-title">
+                        <h4>10. Links to other Websites</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>Links to third party websites on this website are provided solely as a convenience to you and therefore you access them at your own risk. If you use these links, you will leave this website and FUNDSCORNER will not have any control over the contents on these linked websites. </p>
+                    </div>
+                    <div class="term-title">
+                        <h4>
+                            11.	Indemnity
+                        </h4>
+                    </div>
+                    <div class="term-description">
+                        <p>You agree to defend, indemnify and hold FUNDSCORNER harmless from any and all claims, liabilities, losses, expenses, damages, costs, including without limitation reasonable attorneys' fees, related to any violation of these terms and conditions of use by you or your authorized users, or in connection or arising from or relating in any way with the use of FUNDSCORNER website or any products you purchase or services you avail on the website.</p>
+                    </div>
+                    <div class="term-title">
+                        <h4>12.	Term and Termination</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>These Terms are applicable to you upon accessing this website. FUNDSCORNER reserves the right in its sole discretion to terminate or restrict your use of the website, without notice, for any or no reason, and without liability to you or any third party. In addition, these Terms, or any part of them, may be terminated by FUNDSCORNER without notice at any time, for any reason. The provisions relating to Copyright, Trademarks, Disclaimer, Limitation of Liability, and Indemnification shall survive any termination.</p>
+                    </div>
+                    <div class="term-title">
+                        <h4>
+                            13.	Contact Information
+                        </h4>
+                    </div>
+                    <div class="term-description">
+                        Please send any questions or comments to info@fundscorner.com
+                    </div>
+                    <div class="term-title">
+                        <h4>14.	Reservation of Rights</h4>
+                    </div>
+                    <div class="term-description">
+                        <p>FUNDSCORNER reserves to itself any and all rights not expressly granted herein.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="privacy-modal" class="modal fade custom-modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header LoginHeader">
+                <button type="button" data-dismiss="modal" class="close"> <span>  &times; </span></button>
+                <h4 class="modal-title">Privacy Policy</h4>
+            </div>
+            <div class="modal-body" id="loginfrom">
+                <p>This Privacy Policy is designed to tell you about the practices regarding collection, use, and disclosure of information that may be collected by www.fundscorner.com<sup>1</sup><strong>("Website")</strong>. Please be sure to read this entire Privacy Policy before using or submitting information to us. </p>
+                <p>RAJKAMAL LEASING AND INVESTMENTS PRIVATE LIMITED ("<b>Company</b>"/ "<b>We</b>"/ "<b>Funds Corner</b>") is a provider of financial products and services. In the course of using or availing the products and services vide the online application forms and questionnaires, we may come to receive, possess, store, or handle your personal information, including information that is of a confidential nature.</p>
+                <p>We are strongly committed to protecting the privacy our users and have taken all necessary and reasonable measures to protect confidential information. We shall not be held liable for disclosure of the confidential information if such disclosure is in accordance with this Privacy Policy ("<b>Policy</b>") or in accordance with the terms of any agreements entered into with our users. </p>
+                <div class="term-title">
+                    <h4>1. Collection of Information</h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        While providing our financial products and services, we may collect and store such information from our users, including but not limited to the below mentioned:
+                    </p>
+                </div>
+                <div class="term-detail">
+                    <ul>
+                        <li>Information that you provide to us by filling in forms and applications. This includes contact information such as name, email address, mailing address, phone number, financial information, if any, unique identifiers such as user name, account number, password and preferences information such as favourites lists and transaction history;</li>
+                        <li>Information that you provide to us when you write directly to us (including by way of e-mail); </li>
+                        <li>Information that the you provide to us over telephone. We may make and keep a record of the information shared by the users;</li>
+                        <li>Information that you provide to us on completing surveys; </li>
+                        <li>Information Collected Automatically. We will also automatically collect your IP address and referring website address, browser type, domain name and website access frequency. This information is intended to help facilitate your online experience on our website. The Website uses cookies to track usage patterns on the website and to control the display of ads, as well as to offer other functionalities (such as screening for age and "recognizing" you to speed up your log-in when you visit the Website). You can turn off cookies, but that will affect your online experience. See below for more detail on cookies.</li>
+                    </ul>
+                </div>
+                <div class="term-title">
+                    <h4>2. Non-Disclosure</h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        We pledge not disclose your personal details to anyone. We will protect your confidence in us. We promise to keep all information confidential except in the following cases:
+                    </p>
+                </div>
+                <div class="term-detail">
+                    <ul>
+                        <li>We may disclose users' information to governmental and other statutory bodies who have appropriate authorisation to access the same for any specific legal purposes.</li>
+                        <li>We may disclose users' information if We are under a duty to do so in order to comply with any legal obligation, or to protect the rights, property or safety of Funds Corner, our Users or others. This includes exchanging information with other companies / agencies that work for fraud prevention and credit reference.</li>
+                        <li>We may disclose users' information to Funds Corner's agents under a strict code of confidentiality.</li>
+                        <li>We may disclose users' information to such third parties to whom we transfer our rights and duties under the customer agreement entered into with the users. In such an event, the said  third  parties'  use  of  the  information  will  be  subject  to  such  confidentiality obligations as contained in this Policy.</li>
+                    </ul>
+                    <p>
+                        We never will disclose personal information of our clients to anyone, at any time, for any reason. We may use users' personal information in the following ways, viz:
+                    </p>
+                    <ul>
+                        <li>Improve the quality of services; </li>
+                        <li>Analyse how the services are used, diagnose service or technical problems, maintain security; </li>
+                        <li>Remember information to help the User effectively access of its online services; </li>
+                        <li>To confirm the User's identity in order to determine its eligibility to use the Website and avail of the services; </li>
+                        <li>To enable us to comply with its legal and regulatory obligations; </li>
+                        <li>To help the User apply for certain products and services. </li>
+                        <li>Doing market research, troubleshooting, protection against error, project planning, fraud and other criminal activity. </li>
+                        <li>To reinforce our other terms and policies. </li>
+                    </ul>
+                </div>
+                <div class="term-title">
+                    <h4>3. Security of Information</h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        We use technology to encrypt important secure information, such as your organisation's KYC information and bank information, in an effort to prevent unauthorized access during transmission of your information over the Internet. We implement standard industry practices internally and with our service providers to maintain the security of your Personal Infor mation depending on its sensitivity and to avoid disclosure of such Personal Information unpermitted under this Privacy Policy.
+                    </p>
+                    <p>
+                        All information provided to us is stored on our secure servers whether outside or within India. We use commercially reasonable safeguards to preserve the integrity and security of our users'information against loss, theft, unauthorised access, disclosure, reproduction, use or amendment. The information that is collected from the users may be transferred to, and stored at, a destination inside or outside India. By submitting information, you agree to this transfer, storing and/ or
+                        processing. We will take such steps as we consider reasonably necessary to ensure that your information is treated securely and in accordance with the Policy.
+                    </p>
+                    <p>
+                        Although we have implemented systems and procedures to secure the data maintained by us, security during Internet transmissions can never be assured. Our employees are made aware of our privacy practices through periodic communications and training. Our policy is to limit access to Personal Information to those employees or agents with a specific need to access or retrieve the information. We store data on multiple service systems, in controlled environments. To maintain security, we conduct internal reviews of our security measures on a regular basis. Please note, however, that any Personal Information you post in chat rooms or message boards is available  to  anyone.  WHILE  WE  HAVE  TAKEN  COMMERCIALLY  REASONABLE PRECAUTIONS TO SAFEGUARD PERSONAL INFORMATION, WE CANNOT AND DO NOT GUARANTEE COMPLETE SECURITY OF PERSONAL INFORMATION BECAUSECOMPLETE SECURITY DOES NOT PRESENTLY EXIST ON THE INTERNET.
+                    </p>
+                </div>
+                <div class="term-title">
+                    <h4>4. Exclusion</h4>
+                </div>
+                <div class="term-description">
+                    This Policy does not apply to any information other than information collected by us in accordance with the clause on "Collection of Information" above. This Policy shall not apply to any unsolicited information provided by users through any other means. This includes, but is not limited to, information posted to public. All such unsolicited information shall be deemed to be non-confidential and We shall be free to use, disclose such unsolicited information without limitation.
+                </div>
+                <div class="term-title">
+                    <h4>5. Cookies</h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        Your web browser offers so-called "cookies" which, if you allow their use, store small amounts of data on your computer when you visit a website. Cookies do not contain any personal information about you and therefore cannot be used to identify you personally. However, cookies assist us in tracking which of our features you like best. Therefore, cookies enable us to customize our content according to your preferences. You have the ability to accept or decline cookies by modifying your browser settings. Our Sites are viewable even if you disable the cookie function on your browser. However, if you disable cookies, some advanced and customized features will not be available to you.
+                    </p>
+                </div>
+                <div class="term-title">
+                    <h4>6. Web Beacons</h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        Some of our web pages may contain electronic images known as web beacons. These images allow us to count users who have visited those pages and to deliver co-branded services. We may also include web beacons in promotional e-mail messages or newsletters in order to count how many messages have been opened and acted upon. Web beacons are not used to access your Personal Information but they are a technique we use to compile aggregated statistics about usage on the Sites. Web beacons collect only a limited range of information including the time and date of page view, cookie number and description of the page on which the web beacon resides.
+                    </p>
+                </div>
+                <div class="term-title">
+                    <h4>7. Changes to the Privacy Policy</h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        We will occasionally update this Privacy Policy as necessary to protect our users and to accommodate a changing environment. The changes to our Privacy Policy will be deemed to be effective from the date of posting on our website unless we specify otherwise. We recommend that you check the Privacy Policy when you visit our website to be sure that you are aware of and understand our current policy. If we make material changes to this Privacy Policy, we will make efforts to prominently post such changes prior to implementing the change.
+                    </p>
+                </div>
+                <div class="term-title">
+                    <h4>8. Severability </h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        We have made every effort to ensure that this Policy adheres with the applicable laws. The invalidity or unenforceability of any part of this Policy shall not prejudice or affect the validity or enforceability of the remainder of this Policy.
+                    </p>
+                </div>
+                <div class="term-title">
+                    <h4>9. Waiver </h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        The rights and remedies available under this Policy may be exercised as often as necessary and are cumulative and not exclusive of rights or remedies provided by law. It may be waived only in writing. Delay in exercising or non-exercise of any such right or remedy does not constitute a waiver of that right or remedy, or any other right or remedy.
+                    </p>
+                </div>
+                <div class="term-title">
+                    <h4>10. Governing Law and Jurisdiction</h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        This Privacy Policy shall be governed by and construed in accordance with the laws o f India and subject to the provisions of arbitration set out herein, the courts at Bangalore shall have exclusive jurisdiction in relation to any disputes arising out of or in connection with this Policy.
+                    </p>
+                    <p>
+                        If any dispute arises between Funds Corner and a user in connection with or arising out of the validity, interpretation, implementation or alleged breach of any provision of this Privacy Policy, such dispute shall be referred to and finally resolved by arbitration in accordance with the Indian Arbitration and Conciliation Act, 1996 for the time being in force, which rules are deemed to be incorporated by reference in this clause.
+                    </p>
+                    <p>
+                        There shall be 1 (one) arbitrator and the seat of the arbitration shall be Bangalore, India. The language of the arbitration proceedings and of all written decisions and correspondence relating to the arbitration shall be English.
+                    </p>
+                </div>
+                <div class="term-title">
+                    <h4>11. Foreign Jurisdiction</h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        We make no representation that the content contained on our website is appropriate or to be used or accessed outside of the Republic of India. If you use or access our website from outside of India, you do so at your own risk and are responsible for compliance with the laws of such jurisdiction.
+                    </p>
+                </div>
+                <div class="term-title">
+                    <h4>12. Contact </h4>
+                </div>
+                <div class="term-description">
+                    <p>
+                        Any questions or concerns should be addressed to: info@fundscorner.com
+                    </p>
+                    <p>Or</p>
+                    <p>
+                        RAJKAMAL LEASING INVESTMENTS PRIVATE LIMITED, 1-8-526/m1, Jatkar Bhavan, Chikadpally, HYDERABAD 500020
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
